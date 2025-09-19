@@ -1,0 +1,33 @@
+# Project: CobraGame
+# Makefile created by Dev-C++ 4.9.9.2
+
+CPP  = g++.exe
+CC   = gcc.exe
+WINDRES = windres.exe
+RES  = CobraGame_private.res
+OBJ  = Cobra.o $(RES)
+LINKOBJ  = Cobra.o $(RES)
+LIBS =  -L"D:/Pyetro/Programas/Dev-CppPortable/App/devcpp/lib" -mwindows -lglut32 -lglu32 -lopengl32 -lwinmm -lgdi32 ../../../Programas/Dev-CppPortable/App/devcpp/lib/libfmod.a  -lgmon -pg  
+INCS =  -I"D:/Pyetro/Programas/Dev-CppPortable/App/devcpp/include" 
+CXXINCS =  -I"D:/Pyetro/Programas/Dev-CppPortable/App/devcpp/lib/gcc/mingw32/3.4.2/include"  -I"D:/Pyetro/Programas/Dev-CppPortable/App/devcpp/include/c++/3.4.2/backward"  -I"D:/Pyetro/Programas/Dev-CppPortable/App/devcpp/include/c++/3.4.2/mingw32"  -I"D:/Pyetro/Programas/Dev-CppPortable/App/devcpp/include/c++/3.4.2"  -I"D:/Pyetro/Programas/Dev-CppPortable/App/devcpp/include" 
+BIN  = CobraGame.exe
+CXXFLAGS = $(CXXINCS)   -pg
+CFLAGS = $(INCS)   -pg
+RM = rm -f
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before CobraGame.exe all-after
+
+
+clean: clean-custom
+	${RM} $(OBJ) $(BIN)
+
+$(BIN): $(OBJ)
+	$(CPP) $(LINKOBJ) -o "CobraGame.exe" $(LIBS)
+
+Cobra.o: Cobra.cpp
+	$(CPP) -c Cobra.cpp -o Cobra.o $(CXXFLAGS)
+
+CobraGame_private.res: CobraGame_private.rc 
+	$(WINDRES) -i CobraGame_private.rc --input-format=rc -o CobraGame_private.res -O coff 
