@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+        <link rel="stylesheet" href="arquivos/main.css" type="text/css">
+        <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+        <meta name="GENERATOR" content="Microsoft FrontPage 3.0">
+        <title>Introdução à OpenGL - Profa. Isabel H. Manssour</title>
+        <meta id="websigner_softplan_com_br">
+    </head>
+
+    <body>
+
+        <div class="container" >
+
+            <div class="center">
+
+                <div>
+
+                    <table align="center" border="0" cellspacing="0" cellpadding="2" width="100%" valign="top">
+                        <caption align="center">&nbsp;</caption>
+
+                        <tbody>
+
+                            <tr>
+
+                                <td align="CENTER" width="100%" bgcolor="#E2E2E2" border="0" cellspacing="0" cellpadding="0">
+                                    <font size="+3" face="Arial Narrow"><b>Introdução à OpenGL</b></font> <br>
+                                    <font size="+0" face="Arial Narrow"><b>Professora Isabel Harb Manssour</b></font>
+                                </td>
+                            </tr>
+
+                            <tr>
+
+                                <td>
+
+                                    <p align="center">
+                                        <font size="+0" face="Arial Narrow">
+                                            [
+
+                                            <a href="Introducao.html">Anterior</a>]&nbsp; [
+
+                                            <a href="TiposDados.html">Próxima</a>]&nbsp; [
+
+                                            <a href="index.html">Principal</a>]
+                                        </font>
+                                    </p>
+                                </td>
+                            </tr>
+
+                            <tr>
+
+                                <td align="LEFT" width="100%" border="0" cellspacing="0" cellpadding="0">
+                                    &nbsp;
+
+                                    <p>
+                                    </p>
+                                    <h2>02. Utilização</h2>
+
+                                    <p align="JUSTIFY">
+                                        <font size="3"> Como uma API, OpenGL segue a convenção de chamada da linguagem C.
+                                            Isto significa que programas escritos em C podem facilmente chamar funções desta API, tanto
+                                            porque estas foram escritas em C, como porque é fornecido um conjunto de funções C
+                                            intermediárias que chamam funções escritas em <i>assembler</i> ou outra linguagem [Wright 2000].
+                                        </font>
+                                    </p>
+                                    <font size="3">
+
+                                        <p align="JUSTIFY">
+                                            <font size="3"> Apesar de OpenGL ser uma biblioteca de programação
+                                                "padrão", existem muitas implementações desta biblioteca, por exemplo, para <i>Windows</i> e para
+                                                <i>Linux</i>. A implementação utilizada no ambiente <i>Linux</i> é a biblioteca
+
+                                                <a href="http://www.mesa3d.org/"><i>Mesa</i></a>.
+                                                Também existem implementações para os compiladores <i>Visual C++</i>, <i>Borland C++</i>, <i>Dev-C++</i>, <i>Delphi</i> e <i>Visual Basic</i>.
+                                                Para obter as bibliotecas e a documentação de cada implementação acesse
+
+                                                <a href="http://www.opengl.org/">http://www.opengl.org/</a>.
+                                            </font>
+                                        </p>
+                                        <font size="3">
+
+                                            <p align="JUSTIFY">
+                                                <font size="3">
+                                                    No caso da implementação da <i>Microsoft</i>, o sistema operacional fornece os arquivos <i>opengl32.dll</i>
+                                                    e <i>glu32.dll</i>, necessários para execução de programas OpenGL. Além disso, são fornecidas com suas ferramentas de programação,
+                                                    como por exemplo com o <i>Microsoft Visual C++</i>, as bibliotecas <i>opengl32.lib</i> (OpenGL) e <i>glu32.lib</i>
+                                                    (
+
+                                                    <a href="Bibliotecas.html#glu">GLU</a> - biblioteca de utilitários OpenGL).
+                                                    Assim, para criar programas com ferramentas <i>Microsoft</i> que usem OpenGL, tal como o <i>MS Visual C++ 6.0</i>,
+                                                    é necessário adicionar estas duas bibliotecas à lista de bibliotecas importadas. Protótipos para todas as
+                                                    funções, tipos e macros OpenGL estão (por convenção) no <i>header</i> <i>gl.h</i>.
+                                                    Os protótipos da biblioteca de funções utilitárias estão em um arquivo diferente, <i>glu.h</i>.
+                                                    Estes arquivos normalmente estão localizados em uma pasta especial no <i>path</i> do
+                                                    <i>include</i>. O código abaixo mostra as inclusões típicas para um programa <i>Windows</i>
+                                                    que usa OpenGL [Wright 2000]:
+                                                </font>
+                                            </p>
+                                            <font size="3">
+                                                <i>
+                                                    <pre>#include &lt;windows.h&gt;
+#include &lt;gl/gl.h&gt;
+#include &lt;gl/glu.h&gt;
+</pre>
+                                                </i>
+
+                                                <p align="JUSTIFY">
+                                                    <font size="3"> Considerando o compilador <i>MS Visual C++ 6.0</i>,
+                                                        para utilizar a
+
+                                                        <a href="http://www.opengl.org/developers/documentation/glut.html">GLUT</a>
+                                                        (veja a explicação no
+
+                                                        <a href="Bibliotecas.html">capítulo 05</a>) é necessário fazer o
+                                                        <i>download</i> desta biblioteca (
+
+                                                        <a href="glutdlls37beta.zip">clique aqui</a> para
+                                                        fazer agora o <i>download</i> da GLUT para o <i>MS Visual C++ 6.0</i>), descompactar o arquivo e copiar:
+                                                        os arquivos <i>glut.dll</i> e <i>glut32.dll</i> para a pasta <i>System</i> do <i>Windows</i> (ou
+                                                        para a pasta <i>System32</i> do <i>Windows NT</i> ou <i>Windows 2000</i>);
+                                                        os arquivos <i>glut.lib</i> e <i>glut32.lib</i> para a mesma pasta do ambiente de programação
+                                                        onde estão as outras bibliotecas (<i>opengl32.lib</i> e <i>glu32.lib</i>); e o arquivo <i>glut.h</i> para a mesma
+                                                        pasta do ambiente de programação onde estão os arquivos <i>gl.h</i> e <i>glu.h</i>
+                                                        [Wright 2000]. Estes arquivos normalmente estão compactados em um único arquivo que
+                                                        pode ser obtido em
+
+                                                        <a href="http://www.opengl.org/developers/documentation/glut/index.html">http://www.opengl.org/developers/documentation/glut/index.html</a>.
+                                                    </font>
+                                                </p>
+                                                <font size="3">
+
+                                                    <p align="JUSTIFY">
+                                                        <font size="3"> Também é necessário criar um projeto no <i>MS Visual C++ 6.0</i>
+                                                            da seguinte maneira: </font>
+                                                    </p>
+                                                    <font size="3">
+
+                                                        <ul>
+                                                            <li> no menu <i>File</i> selecione a opção <i>New</i>; </li>
+                                                            <li> na janela aberta, selecione a opção <i>Win32ConsoleApplication</i> e coloque o nome do projeto e o local
+                                                                onde ele será gravado; </li>
+                                                            <li> depois, inicialmente, pode ser selecionada a opção <i>An empty project</i>;</li>
+                                                            <li> no menu <i>Project</i> selecione a opção <i>Settings</i>; </li>
+                                                            <li> na janela aberta, selecione a guia <i>Link</i> e acrescente na caixa de texto <i>Object/library modules</i>
+                                                                a(s) biblioteca(s) que devem ser linkadas com o programa, que são <i>opengl32.lib</i> e <i>glu32.lib</i>, ou também
+                                                                a <i>glut32.lib</i>; </li>
+                                                            <li> no final, adicione o arquivo fonte (.cpp) ao projeto, selecionando a opção
+                                                                <i>Add to Project</i>/<i>Files</i> do menu <i>Project</i>.
+                                                            </li>
+                                                        </ul>
+
+                                                        <p align="JUSTIFY">
+                                                            <font size="3">Resumindo, para utilizar OpenGL e GLUT com ferramentas
+                                                                <i>Microsoft</i>, no caso o <i>MS Visual C++ 6.0</i>, é necessário:
+                                                            </font>
+                                                        </p>
+                                                        <ol>
+                                                            <font size="3">
+                                                                <li>Fazer o <i>download</i> e instalar a biblioteca GLUT; </li>
+                                                                <li>Criar um projeto para <i>linkar</i> as bibliotecas necessárias com o programa; </li>
+                                                                <li>Incluir os <i>headers</i> adequados (&lt;gl/gl.h&gt; e &lt;gl/glu.h&gt;, ou &lt;gl/glut.h&gt;). </li>
+                                                            </font>
+                                                        </ol>
+                                                        <font size="3">
+
+                                                            <p></p>
+
+                                                            <p align="JUSTIFY">
+                                                                <font size="3"> A implementação da OpenGL utilizada no ambiente <i>Linux</i>,
+                                                                    a biblioteca
+
+                                                                    <a href="http://www.mesa3d.org/"><i>Mesa</i></a>, não é uma implementação
+                                                                    "oficial", é um projeto de <i>software</i> livre. A distribuição desta biblioteca, cuja versão 5.0 possui
+                                                                    suporte para o conjunto de instruções da OpenGL 1.4, inclui <i>makefiles</i> e instruções para a sua
+                                                                    correta utilização.
+                                                                </font>
+                                                            </p>
+                                                            <font size="3">
+
+                                                                <p align="JUSTIFY">
+                                                                    <font size="3"> Neste capítulo estão descritos os passos necessários
+                                                                        para a utilização de OpenGL com o <i>MS Visual C++ 6.0</i>. Para verificar as instruções de
+                                                                        como utilizar OpenGL com outros compiladores, clique em um dos <i>links</i> abaixo.
+                                                                    </font>
+                                                                </p>
+                                                                <font size="3">
+
+                                                                    <div class="center">
+
+                                                                        <table align="center" border="" cols="1" width="70%">
+                                                                            <tbody>
+
+                                                                                <tr>
+
+                                                                                    <td>
+                                                                                        <font size="3">
+
+                                                                                            <a href="Devc++.html">Clique aqui</a> para verificar as instruções sobre a utilização de OpenGL com o
+                                                                                            <b>Dev-C++</b>, que é <i>free</i>.
+                                                                                        </font>
+                                                                                    </td>
+                                                                                </tr>
+
+                                                                                <tr>
+
+                                                                                    <td>
+                                                                                        <font size="3">
+                                                                                            Para utilizar OpenGL com o <b>Borland C++</b> (versão <i>free</i>),
+                                                                                            é necessário fazer o <i>download</i> do
+
+                                                                                            <a href="freecommandlinetools.exe">compilador</a> e
+                                                                                            da biblioteca
+
+                                                                                            <a href="glut_borlandc.zip">GLUT</a> adequada. Para instruções de como instalar corretamente
+
+                                                                                            <a href="http://home.clara.net/paulyg/compfree.htm">clique aqui</a>.
+                                                                                        </font>
+                                                                                    </td>
+                                                                                </tr>
+
+                                                                                <tr>
+
+                                                                                    <td>
+                                                                                        <font size="3">
+                                                                                            Um tutorial que explica como utilizar OpenGL com <b>Delphi</b>
+                                                                                            está disponível em
+
+                                                                                            <a href="https://www.inf.pucrs.br/~pinho/CG/Aulas/OpenGL/MustafaGL/MustafaGL.html">
+                                                                                                http://www.inf.pucrs.br/~pinho/CG/Aulas/OpenGL/MustafaGL/MustafaGL.html</a>. O <i>download</i>
+                                                                                            do componente também pode ser feito neste endereço.
+
+                                                                                        </font>
+                                                                                    </td>
+                                                                                </tr>
+
+                                                                                <tr>
+
+                                                                                    <td>
+                                                                                        <font size="3">
+
+                                                                                            <a href="BibliografiaLinks.html#java">Clique aqui</a> para acessar alguns <i>links</i> com
+                                                                                            instruções de como usar OpenGL com <b>Java</b>.
+
+                                                                                        </font>
+                                                                                    </td>
+                                                                                </tr>
+
+                                                                                <tr>
+
+                                                                                    <td>
+                                                                                        <font size="3">
+                                                                                            OpenGL também pode ser usado com <b>Visual Basic</b>.
+
+                                                                                            <a href="http://is6.pacific.net.hk/~edx/">Clique aqui</a> para saber mais informações.
+                                                                                        </font>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+
+                                                                    <p>
+                                                                        <font size="+0" face="Arial Narrow">&nbsp;</font><img src="arquivos/emban15.webp" alt="../Imagens/emban15.png (1469 bytes)" border="0" height="12" width="100%">
+                                                                    </p>
+
+                                                                    <p><img src="arquivos/E-MAIL.webp" alt="../Imagens/E-MAIL.JPG (3237 bytes)" border="0" height="45" width="82">
+                                                                        <font size="+0" face="Arial Narrow"> Comentários, dúvidas, sugestões, envie um mail para
+
+                                                                            <a href="mailto:manssour@inf.pucrs.br">manssour@inf.pucrs.br</a>
+                                                                        </font>
+                                                                    </p>
+
+                                                                    <p><img src="arquivos/emban15.webp" alt="../Imagens/emban15.png (1469 bytes)" border="0" height="12" width="100%"></p>
+                                                                </font>
+                                                            </font>
+                                                        </font>
+                                                    </font>
+                                                </font>
+                                            </font>
+                                        </font>
+                                    </font>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="center">
+
+                <table align="center" border="0" cols="1" width="100%">
+                    <tbody>
+
+                        <tr>
+
+                            <td width="12">
+
+                                <p align="center">
+                                    <font size="+0" face="Arial Narrow">
+                                        [
+
+                                        <a href="Introducao.html">Anterior</a>]&nbsp; [
+
+                                        <a href="TiposDados.html">Próxima</a>]&nbsp; [
+
+                                        <a href="index.html">Principal</a>]
+                                    </font>
+                                </p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p align="right">
+                    <font size="-1" color="#5A5A5A" face="Arial Narrow"><i>Última alteração em 20 de março de 2003.</i></font>
+                </p>
+            </div>
+
+            <script defer="defer" src=vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon="{&quot;rayId&quot;:&quot;9833eb74de30c585&quot;,&quot;serverTiming&quot;:{&quot;name&quot;:{&quot;cfExtPri&quot;:true,&quot;cfEdge&quot;:true,&quot;cfOrigin&quot;:true,&quot;cfL4&quot;:true,&quot;cfSpeedBrain&quot;:true,&quot;cfCacheStatus&quot;:true}},&quot;version&quot;:&quot;2025.9.1&quot;,&quot;token&quot;:&quot;e574ebd03d434993bfcf28088123cf56&quot;}" crossorigin="anonymous"></script>
+
+        </div>
+        <script src="arquivos/main.js"></script>
+    </body>
+
+
+</html>

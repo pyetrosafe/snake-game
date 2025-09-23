@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+        <link rel="stylesheet" href="arquivos/main.css" type="text/css">
+        <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+        <meta name="GENERATOR" content="Microsoft FrontPage 3.0">
+        <title>Introdução à OpenGL - Profa. Isabel H. Manssour</title>
+        <meta id="websigner_softplan_com_br">
+    </head>
+
+    <body>
+
+        <div class="container" >
+
+            <div class="center">
+
+                <div>
+
+                    <table align="center" border="0" cellspacing="0" cellpadding="2" width="100%" valign="top">
+                        <caption align="center">&nbsp;</caption>
+
+                        <tbody>
+
+                            <tr>
+
+                                <td align="CENTER" width="100%" bgcolor="#E2E2E2" border="0" cellspacing="0" cellpadding="0">
+                                    <font size="+3" face="Arial Narrow"><b>Introdução à OpenGL</b></font> <br>
+                                    <font size="+0" face="Arial Narrow"><b>Professora Isabel Harb Manssour</b></font>
+                                </td>
+                            </tr>
+
+                            <tr>
+
+                                <td>
+
+                                    <p align="center">
+                                        <font size="+0" face="Arial Narrow">
+                                            [
+
+                                            <a href="Programando3D.html">Anterior</a>]&nbsp; [
+
+                                            <a href="MalhaPoligonos.html">Próxima</a>]&nbsp; [
+
+                                            <a href="index.html">Principal</a>]
+                                        </font>
+                                    </p>
+                                </td>
+                            </tr>
+
+                            <tr>
+
+                                <td align="LEFT" width="100%" border="0" cellspacing="0" cellpadding="0">
+                                    &nbsp;
+
+                                    <p>
+                                    </p>
+                                    <h2>15. Utilizando Luzes</h2>
+
+                                    <p align="JUSTIFY">
+                                        <font size="3">Como é possível observar na
+
+                                            <a href="Programando3D.html#figura14_4">figura 14.4</a>,
+                                            a imagem gerada não possui uma qualidade satisfatória. Para adicionar um pouco de realismo nas
+                                            imagens, é necessário, então, adicionar uma ou mais fontes de luz.
+                                        </font>
+                                    </p>
+                                    <font size="3">
+
+                                        <p align="JUSTIFY">
+                                            <font size="3">Inicialmente, é preciso definir o modelo de colorização que será utilizado.
+                                                OpenGL fornece dois modelos: uma polígono preenchido pode ser
+                                                desenhado com uma única cor (GL_FLAT), ou com uma variação de tonalidades (GL_SMOOTH, também
+                                                chamado de modelo de colorização de <i>Gouraud</i> [Foley 1990]). A função <b><i>glShadeModel()</i></b> é usada
+                                                para especificar a técnica de colorização desejada.
+                                            </font>
+                                        </p>
+                                        <font size="3">
+
+                                            <p align="JUSTIFY">
+                                                <font size="3">Quando objetos 3D sólidos são
+                                                    exibidos, é importante
+                                                    desenhar os objetos que estão mais próximos do observador (ou posição da
+                                                    câmera), eliminando
+                                                    objetos que ficam "escondidos", ou "parcialmente escondidos", por estes.
+                                                    Sendo assim,algoritmos
+                                                    de remoção de elementos escondidos foram desenvolvidos para determinar
+                                                    as linhas, arestas, superfícies ou volumes que são visíveis ou
+                                                    não para um observador localizado em um ponto específico no espaço. A
+                                                    complexidade do problema dos elementos
+                                                    ocultos resultou em um grande número de soluções na Computação Gráfica.
+                                                </font>
+                                            </p>
+                                            <font size="3">
+
+                                                <p align="JUSTIFY">
+                                                    <font size="3">Conforme descrito por [Woo 1999], OpenGL possui um <i>depth buffer</i>
+                                                        que trabalha através da associação de uma profundidade, ou distância, do plano de visualização
+                                                        (geralmente o plano de corte mais próximo do observador) com cada <i>pixel</i> da <i>window</i>.
+                                                        Inicialmente, os valores de profundidade são especificados para serem o maior possível
+                                                        através do comando <b><i>glClear(GL_DEPTH_BUFFER_BIT)</i></b>. Entretanto, habilitando o
+                                                        <i>depth-buffering</i> através dos comandos <b><i>glutInitDisplayMode(GLUT_DEPTH | ...)</i></b>
+                                                        e <b><i>glEnable(GL_DEPTH_TEST)</i></b>, antes de cada <i>pixel</i> ser desenhado é feita uma
+                                                        comparação com o valor de profundidade já armazenado. Se o valor de profundidade for menor
+                                                        (está mais próximo) o <i>pixel</i> é desenhado e o valor de profundidade é atualizado. Caso
+                                                        contrário as informações do pixel são desprezadas.
+                                                    </font>
+                                                </p>
+                                                <font size="3">
+
+                                                    <p align="JUSTIFY">
+                                                        <font size="3">Em OpenGL a cor de uma fonte de luz é caracterizada
+                                                            pela quantidade de vermelho (R), verde (G) e azul (B) que ela emite, e o material de uma superfície é
+                                                            caracterizado pela porcentagem dos componentes R, G e B que chegam e são
+                                                            refletidos em várias direções. No modelo de iluminação a luz em uma cena vem de várias
+                                                            fontes de luz que podem ser "ligadas" ou "desligadas" individualmente. A luz pode vir
+                                                            de uma direção ou posição (por exemplo, uma lâmpada) ou como resultado de várias reflexões
+                                                            (luz ambiente - não é possível determinar de onde ela vem, mas ela desaparece quando a fonte
+                                                            de luz é desligada).
+                                                        </font>
+                                                    </p>
+                                                    <font size="3">
+
+                                                        <p align="JUSTIFY">
+                                                            <font size="3">No modelo de iluminação OpenGL a fonte de luz tem efeito
+                                                                somente quando existem superfícies que absorvem e refletem luz. Assume-se que cada superfície
+                                                                é composta de um material com várias propriedades. O material pode emitir luz, refletir parte
+                                                                da luz incidente em todas as direções, ou refletir uma parte da luz incidente numa única
+                                                                direção, tal com um espelho. Então, conforme descrito por [Woo 1999], OpenGL considera que a luz é dividida
+                                                                em quatro componentes independentes (que são colocadas juntas):
+                                                            </font>
+                                                        </p>
+                                                        <font size="3">
+
+                                                            <ul>
+                                                                <li><b>Ambiente</b>: resultado da luz refletida no ambiente; é uma luz que vem de
+                                                                    todas as direções;</li>
+                                                                <li><b>Difusa</b>: luz que vem de uma direção, atinge a superfície e é refletida em todas as
+                                                                    direções; assim, parece possuir o mesmo brilho independente de onde a câmera está posicionada;</li>
+                                                                <li><b>Especular</b>: luz que vem de uma direção e tende a ser refletida numa única direção; </li>
+                                                                <li><b>Emissiva</b>: simula a luz que se origina de um objeto; a cor emissiva de uma superfície
+                                                                    adiciona intensidade ao objeto, mas não é afetada por qualquer fonte de luz; ela também
+                                                                    não introduz luz adicional da cena.</li>
+                                                            </ul>
+
+                                                            <p align="JUSTIFY">
+                                                                <font size="3">A cor do material de um objeto depende da porcentagem
+                                                                    de luz vermelha, verde e azul incidente que ele reflete. Assim como as luzes, o material
+                                                                    possui cor ambiente, difusa e especular diferentes, que determinam como será a luz refletida.
+                                                                    Isto é combinado com as propriedades das fontes de luz, de tal maneira que a reflexão
+                                                                    ambiente e difusa definem a cor do material. A especular é geralmente cinza ou branca.
+                                                                </font>
+                                                            </p>
+                                                            <font size="3">
+
+                                                                <p align="JUSTIFY">
+                                                                    <font size="3"> Os componentes de cor especificados para a luz possuem
+                                                                        um significado diferente dos componentes de cor especificados para os materiais. Para a luz,
+                                                                        os números correspondem a uma porcentagem da intensidade total para cada cor. Se os valores
+                                                                        R, G e B para a cor da luz são 1, a luz é branca com o maior brilho possível. Se os valores são
+                                                                        0.5 a cor ainda é branca, mas possui metade da intensidade, por isso parece cinza. Se R=G=1 e
+                                                                        B=0, a luz parece amarela.
+                                                                    </font>
+                                                                </p>
+                                                                <font size="3">
+
+                                                                    <p align="JUSTIFY">
+                                                                        <font size="3"> Para os materiais, os números correspondem às proporções
+                                                                            refletidas destas cores. Se R=1, G=0.5 e B=0 para um material, este material reflete toda
+                                                                            luz vermelha incidente, metade da luz verde e nada da luz azul. Assim, simplificadamente, a luz
+                                                                            que chega no observador é dada por (LR.MR, LG.MG, LB.MB), onde (LR, LG, LB) são os componentes
+                                                                            da luz e (MR, MG, MB) os componentes do material [Woo 1999].
+                                                                        </font>
+                                                                    </p>
+                                                                    <font size="3">
+
+                                                                        <p align="JUSTIFY">
+                                                                            <font size="3"> O programa abaixo apresenta um exemplo completo da
+                                                                                utilização de luzes em OpenGL. A imagem gerada, como mostra a figura 15.1, apenas exibe um <i>teapot</i>
+                                                                                azul iluminado, numa janela com fundo preto.
+                                                                            </font>
+                                                                        </p>
+                                                                        <font size="3">
+
+                                                                            <a name="Exemplo">
+                                                                                <pre>// Iluminacao.c - Isabel H. Manssour
+// Um programa OpenGL que exemplifica a visualização
+// de objetos 3D com a inserção de uma fonte de luz.
+// Este código está baseado nos exemplos disponíveis no livro
+// "OpenGL SuperBible", 2nd Edition, de Richard S. e Wright Jr.
+
+#include &lt;gl/glut.h&gt;
+
+GLfloat angle, fAspect;
+
+// Função callback chamada para fazer o desenho
+void Desenha(void)
+{
+    // Limpa a janela e o depth buffer
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    glColor3f(0.0f, 0.0f, 1.0f);
+
+    // Desenha o teapot com a cor corrente (solid)
+    glutSolidTeapot(50.0f);
+
+    glutSwapBuffers();
+}
+
+// Inicializa parâmetros de rendering
+void Inicializa (void)
+{
+    GLfloat luzAmbiente[4]={0.2,0.2,0.2,1.0};
+    GLfloat luzDifusa[4]={0.7,0.7,0.7,1.0};	   // "cor"
+    GLfloat luzEspecular[4]={1.0, 1.0, 1.0, 1.0};// "brilho"
+    GLfloat posicaoLuz[4]={0.0, 50.0, 50.0, 1.0};
+
+    // Capacidade de brilho do material
+    GLfloat especularidade[4]={1.0,1.0,1.0,1.0};
+    GLint especMaterial = 60;
+
+     // Especifica que a cor de fundo da janela será preta
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+
+    // Habilita o modelo de colorização de Gouraud
+    glShadeModel(GL_SMOOTH);
+
+    // Define a refletância do material
+    glMaterialfv(GL_FRONT,GL_SPECULAR, especularidade);
+    // Define a concentração do brilho
+    glMateriali(GL_FRONT,GL_SHININESS,especMaterial);
+
+    // Ativa o uso da luz ambiente
+    glLightModelfv(GL_LIGHT_MODEL_AMBIENT, luzAmbiente);
+
+    // Define os parâmetros da luz de número 0
+    glLightfv(GL_LIGHT0, GL_AMBIENT, luzAmbiente);
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, luzDifusa );
+    glLightfv(GL_LIGHT0, GL_SPECULAR, luzEspecular );
+    glLightfv(GL_LIGHT0, GL_POSITION, posicaoLuz );
+
+    // Habilita a definição da cor do material a partir da cor corrente
+    glEnable(GL_COLOR_MATERIAL);
+    //Habilita o uso de iluminação
+    glEnable(GL_LIGHTING);
+    // Habilita a luz de número 0
+    glEnable(GL_LIGHT0);
+    // Habilita o depth-buffering
+    glEnable(GL_DEPTH_TEST);
+
+    angle=45;
+}
+
+// Função usada para especificar o volume de visualização
+void EspecificaParametrosVisualizacao(void)
+{
+    // Especifica sistema de coordenadas de projeção
+    glMatrixMode(GL_PROJECTION);
+    // Inicializa sistema de coordenadas de projeção
+    glLoadIdentity();
+
+    // Especifica a projeção perspectiva
+    gluPerspective(angle,fAspect,0.4,500);
+
+    // Especifica sistema de coordenadas do modelo
+    glMatrixMode(GL_MODELVIEW);
+    // Inicializa sistema de coordenadas do modelo
+    glLoadIdentity();
+
+    // Especifica posição do observador e do alvo
+    gluLookAt(0,80,200, 0,0,0, 0,1,0);
+}
+
+// Função callback chamada quando o tamanho da janela é alterado
+void AlteraTamanhoJanela(GLsizei w, GLsizei h)
+{
+    // Para previnir uma divisão por zero
+    if ( h == 0 ) h = 1;
+
+    // Especifica o tamanho da viewport
+    glViewport(0, 0, w, h);
+
+    // Calcula a correção de aspecto
+    fAspect = (GLfloat)w/(GLfloat)h;
+
+    EspecificaParametrosVisualizacao();
+}
+
+// Função callback chamada para gerenciar eventos do mouse
+void GerenciaMouse(int button, int state, int x, int y)
+{
+    if (button == GLUT_LEFT_BUTTON)
+        if (state == GLUT_DOWN) {  // Zoom-in
+            if (angle &gt;= 10) angle -= 5;
+        }
+    if (button == GLUT_RIGHT_BUTTON)
+        if (state == GLUT_DOWN) {  // Zoom-out
+            if (angle &lt;= 130) angle += 5;
+        }
+    EspecificaParametrosVisualizacao();
+    glutPostRedisplay();
+}
+
+// Programa Principal
+int main(void)
+{
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
+    glutInitWindowSize(400,350);
+    glutCreateWindow("Visualizacao 3D");
+    glutDisplayFunc(Desenha);
+    glutReshapeFunc(AlteraTamanhoJanela);
+    glutMouseFunc(GerenciaMouse);
+    Inicializa();
+    glutMainLoop();
+}
+</pre>
+
+                                                                            </a>
+
+                                                                            <p align="JUSTIFY">
+
+                                                                                <a name="Exemplo">
+                                                                                    <font size="-1"><i>Obs.: </i></font>
+                                                                                </a>
+                                                                                <font size="-1"><i>
+
+                                                                                        <a href="Iluminacao.c">Clique aqui</a> para
+                                                                                        fazer o download deste programa.</i>
+                                                                                </font>
+                                                                            </p>
+                                                                            <font size="-1">
+
+                                                                                <b>
+
+                                                                                    <p align="center"><img src="arquivos/Figura15.webp"></p>
+                                                                                </b>
+
+                                                                                <p align="CENTER"><strong>Figura 15.1 - Saída do programa Iluminacao.c</strong></p>
+
+                                                                                <p align="JUSTIFY">
+                                                                                    <font size="3"> As funções utilizadas neste exemplo, e que não foram descritas no
+
+                                                                                        <a href="Programando3D.html#DescricaoFuncoes">capítulo anterior</a>, são apresentadas a seguir
+                                                                                        segundo [Woo 1999] e [Wright 2000].
+                                                                                    </font>
+                                                                                </p>
+                                                                                <font size="3">
+
+                                                                                    <ul>
+
+                                                                                        <li>
+
+                                                                                            <p align="JUSTIFY">
+                                                                                                <font size="3"><b><i>glShadeModel(GL_SMOOTH);</i></b>
+                                                                                                    estabelece o modelo de colorização: GL_FLAT (a cor não varia na primitiva que é desenhada -
+                                                                                                    um exemplo de primitiva é o triângulo); ou GL_SMOOTH (a cor de cada ponto da primitiva é
+                                                                                                    interpolada a partir da cor calculada nos vértices). Seu protótipo é:
+                                                                                                    <i>void glShadeModel(GLenum mode);</i>.
+                                                                                                    Descrição dos parâmetros: <i>mode</i> especifica o modelo de colorização, sendo que o <i>default</i>
+                                                                                                    é GL_SMOOTH [Wright 2000].
+                                                                                                </font>
+                                                                                            </p>
+                                                                                        </li>
+                                                                                        <font size="3">
+
+                                                                                            <li>
+
+                                                                                                <p align="JUSTIFY">
+                                                                                                    <font size="3"><b><i>glMaterialfv(GL_FRONT,GL_SPECULAR, especularidade);</i></b>
+                                                                                                        estabelece os parâmetros do material que serão usados pelo modelo de iluminação.
+                                                                                                        Possui algumas variações cujos protótipos são:
+                                                                                                        <br><i>glMaterialf(GLenum face, GLenum pname, GLfloat param);</i>
+                                                                                                        <br><i>glMateriali(GLenum face, GLenum pname, GLint param);</i>
+                                                                                                        <br><i>glMaterialfv(GLenum face, GLenum pname, const GLfloat *params);</i>
+                                                                                                        <br><i>glMaterialiv(GLenum face, GLenum pname, const GLint *params);</i>
+                                                                                                        <br> Descrição dos parâmetros:
+                                                                                                        <br> <i><u>face</u></i> determina se as propriedades do material dos polígonos que estão sendo
+                                                                                                        especificadas são <i>front</i> (GL_FRONT), <i>back</i> (GL_BACK) ou ambas (GL_FRONT_AND_BACK);
+                                                                                                        <br><i><u>pname</u></i> para as duas primeiras variações especifica o parâmetro de um único valor que
+                                                                                                        está sendo determinado (atualmente apenas GL_SHININESS possui um único valor como parâmetro);
+                                                                                                        para as duas últimas variações, que recebem um vetor como parâmetro, pode determinar as
+                                                                                                        seguintes propriedades do material: GL_AMBIENT, GL_DIFFUSE, GL_SPECULAR, GL_EMISSION,
+                                                                                                        GL_SHININESS, GL_AMBIENT_AND_DIFFUSE ou GL_COLOR_INDEXES;
+                                                                                                        <br> <i><u>param</u></i> (GLfloat ou GLint) especifica o valor que será atribuído para o
+                                                                                                        parâmetro determinado por <i>pname</i> (neste caso, GL_SHININESS);
+                                                                                                        <br> <i><u>params</u></i> (GLfloat* ou GLint*) um vetor de números reais ou inteiros que contém
+                                                                                                        as componentes da propriedade que está sendo espeficada;
+                                                                                                        <br> Através desta função é possível determinar as propriedades de refletância do material
+                                                                                                        dos polígonos. As propriedades GL_AMBIENT, GL_DIFFUSE e GL_SPECULAR afetam a maneira na qual
+                                                                                                        as componentes de luz incidente são refletidas. GL_EMISSION é usado para materiais que possuem
+                                                                                                        "luz própria". GL_SHININESS pode variar de 0 a 128 (quanto maior o valor, maior é a área de
+                                                                                                        <i>highlight</i> especular na superfície). GL_COLOR_INDEXES é usado para as propriedades de
+                                                                                                        refletância do material no modo de índice de cores [Wright 2000].
+                                                                                                    </font>
+                                                                                                </p>
+                                                                                            </li>
+                                                                                            <font size="3">
+
+
+                                                                                                <li>
+
+                                                                                                    <p align="JUSTIFY">
+                                                                                                        <font size="3"><b><i>glLightModelfv(GL_LIGHT_MODEL_AMBIENT, luzAmbiente);</i></b>
+                                                                                                            estabelece os parâmetros do modelo de iluminação usado por OpenGL. É possível especificar
+                                                                                                            um, ou todos os três modelos:
+                                                                                                            <br>- GL_LIGHT_MODEL_AMBIENT é usado para especificar a luz ambiente <i>default</i> para uma
+                                                                                                            cena, que tem um valor RGBA <i>default</i> de (0.2, 0.2, 0.2, 1.0);
+                                                                                                            <br>- GL_LIGHT_MODEL_TWO_SIDE é usado para indicar se ambos os lados de um polígono são
+                                                                                                            iluminados (por <i>default</i> apenas o lado frontal é iluminado);
+                                                                                                            <br>- GL_LIGHT_MODEL_LOCAL_VIEWER modifica o cálculo dos ângulos de reflexão especular;
+                                                                                                            <br>Possui algumas variações cujos protótipos são:
+                                                                                                            <br><i>glLightModelf(GLenum pname, GLfloat param);</i>
+                                                                                                            <br><i>glLightModeli(GLenum pname, GLint param);</i>
+                                                                                                            <br><i>glLightModelfv(GLenum pname, const GLfloat *params);</i>
+                                                                                                            <br><i>glLightModeliv(GLenum pname, const GLint *params);</i>
+                                                                                                            <br> Descrição dos parâmetros:
+                                                                                                            <br><i><u>pname</u></i> especifica um parâmetro do modelo de iluminação: GL_LIGHT_MODEL_AMBIENT,
+                                                                                                            GL_LIGHT_MODEL_LOCAL_VIEWER ou GL_LIGHT_MODEL_TWO_SIDE;
+                                                                                                            <br> <i><u>param</u></i> (GLfloat ou GLint) para GL_LIGHT_MODEL_LOCAL_VIEWER um valor 0.0
+                                                                                                            indica que os ângulos da componente especular tomam a direção de visualização como sendo
+                                                                                                            paralela ao eixo z, e qualquer outro valor indica que a visualização ocorre a partir da origem
+                                                                                                            do sistema de referência da câmera; para GL_LIGHT_MODEL_TWO_SIDE um valor 0.0 indica que
+                                                                                                            somente os polígonos frontais são incluídos nos cálculos de iluminação, e qualquer outro
+                                                                                                            valor indica que todos os polígonos são incluídos nos cálculos de iluminação;
+                                                                                                            <br> <i><u>params</u></i> (GLfloat* ou GLint*) para GL_LIGHT_MODEL_AMBIENT ou
+                                                                                                            GL_LIGHT_MODEL_LOCAL_VIEWER, aponta para um vetor de números inteiros ou reais;
+                                                                                                            para GL_LIGHT_MODEL_AMBIENT o conteúdo do vetor indica os valores das componentes RGBA
+                                                                                                            da luz ambiente [Wright 2000].
+                                                                                                        </font>
+                                                                                                    </p>
+                                                                                                </li>
+                                                                                                <font size="3">
+
+
+                                                                                                    <li>
+
+                                                                                                        <p align="JUSTIFY">
+                                                                                                            <font size="3"><b><i>glLightfv(GL_LIGHT0, GL_AMBIENT, luzAmbiente);</i></b>
+                                                                                                                estabelece os parâmetros da fonte de luz para uma das oito fontes de luz disponíveis. Possui
+                                                                                                                algumas variações cujos protótipos são:
+                                                                                                                <br><i>glLightf(GLenum light, GLenum pname, GLfloat param);</i>
+                                                                                                                <br><i>glLighti(GLenum light, GLenum pname, GLint param);</i>
+                                                                                                                <br><i>glLightfv(GLenum light, GLenum pname, const GLfloat *params);</i>
+                                                                                                                <br><i>glLightiv(GLenum light, GLenum pname, const GLint *params);</i>
+                                                                                                                <br> As duas primeiras variações requerem apenas um único valor para determinar
+                                                                                                                uma das seguintes propriedades: GL_SPOT_EXPONENT, GL_SPOT_CUTOFF, GL_CONSTANT_ATTENUATION,
+                                                                                                                GL_LINEAR_ATTENUATION e GL_QUADRATIC_ATTENUATION. As duas últimas variações são usadas
+                                                                                                                para parâmetros de luz que requerem um vetor com múltiplos valores (GL_AMBIENT, GL_DIFFUSE,
+                                                                                                                GL_SPECULAR, GL_POSITION e GL_SPOT_DIRECTION).
+                                                                                                                <br> Descrição dos parâmetros:
+                                                                                                                <br><i><u>light</u></i> especifica qual fonte de luz está sendo alterada (varia de 0 a
+                                                                                                                GL_MAX_LIGHTS); valores constantes de luz são enumerados de GL_LIGHT0 a GL_LIGHT7
+                                                                                                                <br><i><u>pname</u></i> especifica qual parâmetro de luz está sendo determinado pela
+                                                                                                                chamada desta função (GL_AMBIENT, GL_DIFFUSE, GL_SPECULAR, GL_POSITION, GL_SPOT_DIRECTION,
+                                                                                                                GL_SPOT_EXPONENT, GL_SPOT_CUTOFF. GL_CONSTANT_ATTENUATION, GL_LINEAR_ATTENUATION,
+                                                                                                                GL_QUADRATIC_ATTENUATION);
+                                                                                                                <br> <i><u>param</u></i> (GLfloat ou GLint) para parâmetros que são especificados por um
+                                                                                                                único valor (<i>param</i>); estes parâmetros, válidos somente para <i>spotlights</i>, são
+                                                                                                                GL_SPOT_EXPONENT, GL_SPOT_CUTOFF, GL_CONSTANT_ATTENUATION, GL_LINEAR_ATTENUATION e
+                                                                                                                GL_QUADRATIC_ATTENUATION.
+                                                                                                                <br> <i><u>params</u></i> (GLfloat* ou GLint*) um vetor de valores que descrevem os
+                                                                                                                parâmetros que estão sendo especificados [Wright 2000].
+                                                                                                            </font>
+                                                                                                        </p>
+                                                                                                    </li>
+                                                                                                    <font size="3">
+
+                                                                                                        <li>
+
+                                                                                                            <p align="JUSTIFY">
+                                                                                                                <font size="3"><b><i>glEnable(GL_COLOR_MATERIAL);</i></b>
+                                                                                                                    conforme já explicado no
+
+                                                                                                                    <a href="MaquinaDeEstados.html">capítulo 6</a>, a função
+                                                                                                                    <i>glEnable</i> é usada para habilitar uma variável de estado OpenGL. Neste caso,
+                                                                                                                    estão sendo habilitadas: GL_COLOR_MATERIAL (atribui a cor para o material a partir
+                                                                                                                    da cor corrente), GL_DEPTH_TEST (controla as comparações de profundidade e
+                                                                                                                    atualiza o <i>depth buffer</i>), GL_LIGHTING (habilita a iluminação) e GL_LIGHT0
+                                                                                                                    (habilita a luz de número 0) [Woo 1999].
+                                                                                                                </font>
+                                                                                                            </p>
+                                                                                                        </li>
+                                                                                                        <font size="3">
+
+                                                                                                            <li>
+
+                                                                                                                <p align="JUSTIFY">
+                                                                                                                    <font size="3"><b><i>glutSwapBuffers();</i></b> e
+                                                                                                                        <b><i>glutInitDisplayMode(GLUT_DOUBLE...);</i></b> já
+
+                                                                                                                        <a href="Animacao.html#glutSwapBuffers">explicadas anteriormente</a>,
+                                                                                                                        são usadas para evitar que a imagem fique "piscando" a cada interação (por exemplo,
+                                                                                                                        quando se faz <i>zoom-in</i> e <i>zoom-out</i>).
+                                                                                                                    </font>
+                                                                                                                </p>
+                                                                                                            </li>
+                                                                                                            <font size="3">
+
+                                                                                                            </font>
+                                                                                                        </font>
+                                                                                                    </font>
+                                                                                                </font>
+                                                                                            </font>
+                                                                                        </font>
+                                                                                    </ul>
+                                                                                    <font size="3">
+                                                                                        <font size="3">
+                                                                                            <font size="3">
+
+                                                                                                <p align="JUSTIFY">
+                                                                                                    <font size="3"> Também é possível eliminar
+                                                                                                        o "brilho" do objeto, como se o material fosse opaco. Neste caso, basta eliminar a componente
+                                                                                                        especular removendo as seguintes linhas do código fonte:
+                                                                                                        <i>
+                                                                                                            <br>&nbsp;&nbsp;&nbsp;&nbsp; GLfloat especularidade[4]={1.0,1.0,1.0,1.0};
+                                                                                                            <br>&nbsp;&nbsp;&nbsp;&nbsp; GLint especMaterial = 60;
+                                                                                                            <br>&nbsp;&nbsp;&nbsp;&nbsp; glMaterialfv(GL_FRONT,GL_SPECULAR, especularidade);
+                                                                                                            <br>&nbsp;&nbsp;&nbsp;&nbsp; glMateriali(GL_FRONT,GL_SHININESS,especMaterial);
+                                                                                                            <br>&nbsp;&nbsp;&nbsp;&nbsp; glLightfv(GL_LIGHT0, GL_SPECULAR, luzEspecular );
+                                                                                                        </i>
+                                                                                                    </font>
+                                                                                                </p>
+                                                                                                <font size="3">
+
+                                                                                                    <p>
+                                                                                                        <font size="+0" face="Arial Narrow">&nbsp;</font><img src="arquivos/emban15.webp" alt="../Imagens/emban15.png (1469 bytes)" border="0" height="12" width="100%">
+                                                                                                    </p>
+
+                                                                                                    <p><img src="arquivos/E-MAIL.webp" alt="../Imagens/E-MAIL.JPG (3237 bytes)" border="0" height="45" width="82">
+                                                                                                        <font size="+0" face="Arial Narrow"> Comentários, dúvidas, sugestões, envie um mail para
+
+                                                                                                            <a href="mailto:manssour@inf.pucrs.br">manssour@inf.pucrs.br</a>
+                                                                                                        </font>
+                                                                                                    </p>
+
+                                                                                                    <p><img src="arquivos/emban15.webp" alt="../Imagens/emban15.png (1469 bytes)" border="0" height="12" width="100%"></p>
+                                                                                                </font>
+                                                                                            </font>
+                                                                                        </font>
+                                                                                    </font>
+                                                                                </font>
+                                                                            </font>
+                                                                        </font>
+                                                                    </font>
+                                                                </font>
+                                                            </font>
+                                                        </font>
+                                                    </font>
+                                                </font>
+                                            </font>
+                                        </font>
+                                    </font>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="center">
+
+                <table align="center" border="0" cols="1" width="100%">
+                    <tbody>
+
+                        <tr>
+
+                            <td width="12">
+
+                                <p align="center">
+                                    <font size="+0" face="Arial Narrow">
+                                        [
+
+                                        <a href="Programando3D.html">Anterior</a>]&nbsp; [
+
+                                        <a href="MalhaPoligonos.html">Próxima</a>]&nbsp; [
+
+                                        <a href="index.html">Principal</a>]
+                                    </font>
+                                </p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p align="right">
+                <font size="-1" color="#5A5A5A" face="Arial Narrow"><i>Última alteração em 27 de março de 2003.</i></font>
+            </p>
+        </div>
+
+        <script defer="defer" src=vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon="{&quot;rayId&quot;:&quot;9833eed29eb34d35&quot;,&quot;serverTiming&quot;:{&quot;name&quot;:{&quot;cfExtPri&quot;:true,&quot;cfEdge&quot;:true,&quot;cfOrigin&quot;:true,&quot;cfL4&quot;:true,&quot;cfSpeedBrain&quot;:true,&quot;cfCacheStatus&quot;:true}},&quot;version&quot;:&quot;2025.9.1&quot;,&quot;token&quot;:&quot;e574ebd03d434993bfcf28088123cf56&quot;}" crossorigin="anonymous"></script>
+
+
+
+        <script src="arquivos/main.js"></script>
+    </body>
+
+
+</html>

@@ -394,6 +394,7 @@ void Desenha(void) {
 
     // Executa os comandos OpenGL
     glutSwapBuffers();
+	glFlush();
 }// Fim Desenha()
 
 // Fecha o jogo

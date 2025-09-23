@@ -11,7 +11,7 @@
 #define VER_RELEASE	9
 #define VER_BUILD	1
 #define COMPANY_NAME	""
-#define FILE_VERSION	"CobraGame vs1.09"
+#define FILE_VERSION	"1.0.9.1"
 #define FILE_DESCRIPTION	"Developed using the Dev-C++ IDE"
 #define INTERNAL_NAME	"by Pyetrosafe"
 #define LEGAL_COPYRIGHT	""

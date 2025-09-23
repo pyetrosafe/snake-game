@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+        <link rel="stylesheet" href="arquivos/main.css" type="text/css">
+        <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+        <meta name="GENERATOR" content="Microsoft FrontPage 3.0">
+        <title>Introdução à OpenGL - Profa. Isabel H. Manssour</title>
+        <meta id="websigner_softplan_com_br">
+    </head>
+
+    <body>
+
+        <div class="container" >
+
+            <div class="center">
+
+                <div>
+
+                    <table align="center" border="0" cellspacing="0" cellpadding="2" width="100%" valign="top">
+                        <caption align="center">&nbsp;</caption>
+
+                        <tbody>
+
+                            <tr>
+
+                                <td align="CENTER" width="100%" bgcolor="#E2E2E2" border="0" cellspacing="0" cellpadding="0">
+                                    <font size="+3" face="Arial Narrow"><b>Introdução à OpenGL</b></font> <br>
+                                    <font size="+0" face="Arial Narrow"><b>Professora Isabel Harb Manssour</b></font>
+                                </td>
+                            </tr>
+
+                            <tr>
+
+                                <td>
+
+                                    <p align="center">
+                                        <font size="+0" face="Arial Narrow">
+                                            [
+
+                                            <a href="PrimeiroPrograma.html">Anterior</a>]&nbsp; [
+
+                                            <a href="LinhaPontoPolig.html">Próxima</a>]&nbsp; [
+
+                                            <a href="index.html">Principal</a>]
+                                        </font>
+                                    </p>
+                                </td>
+                            </tr>
+
+                            <tr>
+
+                                <td align="LEFT" width="100%" border="0" cellspacing="0" cellpadding="0">
+                                    &nbsp;
+
+                                    <p>
+                                    </p>
+                                    <h2>08. Desenhando Primitivas </h2>
+
+                                    <p align="JUSTIFY">
+                                        <font size="3"> O exemplo de programa OpenGL do capítulo anterior apenas
+                                            abria uma janela vazia com um fundo azul. Neste capítulo é apresentado um exemplo que mostra como fazer um desenho,
+                                            mover e redimensionar a janela [Wright 2000].
+                                        </font>
+                                    </p>
+                                    <font size="3">
+
+                                        <a name="Quadrado">
+                                            <pre>// Quadrado.c - Isabel H. Manssour
+// Um programa OpenGL simples que desenha um
+// quadrado em  uma janela GLUT.
+// Este código está baseado no GLRect.c, exemplo
+// disponível no livro "OpenGL SuperBible",
+// 2nd Edition, de Richard S. e Wright Jr.
+
+#include &lt;windows.h&gt;
+#include &lt;gl/glut.h&gt;
+
+// Função callback chamada para fazer o desenho
+void Desenha(void)
+{
+     glMatrixMode(GL_MODELVIEW);
+     glLoadIdentity();
+
+     // Limpa a janela de visualização com a cor de fundo especificada
+     glClear(GL_COLOR_BUFFER_BIT);
+
+     // Especifica que a cor corrente é vermelha
+     //         R     G     B
+     glColor3f(1.0f, 0.0f, 0.0f);
+
+     // Desenha um quadrado preenchido com a cor corrente
+     glBegin(GL_QUADS);
+               glVertex2i(100,150);
+               glVertex2i(100,100);
+               // Especifica que a cor corrente é azul
+               glColor3f(0.0f, 0.0f, 1.0f);
+               glVertex2i(150,100);
+               glVertex2i(150,150);
+     glEnd();
+
+     // Executa os comandos OpenGL
+     glFlush();
+}
+
+// Inicializa parâmetros de rendering
+void Inicializa (void)
+{
+    // Define a cor de fundo da janela de visualização como preta
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+}
+
+// Função callback chamada quando o tamanho da janela é alterado
+void AlteraTamanhoJanela(GLsizei w, GLsizei h)
+{
+                   // Evita a divisao por zero
+                   if(h == 0) h = 1;
+
+                   // Especifica as dimensões da Viewport
+                   glViewport(0, 0, w, h);
+
+                   // Inicializa o sistema de coordenadas
+                   glMatrixMode(GL_PROJECTION);
+                   glLoadIdentity();
+
+                   // Estabelece a janela de seleção (left, right, bottom, top)
+                   if (w &lt;= h)
+                           gluOrtho2D (0.0f, 250.0f, 0.0f, 250.0f*h/w);
+                   else
+                           gluOrtho2D (0.0f, 250.0f*w/h, 0.0f, 250.0f);
+}
+
+// Programa Principal
+int main(void)
+{
+     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
+     glutInitWindowSize(400,350);
+     glutInitWindowPosition(10,10);
+     glutCreateWindow("Quadrado");
+     glutDisplayFunc(Desenha);
+     glutReshapeFunc(AlteraTamanhoJanela);
+     Inicializa();
+     glutMainLoop();
+}
+</pre>
+                                        </a>
+
+                                        <p align="JUSTIFY">
+
+                                            <a name="Quadrado">
+                                                <font size="-1"><i>Obs.: </i></font>
+                                            </a>
+                                            <font size="-1"><i>
+
+                                                    <a href="Quadrado.c">Clique aqui</a> para
+                                                    fazer o download deste programa.</i>
+                                            </font>
+                                        </p>
+                                        <font size="-1">
+
+                                            <a name="GLRect">
+
+                                                <p align="JUSTIFY">
+                                                    <font size="3"> Este programa, como mostra a figura 8.1, apenas exibe
+                                                        um quadrado azul e vermelho numa janela com fundo preto. As novas funções utilizadas neste exemplo
+                                                        são descritas a seguir.
+                                                    </font>
+                                                </p>
+                                                <font size="3">
+
+                                                    <b></b>
+                                                </font>
+                                            </a>
+                                            <font size="3"><b>
+
+                                                    <a name="figura8">
+
+                                                        <p align="center"><img src="arquivos/Figura8.webp"></p>
+                                                    </a></b>
+
+                                                <p align="CENTER">
+
+                                                    <a name="figura8"><strong>Figura 8.1 - Saída do programa Quadrado.c</strong></a>
+                                                </p>
+
+                                                <a name="figura8">
+
+                                                </a>
+
+                                                <ul>
+
+                                                    <a name="figura8">
+
+                                                        <li>
+
+                                                            <p align="JUSTIFY">
+                                                                <font size="3"> <b><i>glutInitWindowSize(400,350);</i></b>
+                                                                    especifica o tamanho em <i>pixels</i> da janela GLUT.
+                                                                </font>
+                                                            </p>
+                                                        </li>
+                                                        <font size="3">
+
+                                                            <li>
+
+                                                                <p align="JUSTIFY">
+                                                                    <font size="3"> <b><i>glutInitWindowPosition(10,10);</i></b>
+                                                                        especifica a localização inicial da janela GLUT, que neste caso é o canto superior esquerdo da tela do computador [Woo 1999].
+                                                                    </font>
+                                                                </p>
+                                                            </li>
+                                                            <font size="3">
+
+                                                                <li>
+
+                                                                    <p align="JUSTIFY">
+                                                                        <font size="3"> <b><i>glutReshapeFunc(AlteraTamanhoJanela);</i></b>
+                                                                            estabelece a função "AlteraTamanhoJanela" previamente definida como a função <i>callback</i>
+                                                                            de alteração do tamanho da janela. Isto é, sempre que a janela é maximizada, minimizada,
+                                                                            etc., a função "AlteraTamanhoJanela" é executada para reinicializar o sistema de coordenadas.
+                                                                        </font>
+                                                                    </p>
+                                                                </li>
+                                                                <font size="3">
+
+                                                                    <li>
+
+                                                                        <p align="JUSTIFY">
+                                                                            <font size="3"> <b><i>glColor3f(1.0f, 0.0f, 0.0f);</i></b> determina
+                                                                                a cor que será usada para o desenho (linhas e preenchimento). A seleção da cor é feita da mesma
+                                                                                maneira que na função <i>glClearColor</i>, sendo que não é necessário especificar o componente
+                                                                                <i>alfa</i>, cujo valor <i>default</i> é 1.0 (completamente opaco).
+                                                                            </font>
+                                                                        </p>
+                                                                    </li>
+                                                                    <font size="3">
+
+                                                                    </font>
+                                                                </font>
+                                                            </font>
+                                                        </font>
+                                                    </a>
+                                                    <font size="3">
+                                                        <font size="3">
+                                                            <li>
+
+                                                                <a name="figura8"> </a>
+
+                                                                <p align="JUSTIFY">
+
+                                                                    <a name="figura8">
+                                                                        <font size="3"> <b><i>glBegin(GL_QUADS);… glEnd();</i></b>
+
+                                                                            usada para desenhar um quadrado preenchido a partir dos vértices especificados entre <i>glBegin</i> e <i>glEnd</i>.
+                                                                            O </font>
+                                                                    </a>
+                                                                    <font size="3">
+
+                                                                        <a href="LinhaPontoPolig.html">capítulo 9</a> descreve a utilização destas funções. OpenGL mapeia as coordenadas
+                                                                        dos vértices para a posição atual da janela de visualização na função <i>callback</i> “AlteraTamanhoJanela”.
+                                                                    </font>
+                                                                </p>
+                                                            </li>
+                                                            <font size="3">
+
+                                                            </font>
+                                                        </font>
+                                                    </font>
+                                                </ul>
+                                                <font size="3">
+                                                    <font size="3">
+                                                        <font size="3">
+
+                                                            <p align="JUSTIFY">
+                                                                <font size="3"> Antes de descrever os parâmetros e comandos da função
+                                                                    “AlteraTamanhoJanela”, é necessário revisar alguns conceitos e especificações. Em quase
+                                                                    todos ambientes de janelas, o usuário pode alterar o tamanho e dimensões da janela em qualquer
+                                                                    momento. Quando isto ocorre, o conteúdo da janela é redesenhado levando em conta as novas
+                                                                    dimensões. Normalmente, o esperado é que a escala do desenho seja alterada de maneira que ele
+                                                                    fique dentro da janela, independente do tamanho da janela de visualização ou do desenho [Foley 1990].
+                                                                    Assim, uma janela pequena terá o desenho completo, mas pequeno, e uma janela grande terá o desenho
+                                                                    completo e maior.
+                                                                </font>
+                                                            </p>
+                                                            <font size="3">
+
+                                                                <p align="JUSTIFY">
+                                                                    <font size="3"> Apesar do exemplo mostrar um quadrado 2D, o desenho
+                                                                        é feito em um espaço de coordenadas 3D. A função <i>glBegin(GL_QUADS);… glEnd();</i> desenha o quadrado no plano
+                                                                        xy em z=0. Portanto, é necessário determinar o tamanho da <i>viewport</i> (janela onde será feito o desenho) e do volume
+                                                                        de visualização (parte do universo da aplicação que será mapeada para <i>viewport</i>), pois estes
+                                                                        parâmetros influenciam o espaço de coordenadas e a escala do desenhos 2D e 3D na janela.
+                                                                    </font>
+                                                                </p>
+                                                                <font size="3">
+
+                                                                    <p align="JUSTIFY">
+                                                                        <font size="3"> Sempre que o tamanho da janela é alterado, a
+                                                                            <i>viewport</i> e o volume de visualização devem ser redefinidos de acordo com as
+                                                                            novas dimensões da janela. Assim, a aparência do desenho não é alterada (por exemplo, um
+                                                                            quadrado não vira um retângulo). Como a alteração do tamanho da janela é detectada
+                                                                            e gerenciada de maneira diferente em cada ambiente, a biblioteca GLUT fornece a função
+                                                                            <i>glutReshapeFunc</i>, descrita anteriormente, que registra a função <i>callback</i> que
+                                                                            a GLUT irá chamar sempre que houver esta alteração. A função passada para a
+                                                                            <i>glutReshapeFunc</i> deve ter o seguinte protótipo:
+                                                                            <i>void AlteraTamanhoJanela(GLsizei w, GLsizei h);</i>. O nome "AlteraTamanhoJanela" foi escolhido
+                                                                            porque descreve o que a função faz. Os parâmetros recebidos sempre que o tamanho da janela
+                                                                            é alterado são a sua nova largura e a sua nova altura, respectivamente. Esta informação
+                                                                            é usada para modificar o mapeamento do sistema de coordenadas desejado para o sistema de
+                                                                            coordenadas da tela com a ajuda de duas funções uma OpenGL, <i>glViewport</i>, e uma da biblioteca GLU,
+                                                                            <i>gluOrtho2D</i>. Estas e outras funções chamadas na "AlteraTamanhoJanela", que definem como a <i>viewport</i>
+                                                                            é especificada, são descritas a seguir.
+                                                                        </font>
+                                                                    </p>
+                                                                    <font size="3">
+
+                                                                        <ul>
+
+                                                                            <li>
+
+                                                                                <p align="JUSTIFY">
+                                                                                    <font size="3"> <b><i>glViewport(0, 0, w, h);</i></b> recebe como
+                                                                                        parâmetro a nova largura e altura da janela. O protótipo desta função é:
+                                                                                        <i>void glViewport(GLint x, GLint y, GLsizei width, GLsizei height);</i>. Seus parâmetros
+                                                                                        especificam o canto inferior esquerdo da <i>viewport</i> (x,y) dentro da janela, e a sua
+                                                                                        largura e altura em <i>pixels</i> (<i>width</i> e <i>height</i>). Geralmente x e y são zero,
+                                                                                        mas é possível usar a <i>viewport</i> para visualizar mais de uma cena em
+                                                                                        diferentes áreas da janela. Em outras palavras, a <i>viewport</i> define a área dentro
+                                                                                        janela, em coordenadas de tela, que OpenGL pode usar para fazer o desenho. O volume de
+                                                                                        visualização é, então, mapeado para a nova <i>viewport</i>.
+                                                                                    </font>
+                                                                                </p>
+                                                                            </li>
+                                                                            <font size="3">
+
+                                                                                <li>
+
+                                                                                    <p align="JUSTIFY">
+                                                                                        <font size="3"> <b><i>gluOrtho2D (0.0f, 250.0f*w/h, 0.0f, 250.0f); </i></b>
+                                                                                            é usada para determinar que a projeção ortográfica (2D) será utilizada para exibir na tela a imagem 2D que
+                                                                                            está na janela de seleção definida através dos parâmetros passados para esta função. O protótipo desta função é:
+                                                                                            <i>void gluOrtho2D(GLdouble left, GLdouble right, GLdouble bottom, GLdouble top);</i>. No sistema de coordenadas
+                                                                                            cartesianas, os valores <i>left</i> e <i>right</i> especificam os limites mínimo e máximo no eixo X;
+                                                                                            analogamente, <i>bottom</i> e <i>top</i> especificam os limites mínimo e máximo no eixo Y.
+                                                                                        </font>
+                                                                                    </p>
+                                                                                </li>
+                                                                                <font size="3">
+
+                                                                                    <li>
+
+                                                                                        <p align="JUSTIFY">
+                                                                                            <font size="3"> <b><i>glMatrixMode(GL_PROJECTION);</i></b> e
+                                                                                                <b><i>glLoadIdentity();</i></b> servem, respectivamente, para avisar a OpenGL que todas
+                                                                                                as futuras alterações, tais como operações de escala, rotação e translação, irão afetar a
+                                                                                                "câmera" (ou observador), e para inicializar o sistema de coordenadas antes
+                                                                                                da execução de qualquer operação de manipulação de matrizes. Sem este comando, cada chamada
+                                                                                                sucessiva de <i>gluOrtho2D </i> poderia resultar em uma corrupção do volume de
+                                                                                                visualização. Em outras palavras, a matriz de projeção é onde o volume de visualização, que neste
+                                                                                                caso é um plano, é definido; a função <i>gluOrtho2D </i> não estabelece realmente o volume de visualização
+                                                                                                utilizado para fazer o recorte, apenas modifica o volume existente; ela multiplica a matriz que descreve
+                                                                                                o volume de visualização corrente pela matriz que descreve o novo volume de visualização, cujas
+                                                                                                coordenadas são recebidas por parâmetro.
+                                                                                            </font>
+                                                                                        </p>
+                                                                                    </li>
+                                                                                    <font size="3">
+
+                                                                                        <li>
+
+                                                                                            <p align="JUSTIFY">
+                                                                                                <font size="3"> <b><i>glMatrixMode(GL_MODELVIEW);</i></b> avisa a
+                                                                                                    OpenGL que todas as futuras alterações, tais como operações de escala, rotação e translação,
+                                                                                                    irão afetar os modelos da cena, ou em outras palavras, o que é desenhado. A função <i>glLoadIdentity();</i>
+                                                                                                    chamada em seguida, faz com que a matriz corrente seja inicializada com a matriz identidade
+                                                                                                    (nenhuma transformação é acumulada) [Wright 2000].
+                                                                                                </font>
+                                                                                            </p>
+                                                                                        </li>
+                                                                                        <font size="3">
+
+                                                                                        </font>
+                                                                                    </font>
+                                                                                </font>
+                                                                            </font>
+                                                                        </ul>
+                                                                        <font size="3">
+                                                                            <font size="3">
+                                                                                <font size="3">
+
+
+                                                                                    <p>
+                                                                                        <font size="+0" face="Arial Narrow">&nbsp;</font><img src="arquivos/emban15.webp" alt="../Imagens/emban15.png (1469 bytes)" border="0" height="12" width="100%">
+                                                                                    </p>
+
+                                                                                    <p><img src="arquivos/E-MAIL.webp" alt="../Imagens/E-MAIL.JPG (3237 bytes)" border="0" height="45" width="82">
+                                                                                        <font size="+0" face="Arial Narrow"> Comentários, dúvidas, sugestões, envie um mail para
+
+                                                                                            <a href="mailto:manssour@inf.pucrs.br">manssour@inf.pucrs.br</a>
+                                                                                        </font>
+                                                                                    </p>
+
+                                                                                    <p><img src="arquivos/emban15.webp" alt="../Imagens/emban15.png (1469 bytes)" border="0" height="12" width="100%"></p>
+                                                                                </font>
+                                                                            </font>
+                                                                        </font>
+                                                                    </font>
+                                                                </font>
+                                                            </font>
+                                                        </font>
+                                                    </font>
+                                                </font>
+                                            </font>
+                                        </font>
+                                    </font>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="center">
+
+                <table align="center" border="0" cols="1" width="100%">
+                    <tbody>
+
+                        <tr>
+
+                            <td width="12">
+
+                                <p align="center">
+                                    <font size="+0" face="Arial Narrow">
+                                        [
+
+                                        <a href="PrimeiroPrograma.html">Anterior</a>]&nbsp; [
+
+                                        <a href="LinhaPontoPolig.html">Próxima</a>]&nbsp; [
+
+                                        <a href="index.html">Principal</a>]
+                                    </font>
+                                </p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p align="right">
+                    <font size="-1" color="#5A5A5A" face="Arial Narrow"><i>Última alteração em 27 de março de 2003.</i></font>
+                </p>
+            </div>
+
+            <script defer="defer" src=vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon="{&quot;rayId&quot;:&quot;9833edb26f174d35&quot;,&quot;serverTiming&quot;:{&quot;name&quot;:{&quot;cfExtPri&quot;:true,&quot;cfEdge&quot;:true,&quot;cfOrigin&quot;:true,&quot;cfL4&quot;:true,&quot;cfSpeedBrain&quot;:true,&quot;cfCacheStatus&quot;:true}},&quot;version&quot;:&quot;2025.9.1&quot;,&quot;token&quot;:&quot;e574ebd03d434993bfcf28088123cf56&quot;}" crossorigin="anonymous"></script>
+
+        </div>
+        <script src="arquivos/main.js"></script>
+    </body>
+
+
+</html>994699588

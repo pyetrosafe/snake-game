@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+        <link rel="stylesheet" href="arquivos/main.css" type="text/css">
+        <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+        <meta name="GENERATOR" content="Microsoft FrontPage 3.0">
+        <title>Introdução à OpenGL - Profa. Isabel H. Manssour</title>
+        <meta id="websigner_softplan_com_br">
+    </head>
+
+    <body>
+
+        <div class="container" >
+
+            <div class="center">
+
+                <div>
+
+                    <div>
+
+                        <table align="center" border="0" cellspacing="0" cellpadding="2" idth="100%" valign="top">
+                            <caption align="center">&nbsp;</caption>
+
+                            <tbody>
+
+                                <tr>
+                                    <td align="CENTER" idth="100%" bgcolor="#E2E2E2" border="0" cellspacing="0" cellpadding="0">
+                                        <font size="+3" face="Arial Narrow"><b>Introdução à OpenGL</b></font> <br>
+                                        <font size="+0" face="Arial Narrow"><b>Professora Isabel Harb Manssour</b></font>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <div align="center">
+                                            <font size="+0" face="Arial Narrow">
+                                                [
+
+                                                <a href="index.html">Anterior</a>]&nbsp;
+                                                [
+
+                                                <a href="Utilizacao.html">Próxima</a>]&nbsp;
+                                                [
+
+                                                <a href="index.html">Principal</a>]
+                                            </font>
+                                        </div>
+                                    </td>
+                                </tr>
+
+
+
+                                <tr>
+                                    <td align="LEFT" idth="100%" border="0" cellspacing="0" cellpadding="0">
+                                        &nbsp;
+
+                                        <p>
+                                        </p>
+                                        <h2>01. Introdução</h2>
+
+                                        <p align="JUSTIFY">
+                                            <font size="3"> OpenGL é definida como "um programa de interface para <i>hardware</i> gráfico". Na verdade, OpenGL é uma biblioteca de rotinas gráficas e de
+                                                modelagem, bi (2D) e tridimensional (3D), extremamente portável e rápida. Usando OpenGL é possível criar gráficos
+                                                3D com uma qualidade visual próxima de um <i>ray tracer</i>. Entretanto, a maior vantagem na sua
+                                                utilização é a rapidez, uma vez que usa algoritmos cuidadosamente desenvolvidos e otimizados
+                                                pela <i>Silicon Graphics, Inc.</i>, líder mundial em Computação Gráfica e Animação.
+                                            </font>
+                                        </p>
+                                        <font size="3">
+
+                                            <p align="JUSTIFY">
+                                                <font size="3"> OpenGL não é uma linguagem de programação, é uma
+                                                    poderosa e sofisticada API (<i>Application Programming Interface</i>) para criação de
+                                                    aplicações gráficas 2D e 3D. Seu funcionamento é semelhante ao de uma
+                                                    biblioteca C, uma vez que fornece uma série de funcionalidades. Normalmente se diz que um
+                                                    programa é baseado em OpenGL ou é uma aplicação OpenGL, o que significa que ele é escrito
+                                                    em alguma linguagem de programação que faz chamadas a uma ou mais bibliotecas OpenGL.
+                                                </font>
+                                            </p>
+                                            <font size="3">
+
+                                                <p align="JUSTIFY">
+                                                    <font size="3"> As aplicações OpenGL variam de ferramentas CAD a
+                                                        programas de modelagem usados para criar personagens para o cinema, tal como um dinossauro. Além do desenho de
+                                                        primitivas gráficas, tais como linhas e polígonos, OpenGL dá suporte a iluminação, colorização,
+                                                        mapeamento de textura, transparência, animação, entre muitos outros efeitos especiais. Atualmente, OpenGL é reconhecida e
+                                                        aceita como um padrão API para desenvolvimento
+                                                        de aplicações gráficas 3D em tempo real.
+                                                    </font>
+                                                </p>
+                                                <font size="3">
+
+                                                    <p align="JUSTIFY">
+                                                        <font size="3"> Ao invés de descrever a cena e como ela deve parecer,
+                                                            quando se está utilizando OpenGL é preciso apenas determinar os passos necessários para
+                                                            alcançar a aparência ou efeito desejado. Estes passos envolvem chamadas a esta API portável
+                                                            que inclui aproximadamente 250 comandos e funções (200 comandos do <i>core</i> OpenGL e 50 da
+
+                                                            <a href="bibliotecas.html#glu">GLU</a> - <i>OpenGL Utility Library</i>).
+
+                                                            Por ser portável, OpenGL não possui funções para gerenciamento de
+                                                            janelas, interação com o usuário ou arquivos de entrada/saída.
+                                                            Cada ambiente, como por exemplo o <i>Microsoft Windows</i>,
+                                                            possui suas próprias funções para estes propósitos. Não existe um formato de arquivo
+                                                            OpenGL para modelos ou ambientes virtuais. OpenGL fornece um pequeno conjunto de primitivas
+                                                            gráficas para construção de modelos, tais como pontos, linhas e polígonos. A biblioteca GLU (que faz parte
+                                                            da implementação OpenGL) é que fornece várias funções para modelagem, tais como superfícies quádricas,
+                                                            e curvas e superfícies NURBS (<i>Non Uniform Rational B-Splines</i>) [Woo 1999, Wright 2000].
+                                                        </font>
+                                                    </p>
+                                                    <font size="3">
+
+
+                                                        <p align="JUSTIFY">
+                                                            <font size="3"> A palavra <i>pipeline</i> é usada para descrever um
+                                                                processo que pode ter dois ou mais passos distintos. A figura 2.1 mostra uma versão simplificada
+                                                                do <i>pipeline</i> OpenGL. Como uma aplicação faz chamadas às funções API OpenGL, os comandos
+                                                                são colocados em um <i>buffer</i> de comandos. Este <i>buffer</i> é preenchido com comandos,
+                                                                vértices, dados de textura, etc. Quando este <i>buffer</i> é "esvaziado", os comandos e dados
+                                                                são passados para o próximo estágio.
+                                                            </font>
+                                                        </p>
+                                                        <font size="3">
+
+                                                            <b>
+
+                                                                <p align="center"><img src="arquivos/pipeline.webp"></p>
+                                                            </b>
+
+                                                            <p align="CENTER"><strong>Figura 1.1 - Versão simplificada do <i>pipeline</i> OpenGL</strong></p>
+
+
+                                                            <p align="JUSTIFY">
+                                                                <font size="3"> Após a etapa de aplicação das transformações geométricas
+                                                                    e da iluminação, é feita a rasterização, isto é, é gerada a imagem a partir dos dados geométricos,
+                                                                    de cor e textura. A imagem final, então, é colocada no <i>frame buffer</i>, que é a memória
+                                                                    do dispositivo gráfico. Isto significa que a imagem é exibida no monitor [Wright 2000].
+                                                                </font>
+                                                            </p>
+                                                            <font size="3">
+
+                                                                <p>
+                                                                    <font size="+0" face="Arial Narrow">&nbsp;</font><img src="arquivos/emban15.webp" alt="../Imagens/emban15.png (1469 bytes)" border="0" height="12" width="100%">
+                                                                </p>
+
+                                                                <p><img src="arquivos/E-MAIL.webp" alt="../Imagens/E-MAIL.JPG (3237 bytes)" border="0" height="45" width="82">
+                                                                    <font size="+0" face="Arial Narrow"> Comentários, dúvidas, sugestões, envie um mail para
+
+                                                                        <a href="mailto:manssour@inf.pucrs.br">manssour@inf.pucrs.br</a>
+                                                                    </font>
+                                                                </p>
+
+                                                                <p><img src="arquivos/emban15.webp" alt="../Imagens/emban15.png (1469 bytes)" border="0" height="12" width="100%"></p>
+                                                            </font>
+                                                        </font>
+                                                    </font>
+                                                </font>
+                                            </font>
+                                        </font>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                </div>
+
+                <div class="center">
+
+
+                    <table align="center" border="0" cols="1" width="100%">
+                        <tbody>
+
+                            <tr>
+
+                                <td width="12">
+
+                                    <p align="center">
+                                        <font size="+0" face="Arial Narrow">
+                                            [
+
+                                            <a href="index.html">Anterior</a>]&nbsp; [
+
+                                            <a href="Utilizacao.html">Próxima</a>]&nbsp; [
+
+                                            <a href="index.html">Principal</a>]
+                                        </font>
+                                    </p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+
+                </div>
+
+                <p align="right">
+                    <font size="-1" color="#5A5A5A" face="Arial Narrow"><i>Última alteração em 20 de março de 2003.</i></font>
+                </p>
+            </div>
+
+            <script defer="defer" src=vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon="{&quot;rayId&quot;:&quot;9833eb3319a7c585&quot;,&quot;serverTiming&quot;:{&quot;name&quot;:{&quot;cfExtPri&quot;:true,&quot;cfEdge&quot;:true,&quot;cfOrigin&quot;:true,&quot;cfL4&quot;:true,&quot;cfSpeedBrain&quot;:true,&quot;cfCacheStatus&quot;:true}},&quot;version&quot;:&quot;2025.9.1&quot;,&quot;token&quot;:&quot;e574ebd03d434993bfcf28088123cf56&quot;}" crossorigin="anonymous"></script>
+
+        </div>
+        <script src="arquivos/main.js"></script>
+    </body>
+
+
+</html>

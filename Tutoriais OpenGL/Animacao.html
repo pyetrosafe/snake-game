@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+        <link rel="stylesheet" href="arquivos/main.css" type="text/css">
+        <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+        <meta name="GENERATOR" content="Microsoft FrontPage 3.0">
+        <title>Introdução à OpenGL - Profa. Isabel H. Manssour</title>
+        <meta id="websigner_softplan_com_br">
+    </head>
+
+    <body>
+
+        <div class="container" >
+
+            <div class="center">
+
+                <div>
+
+                    <table align="center" border="0" cellspacing="0" cellpadding="2" width="100%" valign="top">
+                        <caption align="center">&nbsp;</caption>
+
+                        <tbody>
+
+                            <tr>
+
+                                <td align="CENTER" width="100%" bgcolor="#E2E2E2" border="0" cellspacing="0" cellpadding="0">
+                                    <font size="+3" face="Arial Narrow"><b>Introdução à OpenGL</b></font> <br>
+                                    <font size="+0" face="Arial Narrow"><b>Professora Isabel Harb Manssour</b></font>
+                                </td>
+                            </tr>
+
+                            <tr>
+
+                                <td>
+
+                                    <p align="center">
+                                        <font size="+0" face="Arial Narrow">
+                                            [
+
+                                            <a href="Transformacoes.html">Anterior</a>]&nbsp; [
+
+                                            <a href="Eventos.html">Próxima</a>]&nbsp; [
+
+                                            <a href="index.html">Principal</a>]
+                                        </font>
+                                    </p>
+                                </td>
+                            </tr>
+
+                            <tr>
+
+                                <td align="LEFT" width="100%" border="0" cellspacing="0" cellpadding="0">
+                                    &nbsp;
+
+                                    <p>
+                                    </p>
+                                    <h2>11. Animação com OpenGL e GLUT</h2>
+
+                                    <p align="JUSTIFY">
+                                        <font size="3"> Para exemplificar como fazer uma animação, como
+                                            por exemplo mover ou girar objetos, será retomado o exemplo do
+
+                                            <a href="Desenhando.html">capítulo 8</a>, que desenha um quadrado numa janela com
+                                            fundo preto. Agora, o quadrado será movido numa direção até bater em uma das bordas da janela
+                                            e então mudar de direção.
+                                        </font>
+                                    </p>
+                                    <font size="3">
+
+                                        <p align="JUSTIFY">
+                                            <font size="3"> É possível criar um laço que continuamente altera
+                                                as coordenadas do objeto antes de chamar a função "Desenha". Isto daria a impressão
+                                                de que o quadrado se move na janela. Porém, a biblioteca GLUT fornece a possibilidade de
+                                                registrar uma função <i>callback</i> que torna mais fácil o processo de fazer uma simples
+                                                animação. A função <i>glutTimerFunc</i> pega o nome da função <i>callback</i> que deve ser chamada e o
+                                                tempo que ela deve esperar antes de chamar a função. A seguir é apresentado o código do
+                                                exemplo de animação, e na seqüência as novas funções utilizadas são descritas [Wright 2000].
+                                            </font>
+                                        </p>
+                                        <font size="3">
+
+                                            <pre>// Anima.c - Isabel H. Manssour
+// Um programa OpenGL simples que mostra a animação
+// de quadrado em  uma janela GLUT.
+// Este código está baseado no Bounce.c, exemplo
+// disponível no livro "OpenGL SuperBible",
+// 2nd Edition, de Richard S. e Wright Jr.
+
+#include &lt;windows.h&gt;
+#include &lt;gl/glut.h&gt;
+
+// Tamanho e posição inicial do quadrado
+GLfloat x1 = 100.0f;
+GLfloat y1 = 150.0f;
+GLsizei rsize = 50;
+
+// Tamanho do incremento nas direções x e y
+// (número de pixels para se mover a cada
+// intervalo de tempo)
+GLfloat xstep = 1.0f;
+GLfloat ystep = 1.0f;
+
+// Largura e altura da janela
+GLfloat windowWidth;
+GLfloat windowHeight;
+
+
+// Função callback chamada para fazer o desenho
+void Desenha(void)
+{
+     glMatrixMode(GL_MODELVIEW);
+     glLoadIdentity();
+
+     // Limpa a janela de visualização com a cor de fundo especificada
+     glClear(GL_COLOR_BUFFER_BIT);
+
+     // Especifica que a cor corrente é vermelha
+     //         R     G     B
+     glColor3f(1.0f, 0.0f, 0.0f);
+
+     // Desenha um quadrado preenchido com a cor corrente
+     glBegin(GL_QUADS);
+               glVertex2i(x1,y1+rsize);
+               glVertex2i(x1,y1);
+               // Especifica que a cor corrente é azul
+               glColor3f(0.0f, 0.0f, 1.0f);
+               glVertex2i(x1+rsize,y1);
+               glVertex2i(x1+rsize,y1+rsize);
+     glEnd();
+
+     // Executa os comandos OpenGL
+     glutSwapBuffers();
+}
+
+// Função callback chamada pela GLUT a cada intervalo de tempo
+// (a window não está sendo redimensionada ou movida)
+void Timer(int value)
+{
+    // Muda a direção quando chega na borda esquerda ou direita
+      if(x1 &gt; windowWidth-rsize || x1 &lt; 0)
+            xstep = -xstep;
+
+    // Muda a direção quando chega na borda superior ou inferior
+    if(y1 &gt; windowHeight-rsize || y1 &lt; 0)
+          ystep = -ystep;
+
+    // Verifica as bordas.  Se a window for menor e o
+    // quadrado sair do volume de visualização
+   if(x1 &gt; windowWidth-rsize)
+         x1 = windowWidth-rsize-1;
+
+   if(y1 &gt; windowHeight-rsize)
+         y1 = windowHeight-rsize-1;
+
+    // Move o quadrado
+    x1 += xstep;
+    y1 += ystep;
+
+    // Redesenha o quadrado com as novas coordenadas
+    glutPostRedisplay();
+    glutTimerFunc(33,Timer, 1);
+}
+
+// Inicializa parâmetros de rendering
+void Inicializa (void)
+{
+    // Define a cor de fundo da janela de visualização como preta
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+}
+
+// Função callback chamada quando o tamanho da janela é alterado
+void AlteraTamanhoJanela(GLsizei w, GLsizei h)
+{
+     // Evita a divisao por zero
+     if(h == 0) h = 1;
+
+     // Especifica as dimensões da Viewport
+     glViewport(0, 0, w, h);
+
+     // Inicializa o sistema de coordenadas
+     glMatrixMode(GL_PROJECTION);
+     glLoadIdentity();
+
+     // Estabelece a janela de seleção (left, right, bottom, top)
+     if (w &lt;= h)  {
+		windowHeight = 250.0f*h/w;
+		windowWidth = 250.0f;
+     }
+     else  {
+		windowWidth = 250.0f*w/h;
+		windowHeight = 250.0f;
+     }
+
+     gluOrtho2D(0.0f, windowWidth, 0.0f, windowHeight);
+}
+
+// Programa Principal
+int main(void)
+{
+     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
+     glutInitWindowSize(400,350);
+     glutInitWindowPosition(10,10);
+     glutCreateWindow("Anima");
+     glutDisplayFunc(Desenha);
+     glutReshapeFunc(AlteraTamanhoJanela);
+     glutTimerFunc(33, Timer, 1);
+     Inicializa();
+     glutMainLoop();
+}
+</pre>
+
+                                            <p align="JUSTIFY">
+                                                <font size="-1"><i>Obs.:
+
+                                                        <a href="Anima.c">Clique aqui</a> para
+                                                        fazer o download deste programa.</i>
+                                                </font>
+                                            </p>
+                                            <font size="-1">
+
+
+                                                <ul>
+
+                                                    <li>
+
+                                                        <p align="JUSTIFY">
+                                                            <font size="3"> <b><i>glutTimerFunc(33, Timer, 1);</i></b>
+                                                                estabelece a função <i>Timer</i> previamente definida como a função <i>callback</i>
+                                                                de animação. Seu protótipo é:
+                                                                <i>void glutTimerFunc(unsigned int msecs, void (*func)(int value), int value);</i>. Esta
+                                                                função faz a GLUT esperar <i>msecs</i> milisegundos antes de chamar a função <i>func</i>.
+                                                                É possível passar um valor definido pelo usuário no parâmetro <i>value</i>. Como esta função
+                                                                é "disparada" apenas uma vez, para se ter uma animação contínua é necessário reinicializar
+                                                                o <i>timer</i> novamente na função <i>Timer</i>.
+                                                            </font>
+                                                        </p>
+                                                    </li>
+                                                    <font size="3">
+
+                                                        <li>
+
+                                                            <p align="JUSTIFY">
+                                                                <font size="3"> <b><i>void Timer(int value)</i></b> é a função
+                                                                    chamada pela <i>glutTimerFunc</i>. No exemplo, as variáveis utilizadas para determinar
+                                                                    a posição do retângulo são atualizadas nesta função.
+                                                                </font>
+                                                            </p>
+                                                        </li>
+                                                        <font size="3">
+
+                                                        </font>
+                                                    </font>
+                                                </ul>
+                                                <font size="3">
+                                                    <font size="3">
+
+
+                                                        <p align="JUSTIFY">
+                                                            <font size="3"> Antes de prosseguir com a descrição das funções,
+                                                                é necessário explicar o funcionamento do <i>double-buffering</i>, que é uma das características
+                                                                mais importantes em qualquer pacote gráfico que está disponível na GLUT. <i>Double-buffering</i>
+                                                                permite que um desenho seja exibido na tela enquanto está sendo realizado o <i>rendering</i>
+                                                                em um <i>offscreen buffer</i>. Então, um comando de <i>swap</i> coloca a imagem na tela
+                                                                instantaneamente. Isto é útil, principalmente, por dois motivos: <br>
+                                                                - Alguns desenhos complexos podem levar um certo tempo para serem feitos, e não é desejado
+                                                                que cada passo da composição da imagem seja visível; então, é possível compor uma imagem e
+                                                                exibi-la somente depois de completa, de maneira que o usuário nunca vê uma imagem parcial,
+                                                                pois ela é exibida somente quando está pronta. <br>
+                                                                - No caso de uma animação, cada quadro (ou <i>frame</i>) é desenhado no <i>offscreen buffer</i>
+                                                                e é exibido (<i>swapped</i>) rapidamente depois de pronto.
+                                                            </font>
+                                                        </p>
+                                                        <font size="3">
+
+
+                                                            <ul>
+
+                                                                <a name="glutSwapBuffers">
+                                                                </a>
+                                                                <li>
+
+                                                                    <a name="glutSwapBuffers"> </a>
+
+                                                                    <p align="JUSTIFY">
+
+                                                                        <a name="glutSwapBuffers">
+                                                                            <font size="3"> <b><i>glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB)</i></b>,
+                                                                                já </font>
+                                                                        </a>
+                                                                        <font size="3">
+
+                                                                            <a href="PrimeiroPrograma.html#init">explicada anteriormente</a>, foi usada para trocar o
+                                                                            modo de exibição de GLUT_SINGLE para GLUT_DOUBLE. Isto faz com que todo o <i>rendering</i>
+                                                                            seja feito em um <i>offscreen buffer</i>.
+                                                                        </font>
+                                                                    </p>
+                                                                </li>
+                                                                <font size="3">
+
+                                                                    <li>
+
+                                                                        <p align="JUSTIFY">
+                                                                            <font size="3"> <b><i>glutSwapBuffers();</i></b> é usada no lugar da
+                                                                                <i>glFlush</i> porque quando é feita a troca (ou <i>swap</i>) de <i>buffers</i>, é realizada
+                                                                                implicitamente uma operação de <i>flush</i>. Esta função continua fazendo o <i>flush</i>
+                                                                                mesmo que o programa esteja sendo executado no modo <i>single-buffer</i>, porém com uma
+                                                                                qualidade bastante inferior [Wright 2000].
+                                                                            </font>
+                                                                        </p>
+                                                                    </li>
+                                                                    <font size="3">
+
+                                                                    </font>
+                                                                </font>
+                                                            </ul>
+                                                            <font size="3">
+                                                                <font size="3">
+
+
+                                                                    <p>
+                                                                        <font size="+0" face="Arial Narrow">&nbsp;</font><img src="arquivos/emban15.webp" alt="../Imagens/emban15.png (1469 bytes)" border="0" height="12" width="100%">
+                                                                    </p>
+
+                                                                    <p><img src="arquivos/E-MAIL.webp" alt="../Imagens/E-MAIL.JPG (3237 bytes)" border="0" height="45" width="82">
+                                                                        <font size="+0" face="Arial Narrow"> Comentários, dúvidas, sugestões, envie um mail para
+
+                                                                            <a href="mailto:manssour@inf.pucrs.br">manssour@inf.pucrs.br</a>
+                                                                        </font>
+                                                                    </p>
+
+                                                                    <p><img src="arquivos/emban15.webp" alt="../Imagens/emban15.png (1469 bytes)" border="0" height="12" width="100%"></p>
+                                                                </font>
+                                                            </font>
+                                                        </font>
+                                                    </font>
+                                                </font>
+                                            </font>
+                                        </font>
+                                    </font>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="center">
+
+                <table align="center" border="0" cols="1" width="100%">
+                    <tbody>
+
+                        <tr>
+
+                            <td width="12">
+
+                                <p align="center">
+                                    <font size="+0" face="Arial Narrow">
+                                        [
+
+                                        <a href="Transformacoes.html">Anterior</a>]&nbsp; [
+
+                                        <a href="Eventos.html">Próxima</a>]&nbsp; [
+
+                                        <a href="index.html">Principal</a>]
+                                    </font>
+                                </p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p align="right">
+                    <font size="-1" color="#5A5A5A" face="Arial Narrow"><i>Última alteração em 27 de março de 2003.</i></font>
+                </p>
+            </div>
+
+            <script defer="defer" src=vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon="{&quot;rayId&quot;:&quot;9833ee053e2f4d35&quot;,&quot;serverTiming&quot;:{&quot;name&quot;:{&quot;cfExtPri&quot;:true,&quot;cfEdge&quot;:true,&quot;cfOrigin&quot;:true,&quot;cfL4&quot;:true,&quot;cfSpeedBrain&quot;:true,&quot;cfCacheStatus&quot;:true}},&quot;version&quot;:&quot;2025.9.1&quot;,&quot;token&quot;:&quot;e574ebd03d434993bfcf28088123cf56&quot;}" crossorigin="anonymous"></script>
+
+        </div>
+        <script src="arquivos/main.js"></script>
+    </body>
+
+
+</html>

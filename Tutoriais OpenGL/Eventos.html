@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+        <link rel="stylesheet" href="arquivos/main.css" type="text/css">
+        <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+        <meta name="GENERATOR" content="Microsoft FrontPage 3.0">
+        <title>Introdução à OpenGL - Profa. Isabel H. Manssour</title>
+        <meta id="websigner_softplan_com_br">
+    </head>
+
+    <body>
+
+        <div class="container" >
+
+            <div class="center">
+
+                <div>
+
+                    <table align="center" border="0" cellspacing="0" cellpadding="2" width="100%" valign="top">
+                        <caption align="center">&nbsp;</caption>
+
+                        <tbody>
+
+                            <tr>
+
+                                <td align="CENTER" width="100%" bgcolor="#E2E2E2" border="0" cellspacing="0" cellpadding="0">
+                                    <font size="+3" face="Arial Narrow"><b>Introdução à OpenGL</b></font> <br>
+                                    <font size="+0" face="Arial Narrow"><b>Professora Isabel Harb Manssour</b></font>
+                                </td>
+                            </tr>
+
+                            <tr>
+
+                                <td>
+
+                                    <p align="center">
+                                        <font size="+0" face="Arial Narrow">
+                                            [
+
+                                            <a href="Animacao.html">Anterior</a>]&nbsp; [
+
+                                            <a href="Menus-Fonte.html">Próxima</a>]&nbsp; [
+
+                                            <a href="index.html">Principal</a>]
+                                        </font>
+                                    </p>
+                                </td>
+                            </tr>
+
+                            <tr>
+
+                                <td align="LEFT" width="100%" border="0" cellspacing="0" cellpadding="0">
+                                    &nbsp;
+
+                                    <p>
+                                    </p>
+                                    <h2>12. Gerenciamento de Eventos (teclado e <i>mouse</i>)</h2>
+
+                                    <p align="JUSTIFY">
+                                        <font size="3"> A biblioteca GLUT também contém funções para
+                                            gerenciar eventos de entrada de teclado e <i>mouse</i>. De acordo com [Woo 1999] e [Wright 2000],
+                                            estas funções foram descritas a seguir
+                                        </font>
+                                    </p>
+                                    <font size="3">
+
+                                        <p align="JUSTIFY">
+                                            <font size="4"> <b><i>glutKeyboardFunc</i></b> </font> <br>
+                                            <font size="3">
+                                                Estabelece a função <i>callback</i> que é chamada pela GLUT cada vez que uma tecla
+                                                que gera código ASCII é pressionada (por exemplo: a, b, A, b, 1, 2).
+                                                Além do valor ASCII da tecla, a posição (x,y) do <i>mouse</i> quando a tecla foi
+                                                pressionada também é retornada.
+                                                Parâmetros de entrada da função <i>callback</i>: <b><i>(unsigned char key, int x, int y)</i></b>
+                                            </font>
+                                        </p>
+                                        <font size="3">
+
+                                            <p align="JUSTIFY">
+                                                <font size="4"> <b><i>glutSpecialFunc</i></b> </font> <br>
+                                                <font size="3">
+                                                    Estabelece a função <i>callback</i> que é chamada pela GLUT cada vez que uma tecla
+                                                    que gera código não-ASCII é pressionada, tais como Home, End, PgUp,
+                                                    PgDn, F1 e F2. Além da constante que identifica a tecla, a posição corrente (x,y) do
+                                                    <i>mouse</i> quando a tecla foi pressionada também é retornada.
+                                                    Parâmetros de entrada da função <i>callback</i>: <b><i>(unsigned char key, int x, int y)</i></b>.
+                                                    Os valores válidos para o primeiro parâmetro são: GLUT_KEY_F1, GLUT_KEY_F2, GLUT_KEY_F3, GLUT_KEY_F4,
+                                                    GLUT_KEY_F5, GLUT_KEY_F6, GLUT_KEY_F7, GLUT_KEY_F8, GLUT_KEY_F9, GLUT_KEY_F10, GLUT_KEY_F11,
+                                                    GLUT_KEY_F12, GLUT_KEY_LEFT, GLUT_KEY_UP, GLUT_KEY_RIGHT, GLUT_KEY_DOWN, GLUT_KEY_PAGE_UP,
+                                                    GLUT_KEY_PAGE_DOWN, GLUT_KEY_HOME, GLUT_KEY_END, GLUT_KEY_INSERT.
+                                                </font>
+                                            </p>
+                                            <font size="3">
+
+
+                                                <p align="JUSTIFY">
+                                                    <font size="4"> <b><i>glutMouseFunc</i></b> </font> <br>
+                                                    <font size="3">
+                                                        Estabelece a função <i>callback</i> que é chamada pela GLUT cada vez que ocorre um
+                                                        evento de <i>mouse</i>. Parâmetros de entrada da função <i>callback</i>:
+                                                        <b><i>(int button, int state, int x, int y)</i></b>.
+                                                        Três valores são válidos para o parâmetro <i>button</i>: GLUT_LEFT_BUTTON,
+                                                        GLUT_MIDDLE_BUTTON e GLUT_RIGHT_BUTTON. O parâmetro <i>state</i> pode ser GLUT_UP
+                                                        ou GLUT_DOWN. Os parâmetros x e y indicam a localização do mouse no momento
+                                                        que o evento ocorreu.
+                                                    </font>
+                                                </p>
+                                                <font size="3">
+
+                                                    <p align="JUSTIFY">
+                                                        <font size="3"> O programa abaixo exemplifica a utilização das funções acima especificadas.
+                                                            Neste caso, foram implementadas as seguintes
+                                                            interações: sempre que o usuário pressiona a tecla "R" ou "r", o retângulo é exibido com a cor
+                                                            vermelha; ao pressionar a tecla "G" ou "g" o retângulo é exibido com a cor verde; pressionar a
+                                                            tecla "B" ou "b" o retângulo é exibido com a cor azul; cada vez que
+                                                            o usuário clica com o botão esquerdo do mouse, o tamanho do retângulo é alterado (vai do centro
+                                                            da janela até a posição onde houve o click do mouse); e cada vez que as teclas <i>KEY_UP</i> e
+                                                            <i>KEY_DOWN</i> são pressionadas ocorre <i>zoom-in</i> e <i>zoom-out</i>, respectivamente.
+                                                        </font>
+                                                    </p>
+                                                    <font size="3">
+
+                                                        <pre>// Interacao.c - Isabel H. Manssour
+// Um programa OpenGL simples que desenha um  quadrado em
+// uma janela GLUT de acordo com interações do usuário.
+// Este código está baseado nos exemplos
+// disponíveis no livro "OpenGL SuperBible",
+// 2nd Edition, de Richard S. e Wright Jr.
+
+#include &lt;gl/glut.h&gt;
+
+GLfloat xf, yf, win;
+GLint view_w, view_h;
+
+// Função callback chamada para fazer o desenho
+void Desenha(void)
+{
+     glMatrixMode(GL_MODELVIEW);
+     glLoadIdentity();
+
+     glClear(GL_COLOR_BUFFER_BIT);
+     // Desenha um retângulo preenchido com a cor corrente
+     glBegin(GL_POLYGON);
+               glVertex2f(0.0f, 0.0f);
+               glVertex2f(xf, 0.0f);
+               glVertex2f(xf, yf);
+               glVertex2f(0.0f, yf);
+     glEnd();
+     glFlush();
+}
+
+// Inicializa parâmetros de rendering
+void Inicializa (void)
+{
+    // Define a cor de fundo da janela de visualização como preta
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    xf=50.0f;
+    yf=50.0f;
+    win=250.0f;
+}
+
+// Função callback chamada quando o tamanho da janela é alterado
+void AlteraTamanhoJanela(GLsizei w, GLsizei h)
+{
+    // Especifica as dimensões da Viewport
+    glViewport(0, 0, w, h);
+    view_w = w;
+    view_h = h;
+
+    // Inicializa o sistema de coordenadas
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    gluOrtho2D (-win, win, -win, win);
+}
+
+// Função callback chamada para gerenciar eventos de teclado
+void GerenciaTeclado(unsigned char key, int x, int y)
+{
+    switch (key) {
+            case 'R':
+            case 'r':// muda a cor corrente para vermelho
+                     glColor3f(1.0f, 0.0f, 0.0f);
+                     break;
+            case 'G':
+            case 'g':// muda a cor corrente para verde
+                     glColor3f(0.0f, 1.0f, 0.0f);
+                     break;
+            case 'B':
+            case 'b':// muda a cor corrente para azul
+                     glColor3f(0.0f, 0.0f, 1.0f);
+                     break;
+    }
+    glutPostRedisplay();
+}
+
+// Função callback chamada para gerenciar eventos do mouse
+void GerenciaMouse(int button, int state, int x, int y)
+{
+    if (button == GLUT_LEFT_BUTTON)
+         if (state == GLUT_DOWN) {
+                  // Troca o tamanho do retângulo, que vai do centro da
+                  // janela até a posição onde o usuário clicou com o mouse
+                  xf = ( (2 * win * x) / view_w) - win;
+                  yf = ( ( (2 * win) * (y-view_h) ) / -view_h) - win;
+         }
+    glutPostRedisplay();
+}
+
+// Função callback chamada para gerenciar eventos do teclado
+// para teclas especiais, tais como F1, PgDn e Home
+void TeclasEspeciais(int key, int x, int y)
+{
+    if(key == GLUT_KEY_UP) {
+           win -= 20;
+           glMatrixMode(GL_PROJECTION);
+           glLoadIdentity();
+           gluOrtho2D (-win, win, -win, win);
+    }
+    if(key == GLUT_KEY_DOWN) {
+           win += 20;
+           glMatrixMode(GL_PROJECTION);
+           glLoadIdentity();
+           gluOrtho2D (-win, win, -win, win);
+    }
+    glutPostRedisplay();
+}
+
+// Programa Principal
+int main(void)
+{
+     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
+     glutInitWindowSize(350,300);
+     glutInitWindowPosition(10,10);
+     glutCreateWindow("Exemplo de Interacao");
+     glutDisplayFunc(Desenha);
+     glutReshapeFunc(AlteraTamanhoJanela);
+     glutKeyboardFunc(GerenciaTeclado);
+     glutMouseFunc(GerenciaMouse);
+     glutSpecialFunc(TeclasEspeciais);
+     Inicializa();
+     glutMainLoop();
+}
+</pre>
+
+                                                        <p align="JUSTIFY">
+                                                            <font size="-1"><i>Obs.:
+
+                                                                    <a href="Interacao.c">Clique aqui</a> para
+                                                                    fazer o download deste programa.</i>
+                                                            </font>
+                                                        </p>
+                                                        <font size="-1">
+
+
+                                                            <p>
+                                                                <font size="+0" face="Arial Narrow">&nbsp;</font><img src="arquivos/emban15.webp" alt="../Imagens/emban15.png (1469 bytes)" border="0" height="12" width="100%">
+                                                            </p>
+
+                                                            <p><img src="arquivos/E-MAIL.webp" alt="../Imagens/E-MAIL.JPG (3237 bytes)" border="0" height="45" width="82">
+                                                                <font size="+0" face="Arial Narrow"> Comentários, dúvidas, sugestões, envie um mail para
+
+                                                                    <a href="mailto:manssour@inf.pucrs.br">manssour@inf.pucrs.br</a>
+                                                                </font>
+                                                            </p>
+
+                                                            <p><img src="arquivos/emban15.webp" alt="../Imagens/emban15.png (1469 bytes)" border="0" height="12" width="100%"></p>
+                                                        </font>
+                                                    </font>
+                                                </font>
+                                            </font>
+                                        </font>
+                                    </font>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="center">
+
+                <table align="center" border="0" cols="1" width="100%">
+                    <tbody>
+
+                        <tr>
+
+                            <td width="12">
+
+                                <p align="center">
+                                    <font size="+0" face="Arial Narrow">
+                                        [
+
+                                        <a href="Animacao.html">Anterior</a>]&nbsp; [
+
+                                        <a href="Menus-Fonte.html">Próxima</a>]&nbsp; [
+
+                                        <a href="index.html">Principal</a>]
+                                    </font>
+                                </p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p align="right">
+                    <font size="-1" color="#5A5A5A" face="Arial Narrow"><i>Última alteração em 27 de março de 2003.</i></font>
+                </p>
+            </div>
+
+            <script defer="defer" src=vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon="{&quot;rayId&quot;:&quot;9833ee83bccc4d35&quot;,&quot;serverTiming&quot;:{&quot;name&quot;:{&quot;cfExtPri&quot;:true,&quot;cfEdge&quot;:true,&quot;cfOrigin&quot;:true,&quot;cfL4&quot;:true,&quot;cfSpeedBrain&quot;:true,&quot;cfCacheStatus&quot;:true}},&quot;version&quot;:&quot;2025.9.1&quot;,&quot;token&quot;:&quot;e574ebd03d434993bfcf28088123cf56&quot;}" crossorigin="anonymous"></script>
+
+        </div>
+        <script src="arquivos/main.js"></script>
+    </body>
+
+
+</html>

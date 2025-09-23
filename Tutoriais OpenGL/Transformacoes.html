@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+        <link rel="stylesheet" href="arquivos/main.css" type="text/css">
+        <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+        <meta name="GENERATOR" content="Microsoft FrontPage 3.0">
+        <title>Introdução à OpenGL - Profa. Isabel H. Manssour</title>
+        <meta id="websigner_softplan_com_br">
+    </head>
+
+    <body>
+
+        <div class="container" >
+
+            <div class="center">
+
+                <div>
+
+                    <table align="center" border="0" cellspacing="0" cellpadding="2" width="100%" valign="top">
+                        <caption align="center">&nbsp;</caption>
+
+                        <tbody>
+
+                            <tr>
+
+                                <td align="CENTER" width="100%" bgcolor="#E2E2E2" border="0" cellspacing="0" cellpadding="0">
+                                    <font size="+3" face="Arial Narrow"><b>Introdução à OpenGL</b></font> <br>
+                                    <font size="+0" face="Arial Narrow"><b>Professora Isabel Harb Manssour</b></font>
+                                </td>
+                            </tr>
+
+                            <tr>
+
+                                <td>
+
+                                    <p align="center">
+                                        <font size="+0" face="Arial Narrow">
+                                            [
+
+                                            <a href="LinhaPontoPolig.html">Anterior</a>]&nbsp; [
+
+                                            <a href="Animacao.html">Próxima</a>]&nbsp; [
+
+                                            <a href="index.html">Principal</a>]
+                                        </font>
+                                    </p>
+                                </td>
+                            </tr>
+
+                            <tr>
+
+                                <td align="LEFT" width="100%" border="0" cellspacing="0" cellpadding="0">
+                                    &nbsp;
+
+                                    <p>
+                                    </p>
+                                    <h2>10. Transformações Geométricas</h2>
+
+                                    <p align="JUSTIFY">
+                                        <font size="3"> As transformações geométricas são usadas para manipular
+                                            um modelo, isto é, através delas é possível mover, rotacionar ou alterar a escala de um objeto. A aparência final
+                                            da cena ou do objeto depende muito da ordem na qual estas transformações são aplicadas.
+                                        </font>
+                                    </p>
+                                    <font size="3">
+
+                                        <p align="JUSTIFY">
+                                            <font size="3"> A biblioteca gráfica OpenGL é capaz de executar
+                                                transformações de translação, escala e rotação através de uma multiplicação de matrizes.
+                                                A idéia central destas transformações em OpenGL é que elas podem ser combinadas em uma única matriz,
+                                                de tal maneira que várias transformações geométricas possam ser aplicadas através de uma única operação.
+                                            </font>
+                                        </p>
+                                        <font size="3">
+
+                                            <p align="JUSTIFY">
+                                                <font size="3"> Isto ocorre porque uma transformação geométrica em
+                                                    OpenGL é armazenada internamente em uma matriz. A cada transformação que é aplicada, esta matriz é
+                                                    alterada e usada para desenhar os objetos a partir daquele momento. A cada nova alteração é feita uma
+                                                    composição de matrizes. Para evitar este efeito "cumulativo",
+                                                    é necessário utilizar as funções <i>glPushMatrix()</i> e <i>glPopMatrix()</i>, que
+                                                    salvam e restauram, respectivamente, a matriz atual em uma pilha interna da OpenGL.
+                                                </font>
+                                            </p>
+                                            <font size="3">
+
+                                                <p align="JUSTIFY">
+                                                    <font size="3"> A <b>translação</b> é feita através da função
+                                                        <i>glTranslatef(Tx, Ty, Tz)</i>, que pode receber três números <i>float</i> ou <i>double</i> (<i>glTranslated</i>)
+                                                        como parâmetro. Neste caso, a matriz atual é multiplicada por uma matriz de translação baseada nos valores dados.
+                                                    </font>
+                                                </p>
+                                                <font size="3">
+
+                                                    <p align="JUSTIFY">
+                                                        <font size="3"> A <b>rotação</b> é feita através da função
+                                                            <i>glRotatef(Ângulo, x, y, z)</i>, que pode receber quatro números <i>float</i> ou <i>double</i> (<i>glRotated</i>) como
+                                                            parâmetro. Neste caso, a matriz atual é multiplicada por uma matriz de rotação de "Ângulo" graus ao redor do eixo definido
+                                                            pelo vetor "x,y,z" no sentido anti-horário.
+                                                        </font>
+                                                    </p>
+                                                    <font size="3">
+
+                                                        <p align="JUSTIFY">
+                                                            <font size="3"> A <b>escala</b> é feita através da função
+                                                                <i>glScalef(Ex, Ey, Ez)</i>, que pode receber três números <i>float</i> ou <i>double</i> (<i>glScaled</i>) como
+                                                                parâmetro. Neste caso, a matriz atual é multiplicada por uma matriz de escala baseada nos valores dados.
+                                                            </font>
+                                                        </p>
+                                                        <font size="3">
+
+                                                            <p align="JUSTIFY">
+                                                                <font size="3"> Logo abaixo a função "Desenha" do exemplo do
+
+                                                                    <a href="Desenhando.html">capítulo 8</a> é alterada para incluir as transformações geométricas de translação e
+                                                                    escala. As funções <i>glPushMatrix( )</i> e <i>glPopMatrix( )</i> são usadas para que esta
+                                                                    transformação não seja aplicada no modelo cada vez que ele é redesenhado [Wright 2000]. A figura 10.1
+                                                                    mostra como o quadrado é exibido após a aplicação das transformações especificadas.
+                                                                </font>
+                                                            </p>
+                                                            <font size="3">
+
+                                                                <pre>void Desenha(void)
+{
+     glMatrixMode(GL_MODELVIEW);
+     glLoadIdentity();
+     glClear(GL_COLOR_BUFFER_BIT);
+     glColor3f(1.0f, 0.0f, 0.0f);
+     glTranslatef(-100.0f, -30.0f, 0.0f);
+     glScalef(1.5f, 0.5f, 1.0f);
+
+     glBegin(GL_QUADS);
+               glVertex2i(100,150);
+               glVertex2i(100,100);
+               // Especifica que a cor corrente é azul
+               glColor3f(0.0f, 0.0f, 1.0f);
+               glVertex2i(150,100);
+               glVertex2i(150,150);
+     glEnd();
+     glFlush();
+}
+</pre>
+
+                                                                <b>
+
+                                                                    <p align="center"><img src="arquivos/Figura10.webp"></p>
+                                                                </b>
+
+                                                                <p align="CENTER"><strong>Figura 10.1 - Saída do programa
+
+                                                                        <a href="Desenhando.html#Quadrado">Quadrado.c</a>
+                                                                        após a alteração da função "Desenha"</strong></p>
+
+                                                                <p>
+                                                                    <font size="+0" face="Arial Narrow">&nbsp;</font><img src="arquivos/emban15.webp" alt="../Imagens/emban15.png (1469 bytes)" border="0" height="12" width="100%">
+                                                                </p>
+
+                                                                <p><img src="arquivos/E-MAIL.webp" alt="../Imagens/E-MAIL.JPG (3237 bytes)" border="0" height="45" width="82">
+                                                                    <font size="+0" face="Arial Narrow"> Comentários, dúvidas, sugestões, envie um mail para
+
+                                                                        <a href="mailto:manssour@inf.pucrs.br">manssour@inf.pucrs.br</a>
+                                                                    </font>
+                                                                </p>
+
+                                                                <p><img src="arquivos/emban15.webp" alt="../Imagens/emban15.png (1469 bytes)" border="0" height="12" width="100%"></p>
+                                                            </font>
+                                                        </font>
+                                                    </font>
+                                                </font>
+                                            </font>
+                                        </font>
+                                    </font>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="center">
+
+                <table align="center" border="0" cols="1" width="100%">
+                    <tbody>
+
+                        <tr>
+
+                            <td width="12">
+
+                                <p align="center">
+                                    <font size="+0" face="Arial Narrow">
+                                        [
+
+                                        <a href="LinhaPontoPolig.html">Anterior</a>]&nbsp; [
+
+                                        <a href="Animacao.html">Próxima</a>]&nbsp; [
+
+                                        <a href="index.html">Principal</a>]
+                                    </font>
+                                </p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p align="right">
+                    <font size="-1" color="#5A5A5A" face="Arial Narrow"><i>Última alteração em 27 de março de 2003.</i></font>
+                </p>
+            </div>
+
+            <script defer="defer" src=vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon="{&quot;rayId&quot;:&quot;9833edeb9b854d35&quot;,&quot;serverTiming&quot;:{&quot;name&quot;:{&quot;cfExtPri&quot;:true,&quot;cfEdge&quot;:true,&quot;cfOrigin&quot;:true,&quot;cfL4&quot;:true,&quot;cfSpeedBrain&quot;:true,&quot;cfCacheStatus&quot;:true}},&quot;version&quot;:&quot;2025.9.1&quot;,&quot;token&quot;:&quot;e574ebd03d434993bfcf28088123cf56&quot;}" crossorigin="anonymous"></script>
+
+        </div>
+        <script src="arquivos/main.js"></script>
+    </body>
+
+
+</html>

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+        <link rel="stylesheet" href="arquivos/main.css" type="text/css">
+        <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+        <meta name="GENERATOR" content="Microsoft FrontPage 3.0">
+        <title>Introdução à OpenGL - Profa. Isabel H. Manssour</title>
+        <meta id="websigner_softplan_com_br">
+    </head>
+
+    <body>
+
+        <div class="container" >
+
+            <div class="center">
+
+                <div>
+
+                    <table align="center" border="0" cellspacing="0" cellpadding="2" width="100%" valign="top">
+                        <caption align="center">&nbsp;</caption>
+
+                        <tbody>
+
+                            <tr>
+
+                                <td align="CENTER" width="100%" bgcolor="#E2E2E2" border="0" cellspacing="0" cellpadding="0">
+                                    <font size="+3" face="Arial Narrow"><b>Introdução à OpenGL</b></font> <br>
+                                    <font size="+0" face="Arial Narrow"><b>Professora Isabel Harb Manssour</b></font>
+                                </td>
+                            </tr>
+
+                            <tr>
+
+                                <td>
+
+                                    <p align="center">
+                                        <font size="+0" face="Arial Narrow">
+                                            [
+
+                                            <a href="NomesFuncoes.html">Anterior</a>]&nbsp; [
+
+                                            <a href="MaquinaDeEstados.html">Próxima</a>]&nbsp; [
+
+                                            <a href="index.html">Principal</a>]
+                                        </font>
+                                    </p>
+                                </td>
+                            </tr>
+
+                            <tr>
+
+                                <td align="LEFT" width="100%" border="0" cellspacing="0" cellpadding="0">
+                                    &nbsp;
+
+                                    <p>
+                                    </p>
+                                    <h2>05. Bibliotecas</h2>
+
+                                    <p align="JUSTIFY">
+                                        <font size="3"> Segundo [Woo 1999], OpenGL fornece um conjunto de comandos poderosos,
+                                            mas primitivos. Portanto, todas as rotinas de desenho de alto nível devem ser elaboradas em
+                                            função destes comandos. Sendo assim, foram desenvolvidas algumas bibliotecas para simplificar
+                                            a tarefa de programação. Estas bibliotecas são apresentadas a seguir.
+                                        </font>
+                                    </p>
+                                    <font size="3">
+
+
+                                        <ul>
+
+                                            <li>
+
+                                                <p align="JUSTIFY">
+                                                    <font size="3">
+
+                                                        <a name="glu"><b>GLU - <i>OpenGL Utility Library</i></b></a>: contém várias
+                                                        rotinas que utilizam os comandos OpenGL de baixo nível para executar tarefas como, por exemplo, definir
+                                                        as matrizes para projeção e orientação da visualização, e fazer o <i>rendering</i> de uma
+                                                        superfície. Esta biblioteca é fornecida como parte de cada implementação de OpenGL, e suas
+                                                        funções usam o prefixo <b>glu</b> [Woo 1999].
+                                                    </font>
+                                                </p>
+                                            </li>
+                                            <font size="3">
+
+                                                <li>
+
+                                                    <p align="JUSTIFY">
+                                                        <font size="3"> <b>GLUT - <i>OpenGL Utility Toolkit</i></b>: é um <i>toolkit</i>
+                                                            independente de plataforma, que inclui alguns elementos GUI (<i>Graphical User Interface</i>),
+                                                            tais como menus <i>pop-up</i> e suporte para <i>joystick</i>. Esta biblioteca, escrita por
+                                                            Mark Kilgard, não é domínio público, mas é <i>free</i>. O seu principal objetivo é esconder a complexidade das
+                                                            APIs dos diferentes sistemas de janelas.
+                                                            As funções desta biblioteca usam
+                                                            o prefixo <b>glut</b>. É interessante comentar que a
+
+                                                            <a href="http://www.opengl.org/developers/documentation/glut.html">GLUT</a>
+                                                            substitiu a GLAUX, uma biblioteca auxiliar OpenGL que havia sido criada para facilitar o
+                                                            aprendizado e a elaboração de programas OpenGL independente do ambiente de programação
+                                                            (<i>Linux</i>, <i>Windows</i>, etc.) [Woo 1999, Wright 2000].
+                                                        </font>
+                                                    </p>
+                                                </li>
+                                                <font size="3">
+
+                                                    <li>
+
+                                                        <p align="JUSTIFY">
+                                                            <font size="3"> <b>GLX - <i>OpenGL Extension to the X Window System</i></b>:
+                                                                fornecido como um "anexo" de OpenGL para máquinas que usam o <i>X Window System</i>. Funções
+                                                                GLX usam o prefixo <b>glX</b>. Para <i>Microsoft Windows</i> 95/98/NT, as funções WGL fornecem
+                                                                as janelas para a interface OpenGL. Todas as funções WGL usam o prefixo <b>wgl</b>. Para IBM/OS2,
+                                                                a PGL é a <i>Presentation Manager</i> para a interface OpenGL, e suas funções usam o prefixo
+                                                                <b>pgl</b>. Para <i>Apple</i>, a AGL é a interface para sistemas que suportam OpenGL, e as
+                                                                funções AGL usam o prefixo <b>agl</b> [Woo 1999].
+                                                            </font>
+                                                        </p>
+                                                    </li>
+                                                    <font size="3">
+
+                                                        <li>
+
+                                                            <p align="JUSTIFY">
+                                                                <font size="3"> <b>FSG - <i>Fahrenheit Scene Graph</i></b>: é um <i>toolkit</i>
+                                                                    orientado à objetos e baseado em OpenGL, que fornece objetos e métodos para a criação de
+                                                                    aplicações gráficas 3D interativas. FSG, que foi escrito em C++ e é separado de OpenGL, fornece
+                                                                    componentes de alto nível para criação e edição de cenas 3D, e a habilidade de trocar dados
+                                                                    em outros formatos gráficos [Woo 1999].
+                                                                </font>
+                                                            </p>
+                                                        </li>
+                                                        <font size="3">
+
+                                                        </font>
+                                                    </font>
+                                                </font>
+                                            </font>
+                                        </ul>
+                                        <font size="3">
+                                            <font size="3">
+                                                <font size="3">
+
+
+                                                    <p>
+                                                        <font size="+0" face="Arial Narrow">&nbsp;</font><img src="arquivos/emban15.webp" alt="../Imagens/emban15.png (1469 bytes)" border="0" height="12" width="100%">
+                                                    </p>
+
+                                                    <p><img src="arquivos/E-MAIL.webp" alt="../Imagens/E-MAIL.JPG (3237 bytes)" border="0" height="45" width="82">
+                                                        <font size="+0" face="Arial Narrow"> Comentários, dúvidas, sugestões, envie um mail para
+
+                                                            <a href="mailto:manssour@inf.pucrs.br">manssour@inf.pucrs.br</a>
+                                                        </font>
+                                                    </p>
+
+                                                    <p><img src="arquivos/emban15.webp" alt="../Imagens/emban15.png (1469 bytes)" border="0" height="12" width="100%"></p>
+                                                </font>
+                                            </font>
+                                        </font>
+                                    </font>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="center">
+
+                <table align="center" border="0" cols="1" width="100%">
+                    <tbody>
+
+                        <tr>
+
+                            <td width="12">
+
+                                <p align="center">
+                                    <font size="+0" face="Arial Narrow">
+                                        [
+
+                                        <a href="NomesFuncoes.html">Anterior</a>]&nbsp; [
+
+                                        <a href="MaquinaDeEstados.html">Próxima</a>]&nbsp; [
+
+                                        <a href="index.html">Principal</a>]
+                                    </font>
+                                </p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p align="right">
+                    <font size="-1" color="#5A5A5A" face="Arial Narrow"><i>Última alteração em 20 de março de 2003.</i></font>
+                </p>
+            </div>
+
+            <script defer="defer" src=vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon="{&quot;rayId&quot;:&quot;9833ed2058cc4d35&quot;,&quot;serverTiming&quot;:{&quot;name&quot;:{&quot;cfExtPri&quot;:true,&quot;cfEdge&quot;:true,&quot;cfOrigin&quot;:true,&quot;cfL4&quot;:true,&quot;cfSpeedBrain&quot;:true,&quot;cfCacheStatus&quot;:true}},&quot;version&quot;:&quot;2025.9.1&quot;,&quot;token&quot;:&quot;e574ebd03d434993bfcf28088123cf56&quot;}" crossorigin="anonymous"></script>
+
+        </div>
+        <script src="arquivos/main.js"></script>
+    </body>
+
+
+</html>

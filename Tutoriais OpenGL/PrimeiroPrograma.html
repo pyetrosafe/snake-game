@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+        <link rel="stylesheet" href="arquivos/main.css" type="text/css">
+        <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+        <meta name="GENERATOR" content="Microsoft FrontPage 3.0">
+        <title>Introdução à OpenGL - Profa. Isabel H. Manssour</title>
+        <meta id="websigner_softplan_com_br">
+    </head>
+
+    <body>
+
+        <div class="container" >
+
+            <div class="center">
+
+                <div>
+
+                    <table align="center" border="0" cellspacing="0" cellpadding="2" width="100%" valign="top">
+                        <caption align="center">&nbsp;</caption>
+
+                        <tbody>
+
+                            <tr>
+
+                                <td align="CENTER" width="100%" bgcolor="#E2E2E2" border="0" cellspacing="0" cellpadding="0">
+                                    <font size="+3" face="Arial Narrow"><b>Introdução à OpenGL</b></font> <br>
+                                    <font size="+0" face="Arial Narrow"><b>Professora Isabel Harb Manssour</b></font>
+                                </td>
+                            </tr>
+
+                            <tr>
+
+                                <td>
+
+                                    <p align="center">
+                                        <font size="+0" face="Arial Narrow">
+                                            [
+
+                                            <a href="MaquinaDeEstados.html">Anterior</a>]&nbsp; [
+
+                                            <a href="Desenhando.html">Próxima</a>]&nbsp; [
+
+                                            <a href="index.html">Principal</a>]
+                                        </font>
+                                    </p>
+                                </td>
+                            </tr>
+
+                            <tr>
+
+                                <td align="LEFT" width="100%" border="0" cellspacing="0" cellpadding="0">
+                                    &nbsp;
+
+                                    <p>
+                                    </p>
+                                    <h2>07. Primeiro Programa</h2>
+
+                                    <p align="JUSTIFY">
+                                        <font size="3">
+
+                                            A biblioteca GLUT, descrita no
+
+                                            <a href="Bibliotecas.html">capítulo 5</a>, é utilizada nos exemplos deste tutorial que começam a ser
+                                            apresentados a partir deste capítulo. Portanto, estes exemplos podem ser compilados em várias plataformas sem a necessidade,
+                                            por exemplo, de saber elaborar programas com <i>interface</i> para ambiente <i>Windows</i>.
+                                        </font>
+                                    </p>
+                                    <font size="3">
+
+                                        <p align="JUSTIFY">
+                                            <font size="3"> Para entender o funcionamento da GLUT, logo abaixo
+                                                é apresentado o menor programa OpenGL possível, implementado por [Wright 2000], que simplesmente abre
+                                                uma janela OpenGL.
+                                            </font>
+                                        </p>
+                                        <font size="3">
+
+                                            <pre>// PrimeiroPrograma.c - Isabel H. Manssour
+// Um programa OpenGL simples que abre uma janela GLUT
+// Este código está baseado no Simple.c, exemplo
+// disponível no livro "OpenGL SuperBible",
+// 2nd Edition, de Richard S. e Wright Jr.
+
+#include &lt;gl/glut.h&gt;
+
+// Função callback chamada para fazer o desenho
+void Desenha(void)
+{
+	//Limpa a janela de visualização com a cor de fundo especificada
+	glClear(GL_COLOR_BUFFER_BIT);
+
+	//Executa os comandos OpenGL
+	glFlush();
+}
+
+// Inicializa parâmetros de rendering
+void Inicializa (void)
+{
+    // Define a cor de fundo da janela de visualização como preta
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+}
+
+// Programa Principal
+int main(void)
+{
+	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
+	glutCreateWindow("Primeiro Programa");
+	glutDisplayFunc(Desenha);
+	Inicializa();
+	glutMainLoop();
+}
+</pre>
+
+                                            <p align="JUSTIFY">
+                                                <font size="-1"><i>Obs.: Clique nos <i>links</i> a seguir para fazer o <i>download</i>
+                                                        deste programa, incluindo o projeto e o executável, para os ambientes de programação Visual C++ e Dev-C++,
+                                                        respectivamente:
+
+                                                        <a href="ProjetoVisualCPP.zip">Exemplo Visual C++</a>,
+
+                                                        <a href="ProjetoDevCPP.zip">Exemplo Dev-C++</a>.
+                                                    </i></font>
+                                            </p>
+                                            <font size="-1"><i>
+
+
+                                                    <p align="JUSTIFY">
+                                                        <font size="3"> Este programa simples contém quatro funções
+                                                            da biblioteca GLUT (prefixo <i>glut</i>), e três funções OpenGL (prefixo <i>gl</i>).
+                                                            O conteúdo deste programa é descrito detalhadamente a seguir.
+                                                        </font>
+                                                    </p>
+                                                    <font size="3">
+
+                                                        <ul>
+
+                                                            <li>
+
+                                                                <p align="JUSTIFY">
+                                                                    <font size="3"> O arquivo <b><i>glut.h</i></b> contém os protótipos das
+                                                                        funções utilizadas pelo programa. Ele também inclui os <i>headers</i> <i>gl.h</i> e <i>glu.h</i>
+                                                                        que definem, respectivamente, as bibliotecas de funções OpenGL e GLU. O <i>header</i> <i>#include <windows.h> </windows.h></i>
+                                                                        é requerido por todas as aplicações <i>windows</i>, mas a sua inclusão é opcional porque a versão
+                                                                        WIN32 da GLUT já inclui o <i>windows.h</i> na <i>glut.h</i>. Entretanto, se o objetivo
+                                                                        é criar um código portável, é um bom hábito incluir este arquivo.
+                                                                    </font>
+                                                                </p>
+                                                            </li>
+                                                            <font size="3">
+
+                                                                <a name="init">
+                                                                    <li>
+
+                                                                        <p align="JUSTIFY">
+                                                                            <font size="3"> <b><i>glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);</i></b> avisa
+                                                                                a GLUT que tipo de modo de exibição deve ser usado quando a janela é criada. Neste caso os argumentos
+                                                                                indicam a criação de uma janela <i>single-buffered</i> (GLUT_SINGLE) com o modo de cores
+                                                                                RGBA (GLUT_RGB). O primeiro significa que todos os comandos de desenho são feitos na janela de
+                                                                                exibição. Uma alternativa é uma janela <i>double-buffered</i>, onde os comandos de desenho são
+                                                                                executados para criar uma cena fora da tela para depois rapidamente colocá-la na <i>view</i>
+                                                                                (ou janela de visualização).
+                                                                                Este método é geralmente utilizado para produzir efeitos de animação. O modo de cores RGBA
+                                                                                significa que as cores são especificadas através do fornecimento de intensidades dos
+                                                                                componentes <i>red</i>, <i>green</i> e <i>blue</i> separadas.
+                                                                            </font>
+                                                                        </p>
+                                                                    </li>
+                                                                    <font size="3">
+
+                                                                        <li>
+
+                                                                            <p align="JUSTIFY">
+                                                                                <font size="3"> <b><i>glutCreateWindow("Primeiro Programa");</i></b> é o comando da biblioteca
+                                                                                    GLUT que cria a janela. Neste caso, é criada uma janela com o nome "Primeiro Programa". Este argumento
+                                                                                    corresponde a legenda para a barra de título da janela.
+                                                                                </font>
+                                                                            </p>
+                                                                        </li>
+                                                                        <font size="3">
+
+                                                                            <li>
+
+                                                                                <p align="JUSTIFY">
+                                                                                    <font size="3"> <b><i>glutDisplayFunc(Desenha);</i></b> estabelece a
+                                                                                        função "Desenha" previamente definida como a função <i>callback</i> de exibição.
+                                                                                        Isto significa que a GLUT chama a função sempre que a janela precisar ser
+                                                                                        redesenhada. Esta chamada ocorre, por exemplo, quando a janela é redimensionada ou encoberta.
+                                                                                        É nesta função que se deve colocar as chamadas de funções OpenGL, por exemplo, para modelar e
+                                                                                        exibir um objeto.
+                                                                                    </font>
+                                                                                </p>
+                                                                            </li>
+                                                                            <font size="3">
+
+                                                                                <li>
+
+                                                                                    <p align="JUSTIFY">
+                                                                                        <font size="3"> <b><i>Inicializa();</i></b> não é uma função OpenGL nem GLUT,
+                                                                                            é apenas uma convenção utilizada exemplos apresentados por [Wright 2000], nos quais este tutorial está baseado. Nesta
+                                                                                            função são feitas as inicializações OpenGL que devem ser executadas antes do
+                                                                                            <i>rendering</i>. Muitos estados OpenGL devem ser determinados somente uma vez e não
+                                                                                            a cada vez que a função “Desenha” é chamada.
+                                                                                        </font>
+                                                                                    </p>
+                                                                                </li>
+                                                                                <font size="3">
+
+                                                                                    <li>
+
+                                                                                        <p align="JUSTIFY">
+                                                                                            <font size="3"> <b><i>glutMainLoop();</i></b> é a função que faz com que
+                                                                                                comece a execução da “máquina de estados” e processa todas as mensagens específicas do sistema operacional, tais como teclas e
+                                                                                                botões do mouse pressionados, até que o programa termine.
+                                                                                            </font>
+                                                                                        </p>
+                                                                                    </li>
+                                                                                    <font size="3">
+
+                                                                                        <li>
+
+                                                                                            <p align="JUSTIFY">
+                                                                                                <font size="3"> <b><i>glClearColor(0.0f, 0.0f, 1.0f, 1.0f);</i></b> é a
+                                                                                                    função que determina a cor utilizada para limpar a janela. Seu protótipo é:
+                                                                                                    <i>void glClearColor(GLclampf red, GLclampf green, GLclampf blue, GLclampf alfa);</i>.
+                                                                                                    <i>GLclampf</i> é definido como um <i>float</i> na maioria das implementações de OpenGL.
+                                                                                                    O intervalo para cada componente <i>red</i>, <i>green</i>, <i>blue</i> é de 0 a 1. O
+                                                                                                    componente <i>alfa</i> é usado para efeitos especiais, tal como transparência.
+                                                                                                </font>
+                                                                                            </p>
+                                                                                        </li>
+                                                                                        <font size="3">
+
+                                                                                            <li>
+
+                                                                                                <p align="JUSTIFY">
+                                                                                                    <font size="3"> <b><i>glClear(GL_COLOR_BUFFER_BIT);</i></b> "limpa"
+                                                                                                        um <i>buffer</i> particular ou combinações de <i>buffers</i>, onde <i>buffer</i> é uma
+                                                                                                        área de armazenamento para informações da imagem. Os componentes RGB são geralmente
+                                                                                                        referenciados como <i>color buffer</i> ou <i>pixel buffer</i>. Existem vários tipos de
+                                                                                                        <i>buffer</i>, mas por enquanto só é necessário entender que o <i>color buffer</i> é
+                                                                                                        onde a imagem é armazenada internamente e limpar o <i>buffer</i> com <i>glClear</i>
+                                                                                                        remove o desenho da janela.
+                                                                                                    </font>
+                                                                                                </p>
+                                                                                            </li>
+                                                                                            <font size="3">
+
+                                                                                                <li>
+
+                                                                                                    <p align="JUSTIFY">
+                                                                                                        <font size="3"> <b><i>glFlush();</i></b> faz com que qualquer
+                                                                                                            comando OpenGL não executado seja executado. Neste primeiro exemplo tem apenas a
+                                                                                                            função <i>glClear</i> [Wright 2000].
+                                                                                                        </font>
+                                                                                                    </p>
+                                                                                                </li>
+                                                                                                <font size="3">
+                                                                                                </font>
+                                                                                            </font>
+                                                                                        </font>
+                                                                                    </font>
+                                                                                </font>
+                                                                            </font>
+                                                                        </font>
+                                                                    </font>
+                                                                </a>
+                                                            </font>
+                                                        </ul>
+
+                                                        <a name="init">
+                                                            <font size="3">
+                                                                <font size="3">
+                                                                    <font size="3">
+
+                                                                        <p>
+                                                                            <font size="+0" face="Arial Narrow">&nbsp;</font><img src="arquivos/emban15.webp" alt="../Imagens/emban15.png (1469 bytes)" border="0" height="12" width="100%">
+                                                                        </p>
+                                                                    </font>
+                                                                </font>
+                                                            </font>
+                                                        </a>
+                                                        <font size="3">
+                                                            <font size="3">
+                                                                <font size="3">
+
+                                                                    <p>
+
+                                                                        <a name="init"><img src="arquivos/E-MAIL.webp" alt="../Imagens/E-MAIL.JPG (3237 bytes)" border="0" height="45" width="82">
+                                                                            <font size="+0" face="Arial Narrow"> Comentários, dúvidas, sugestões, envie um mail para </font>
+                                                                        </a>
+                                                                        <font size="+0" face="Arial Narrow">
+
+                                                                            <a href="mailto:manssour@inf.pucrs.br">manssour@inf.pucrs.br</a>
+                                                                        </font>
+                                                                    </p>
+
+                                                                    <p><img src="arquivos/emban15.webp" alt="../Imagens/emban15.png (1469 bytes)" border="0" height="12" width="100%"></p>
+                                                                </font>
+                                                            </font>
+                                                        </font>
+                                                    </font>
+                                                </i></font>
+                                        </font>
+                                    </font>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="center">
+
+                <table align="center" border="0" cols="1" width="100%">
+                    <tbody>
+
+                        <tr>
+
+                            <td width="12">
+
+                                <p align="center">
+                                    <font size="+0" face="Arial Narrow">
+                                        [
+
+                                        <a href="MaquinaDeEstados.html">Anterior</a>]&nbsp; [
+
+                                        <a href="Desenhando.html">Próxima</a>]&nbsp; [
+
+                                        <a href="index.html">Principal</a>]
+                                    </font>
+                                </p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p align="right">
+                    <font size="-1" color="#5A5A5A" face="Arial Narrow"><i>Última alteração em 27 de março de 2003.</i></font>
+                </p>
+            </div>
+
+            <script defer="defer" src=vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon="{&quot;rayId&quot;:&quot;9833ed9bbcba4d35&quot;,&quot;serverTiming&quot;:{&quot;name&quot;:{&quot;cfExtPri&quot;:true,&quot;cfEdge&quot;:true,&quot;cfOrigin&quot;:true,&quot;cfL4&quot;:true,&quot;cfSpeedBrain&quot;:true,&quot;cfCacheStatus&quot;:true}},&quot;version&quot;:&quot;2025.9.1&quot;,&quot;token&quot;:&quot;e574ebd03d434993bfcf28088123cf56&quot;}" crossorigin="anonymous"></script>
+
+        </div>
+        <script src="arquivos/main.js"></script>
+    </body>
+
+
+</html>

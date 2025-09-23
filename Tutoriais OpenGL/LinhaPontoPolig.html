@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+        <link rel="stylesheet" href="arquivos/main.css" type="text/css">
+        <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+        <meta name="GENERATOR" content="Microsoft FrontPage 3.0">
+        <title>Introdução à OpenGL - Profa. Isabel H. Manssour</title>
+        <meta id="websigner_softplan_com_br">
+    </head>
+
+    <body>
+
+        <div class="container" >
+
+            <div class="center">
+
+                <div>
+
+                    <table align="center" border="0" cellspacing="0" cellpadding="2" width="100%" valign="top">
+                        <caption align="center">&nbsp;</caption>
+
+                        <tbody>
+
+                            <tr>
+
+                                <td align="CENTER" width="100%" bgcolor="#E2E2E2" border="0" cellspacing="0" cellpadding="0">
+                                    <font size="+3" face="Arial Narrow"><b>Introdução à OpenGL</b></font> <br>
+                                    <font size="+0" face="Arial Narrow"><b>Professora Isabel Harb Manssour</b></font>
+                                </td>
+                            </tr>
+
+                            <tr>
+
+                                <td>
+
+                                    <p align="center">
+                                        <font size="+0" face="Arial Narrow">
+                                            [
+
+                                            <a href="Desenhando.html">Anterior</a>]&nbsp; [
+
+                                            <a href="Transformacoes.html">Próxima</a>]&nbsp; [
+
+                                            <a href="index.html">Principal</a>]
+                                        </font>
+                                    </p>
+                                </td>
+                            </tr>
+
+                            <tr>
+
+                                <td align="LEFT" width="100%" border="0" cellspacing="0" cellpadding="0">
+                                    &nbsp;
+
+                                    <p>
+                                    </p>
+                                    <h2>09. Linhas, Pontos e Polígonos</h2>
+
+                                    <p align="JUSTIFY">
+                                        <font size="3"> Com apenas algumas primitivas
+                                            simples, tais como pontos,
+                                            linhas e polígonos, é possível criar estruturas complexas. Em outras
+                                            palavras,
+                                            objetos e cenas criadas com OpenGL consistem em simples primitivas
+                                            gráficas que podem ser combinadas de várias
+                                            maneiras [Wright 2000]. Portanto, OpenGL fornece ferramentas para
+                                            desenhar pontos, linhas e polígonos, que são formados por um
+                                            ou mais vértices. Neste caso, é necessário passar uma lista de vértices,
+                                            o que pode ser feito entre duas chamadas de funções OpenGL:
+                                            <br> <i>
+                                                glBegin() <br>
+                                                glEnd()
+                                            </i> <br>
+                                            O argumento passado para <i>glBegin()</i> determina qual objeto será desenhado. No exemplo
+                                            fornecido por [Hill 2000], para desenhar três pontos pretos foi usada a seguinte seqüência de comandos:
+                                        </font>
+                                    </p>
+                                    <font size="3">
+                                        <pre>glBegin(GL_POINTS);
+	glColor3f(0.0f, 0.0f, 0.0f);
+	glVertex2i(100, 50);
+	glVertex2i(100, 130);
+	glVertex2i(150, 130);
+glEnd();
+</pre>
+
+                                        <p></p>
+
+                                        <p align="JUSTIFY">
+                                            <font size="3"> Para desenhar outras primitivas, basta trocar
+                                                <i>GL_POINTS</i>, que exibe um ponto para cada chamada ao comando <i>glVertex</i>, por: <br>
+                                            </font>
+                                        </p>
+                                        <font size="3">
+
+                                            <ul>
+
+                                                <li>
+
+                                                    <p align="JUSTIFY">
+                                                        <font size="3"> GL_LINES: exibe uma linha a cada dois comandos
+                                                            <i>glVertex</i>;
+                                                        </font>
+                                                    </p>
+                                                </li>
+                                                <font size="3">
+
+                                                    <li>
+
+                                                        <p align="JUSTIFY">
+                                                            <font size="3"> GL_LINE_STRIP: exibe uma seqüência de linhas conectando
+                                                                os pontos definidos por <i>glVertex</i>;</font>
+                                                        </p>
+                                                    </li>
+                                                    <font size="3">
+
+                                                        <li>
+
+                                                            <p align="JUSTIFY">
+                                                                <font size="3"> GL_LINE_LOOP: exibe uma seqüência de linhas conectando
+                                                                    os pontos definidos por <i>glVertex</i> e ao final liga o primeiro como último ponto;</font>
+                                                            </p>
+                                                        </li>
+                                                        <font size="3">
+
+                                                            <li>
+
+                                                                <p align="JUSTIFY">
+                                                                    <font size="3"> GL_POLYGON: exibe um polígono convexo preenchido,
+                                                                        definido por uma seqüência de chamadas a <i>glVertex</i>;</font>
+                                                                </p>
+                                                            </li>
+                                                            <font size="3">
+
+                                                                <li>
+
+                                                                    <p align="JUSTIFY">
+                                                                        <font size="3"> GL_TRIANGLES: exibe um triângulo preenchido a cada três
+                                                                            pontos definidos por <i>glVertex</i>;</font>
+                                                                    </p>
+                                                                </li>
+                                                                <font size="3">
+
+                                                                    <li>
+
+                                                                        <p align="JUSTIFY">
+                                                                            <font size="3"> GL_TRIANGLE_STRIP: exibe uma seqüência de triângulos
+                                                                                baseados no trio de vértices v0, v1, v2, depois, v2, v1, v3, depois, v2, v3, v4 e assim por
+                                                                                diante;</font>
+                                                                        </p>
+                                                                    </li>
+                                                                    <font size="3">
+
+                                                                        <li>
+
+                                                                            <p align="JUSTIFY">
+                                                                                <font size="3"> GL_TRIANGLE_FAN: exibe uma seqüência de triângulos
+                                                                                    conectados baseados no trio de vértices v0, v1, v2, depois, v0, v2, v3, depois, v0, v3, v4 e
+                                                                                    assim por diante;</font>
+                                                                            </p>
+                                                                        </li>
+                                                                        <font size="3">
+
+                                                                            <li>
+
+                                                                                <p align="JUSTIFY">
+                                                                                    <font size="3"> GL_QUADS: exibe um quadrado preenchido conectando cada
+                                                                                        quatro pontos definidos por <i>glVertex</i>;</font>
+                                                                                </p>
+                                                                            </li>
+                                                                            <font size="3">
+
+                                                                                <li>
+
+                                                                                    <p align="JUSTIFY">
+                                                                                        <font size="3"> GL_QUAD_STRIP: exibe uma seqüência de quadriláteros
+                                                                                            conectados a cada quatro vértices; primeiro v0, v1, v3, v2, depois, v2, v3, v5, v4, depois,
+                                                                                            v4, v5, v7, v6, e assim por diante [Hill 2000, Pinho 2000].</font>
+                                                                                    </p>
+                                                                                </li>
+                                                                                <font size="3">
+
+                                                                                </font>
+                                                                            </font>
+                                                                        </font>
+                                                                    </font>
+                                                                </font>
+                                                            </font>
+                                                        </font>
+                                                    </font>
+                                                </font>
+                                            </ul>
+                                            <font size="3">
+                                                <font size="3">
+                                                    <font size="3">
+
+                                                        <p align="JUSTIFY">
+                                                            <font size="3"> A função <i>glVertex2i</i> pertence à biblioteca GL e
+                                                                possui dois argumentos inteiros. De maneira análoga, conforme explicado no
+
+                                                                <a href="NomesFuncoes.html">capítulo 4</a>,
+                                                                também é possível passar valores de ponto flutuante no lugar de inteiros,
+                                                                e três coordenadas (x,y,z) no lugar de duas usando, por exemplo, as seguintes chamadas às funções OpenGL:
+                                                                <br><i>glVertex2d(100.0, 50.0);</i>
+                                                                <br><i>glVertex3f(50.0, 50.0, 50.0);</i>
+                                                                Além disso, para cada vértice é possível definir uma cor diferente.
+                                                                Neste caso, no desenho final é feita uma "interpolação" das cores,
+                                                                como mostra o exemplo da
+
+                                                                <a href="Desenhando.html#figura8">figura 8.1</a>.
+                                                            </font>
+                                                        </p>
+
+                                                        <p align="JUSTIFY">
+                                                            <font size="3"> Para ilustrar a diferença na utilização de algumas primitivas gráficas o código apresentado no capítulo 8
+                                                                foi alterado da seguinte maneira: inicialmente, os parâmetros passados para a função <i>glutInitWindowSize</i> foram alterados para
+                                                                (200,200), para diminuir o tamanho da janela GLUT; depois, antes da função <i>glBegin(GL_QUADS)</i> foram chamadas as funções
+                                                                <i>glPointSize(3)</i> e <i>glLineWidth(3)</i>; finalmente, GL_QUADS, foi substituído por GL_POINTS, GL_LINES, GL_LINE_STRIP
+                                                                e GL_LINE_LOOP, gerando as imagens apresentadas na figura 9.1.
+                                                            </font>
+                                                        </p>
+
+                                                        <b>
+
+                                                            <p align="center"><img src="arquivos/Figura9.webp"></p>
+                                                        </b>
+
+                                                        <p align="CENTER"><strong>Figura 9.1 - Imagens geradas com a utilização de (a) GL_POINTS, (b) GL_LINES, (c) GL_LINE_STRIP e (d) GL_LINE_LOOP</strong></p>
+
+
+                                                        <p>
+                                                            <font size="+0" face="Arial Narrow">&nbsp;</font><img src="arquivos/emban15.webp" alt="../Imagens/emban15.png (1469 bytes)" border="0" height="12" width="100%">
+                                                        </p>
+
+                                                        <p><img src="arquivos/E-MAIL.webp" alt="../Imagens/E-MAIL.JPG (3237 bytes)" border="0" height="45" width="82">
+                                                            <font size="+0" face="Arial Narrow"> Comentários, dúvidas, sugestões, envie um mail para
+
+                                                                <a href="mailto:manssour@inf.pucrs.br">manssour@inf.pucrs.br</a>
+                                                            </font>
+                                                        </p>
+
+                                                        <p><img src="arquivos/emban15.webp" alt="../Imagens/emban15.png (1469 bytes)" border="0" height="12" width="100%"></p>
+                                                    </font>
+                                                </font>
+                                            </font>
+                                        </font>
+                                    </font>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="center">
+
+                <table align="center" border="0" cols="1" width="100%">
+                    <tbody>
+
+                        <tr>
+
+                            <td width="12">
+
+                                <p align="center">
+                                    <font size="+0" face="Arial Narrow">
+                                        [
+
+                                        <a href="Desenhando.html">Anterior</a>]&nbsp; [
+
+                                        <a href="Transformacoes.html">Próxima</a>]&nbsp; [
+
+                                        <a href="index.html">Principal</a>]
+                                    </font>
+                                </p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p align="right">
+                    <font size="-1" color="#5A5A5A" face="Arial Narrow"><i>Última alteração em 27 de março de 2003.</i></font>
+                </p>
+            </div>
+
+            <script defer="defer" src=vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon="{&quot;rayId&quot;:&quot;9833edd2f9d14d35&quot;,&quot;serverTiming&quot;:{&quot;name&quot;:{&quot;cfExtPri&quot;:true,&quot;cfEdge&quot;:true,&quot;cfOrigin&quot;:true,&quot;cfL4&quot;:true,&quot;cfSpeedBrain&quot;:true,&quot;cfCacheStatus&quot;:true}},&quot;version&quot;:&quot;2025.9.1&quot;,&quot;token&quot;:&quot;e574ebd03d434993bfcf28088123cf56&quot;}" crossorigin="anonymous"></script>
+
+        </div>
+        <script src="arquivos/main.js"></script>
+    </body>
+
+
+</html>

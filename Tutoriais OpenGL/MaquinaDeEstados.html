@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+        <link rel="stylesheet" href="arquivos/main.css" type="text/css">
+        <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+        <meta name="GENERATOR" content="Microsoft FrontPage 3.0">
+        <title>Introdução à OpenGL - Profa. Isabel H. Manssour</title>
+        <meta id="websigner_softplan_com_br">
+    </head>
+
+    <body>
+
+        <div class="container" >
+
+            <div class="center">
+
+                <div>
+
+                    <table align="center" border="0" cellspacing="0" cellpadding="2" width="100%" valign="top">
+                        <caption align="center">&nbsp;</caption>
+
+                        <tbody>
+
+                            <tr>
+
+                                <td align="CENTER" width="100%" bgcolor="#E2E2E2" border="0" cellspacing="0" cellpadding="0">
+                                    <font size="+3" face="Arial Narrow"><b>Introdução à OpenGL</b></font> <br>
+                                    <font size="+0" face="Arial Narrow"><b>Professora Isabel Harb Manssour</b></font>
+                                </td>
+                            </tr>
+
+                            <tr>
+
+                                <td>
+
+                                    <p align="center">
+                                        <font size="+0" face="Arial Narrow">
+                                            [
+
+                                            <a href="Bibliotecas.html">Anterior</a>]&nbsp; [
+
+                                            <a href="PrimeiroPrograma.html">Próxima</a>]&nbsp; [
+
+                                            <a href="index.html">Principal</a>]
+                                        </font>
+                                    </p>
+                                </td>
+                            </tr>
+
+                            <tr>
+
+                                <td align="LEFT" width="100%" border="0" cellspacing="0" cellpadding="0">
+                                    &nbsp;
+
+                                    <p>
+                                    </p>
+                                    <h2>06. Máquina de Estados</h2>
+
+                                    <p align="JUSTIFY">
+                                        <font size="3"> OpenGL é uma máquina de estados, conforme descrito por [Woo 1999].
+                                            É possível colocá-la em vários estados (ou modos) que não são alterados, a menos que
+                                            uma função seja chamada para isto. Por exemplo, a cor corrente é uma variável de estado que
+                                            pode ser definida como branco. Todos os objetos, então, são desenhados com a cor
+                                            branca, até o momento em que outra cor corrente é especificada.
+                                        </font>
+                                    </p>
+                                    <font size="3">
+
+                                        <p align="JUSTIFY">
+                                            <font size="3"> OpenGL mantém uma série de variáveis de estado, tais como
+                                                estilo (ou padrão) de uma linha, posições e características das luzes, e propriedades do material
+                                                dos objetos que estão sendo desenhados. Muitas delas referem-se a modos que
+                                                podem ser habilitados ou desabilitados com os comandos <i>glEnable(<variável_de_estado>)</variável_de_estado></i>
+                                                e <i>glDisable(<variável_de_estado>)</variável_de_estado></i>.
+                                            </font>
+                                        </p>
+                                        <font size="3">
+
+                                            <p align="JUSTIFY">
+                                                <font size="3"> Cada variável de estado possui um valor inicial (<i>default</i>)
+                                                    que pode ser alterado. As funções que utilizadas para saber o seu valor são:
+                                                    <i>glGetBooleanv()</i>, <i>glGetDoublev()</i>, <i>glGetFloatv</i>, <i>glGetIntegerv</i>,
+                                                    <i>glGetPointerv()</i> ou <i>glIsEnabled()</i>. Dependendo do tipo de dado, é possível
+                                                    saber qual destas funções deve ser usada [Woo 1999]. O trecho de programa a seguir mostra um exemplo
+                                                    da utilização destas funções.
+                                                </font>
+                                            </p>
+                                            <font size="3">
+
+                                                <i>
+                                                    <pre>int luz;
+:
+glEnable(GL_LIGHTING); 	//Habilita luz - GL_LIGHTING é a variável de estado
+:
+luz = glIsEnabled(GL_LIGHTING); // retorna 1 (verdadeiro)
+:
+glDisable(GL_LIGHTING); //Desabilita luz
+:
+luz = glIsEnabled(GL_LIGHTING); // retorna 0 (falso)
+:
+</pre>
+                                                </i>
+
+                                                <p>
+                                                    <font size="+0" face="Arial Narrow">&nbsp;</font><img src="arquivos/emban15.webp" alt="../Imagens/emban15.png (1469 bytes)" border="0" height="12" width="100%">
+                                                </p>
+
+                                                <p><img src="arquivos/E-MAIL.webp" alt="../Imagens/E-MAIL.JPG (3237 bytes)" border="0" height="45" width="82">
+                                                    <font size="+0" face="Arial Narrow"> Comentários, dúvidas, sugestões, envie um mail para
+
+                                                        <a href="mailto:manssour@inf.pucrs.br">manssour@inf.pucrs.br</a>
+                                                    </font>
+                                                </p>
+
+                                                <p><img src="arquivos/emban15.webp" alt="../Imagens/emban15.png (1469 bytes)" border="0" height="12" width="100%"></p>
+                                            </font>
+                                        </font>
+                                    </font>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="center">
+
+                <table align="center" border="0" cols="1" width="100%">
+                    <tbody>
+
+                        <tr>
+
+                            <td width="12">
+
+                                <p align="center">
+                                    <font size="+0" face="Arial Narrow">
+                                        [
+
+                                        <a href="Bibliotecas.html">Anterior</a>]&nbsp; [
+
+                                        <a href="PrimeiroPrograma.html">Próxima</a>]&nbsp; [
+
+                                        <a href="index.html">Principal</a>]
+                                    </font>
+                                </p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p align="right">
+                    <font size="-1" color="#5A5A5A" face="Arial Narrow"><i>Última alteração em 13 de agosto de 2001.</i></font>
+                </p>
+            </div>
+
+            <script defer="defer" src=vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon="{&quot;rayId&quot;:&quot;9833ed736e574d35&quot;,&quot;serverTiming&quot;:{&quot;name&quot;:{&quot;cfExtPri&quot;:true,&quot;cfEdge&quot;:true,&quot;cfOrigin&quot;:true,&quot;cfL4&quot;:true,&quot;cfSpeedBrain&quot;:true,&quot;cfCacheStatus&quot;:true}},&quot;version&quot;:&quot;2025.9.1&quot;,&quot;token&quot;:&quot;e574ebd03d434993bfcf28088123cf56&quot;}" crossorigin="anonymous"></script>
+
+        </div>
+        <script src="arquivos/main.js"></script>
+    </body>
+
+
+</html>

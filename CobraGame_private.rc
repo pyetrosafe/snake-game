@@ -4,7 +4,7 @@
 #include <windows.h> // include for version info constants
 
 
-A ICON MOVEABLE PURE LOADONCALL DISCARDABLE "CobraGame.ico"
+A ICON "CobraGame.ico"
 
 //
 // TO CHANGE VERSION INFORMATION, EDIT PROJECT OPTIONS...
@@ -15,23 +15,22 @@ PRODUCTVERSION 1,0,9,1
 FILETYPE VFT_APP
 {
   BLOCK "StringFileInfo"
-	 {
-		 BLOCK "041604E4"
-		 {
-			 VALUE "CompanyName", ""
-			 VALUE "FileVersion", "CobraGame vs1.09"
-			 VALUE "FileDescription", "Developed using the Dev-C++ IDE"
-			 VALUE "InternalName", "by Pyetrosafe"
-			 VALUE "LegalCopyright", ""
-			 VALUE "LegalTrademarks", ""
-			 VALUE "OriginalFilename", "CobraGame GL"
-			 VALUE "ProductName", "CobraGame"
-			 VALUE "ProductVersion", "1.09"
-		 }
-	 }
+  {
+    BLOCK "041604E4"
+    {
+      VALUE "CompanyName", ""
+      VALUE "FileVersion", "1.0.9.1"
+      VALUE "FileDescription", "Developed using the Dev-C++ IDE"
+      VALUE "InternalName", "by Pyetrosafe"
+      VALUE "LegalCopyright", ""
+      VALUE "LegalTrademarks", ""
+      VALUE "OriginalFilename", "CobraGame GL"
+      VALUE "ProductName", "CobraGame"
+      VALUE "ProductVersion", "1.09"
+    }
+  }
   BLOCK "VarFileInfo"
-	 {
-		 VALUE "Translation", 0x0416, 1252
-	 }
+  {
+    VALUE "Translation", 0x0416, 1252
+  }
 }
-

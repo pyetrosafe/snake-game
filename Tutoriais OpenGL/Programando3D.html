@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+        <link rel="stylesheet" href="arquivos/main.css" type="text/css">
+        <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+        <meta name="GENERATOR" content="Microsoft FrontPage 3.0">
+        <title>Introdução à OpenGL - Profa. Isabel H. Manssour</title>
+        <meta id="websigner_softplan_com_br">
+    </head>
+
+    <body>
+
+        <div class="container" >
+
+            <div class="center">
+
+                <div>
+
+                    <table align="center" border="0" cellspacing="0" cellpadding="2" width="100%" valign="top">
+                        <caption align="center">&nbsp;</caption>
+
+                        <tbody>
+
+                            <tr>
+
+                                <td align="CENTER" width="100%" bgcolor="#E2E2E2" border="0" cellspacing="0" cellpadding="0">
+                                    <font size="+3" face="Arial Narrow"><b>Introdução à OpenGL</b></font> <br>
+                                    <font size="+0" face="Arial Narrow"><b>Professora Isabel Harb Manssour</b></font>
+                                </td>
+                            </tr>
+
+                            <tr>
+
+                                <td>
+
+                                    <p align="center">
+                                        <font size="+0" face="Arial Narrow">
+                                            [
+
+                                            <a href="Menus-Fonte.html">Anterior</a>]&nbsp; [
+
+                                            <a href="Iluminacao.html">Próxima</a>]&nbsp; [
+
+                                            <a href="index.html">Principal</a>]
+                                        </font>
+                                    </p>
+                                </td>
+                            </tr>
+
+                            <tr>
+
+                                <td align="LEFT" width="100%" border="0" cellspacing="0" cellpadding="0">
+                                    &nbsp;
+
+                                    <p>
+                                    </p>
+                                    <h2>14. Programando em 3D</h2>
+
+                                    <p align="JUSTIFY">
+                                        <font size="3">Os exemplos apresentados até aqui mostraram apenas desenhos 2D.
+                                            Este capítulo descreve como trabalhar em 3D usando OpenGL.
+                                            As bibliotecas GLU e GLUT possuem uma série de funções para desenhar primitivas 3D, tais como
+                                            esferas, cones, cilindros e <i>teapot</i>. Em 3D se assume que o
+                                            processo utilizado para visualizar
+                                            uma determinada cena é análogo a tirar uma fotografia com uma máquina
+                                            fotográfica, o que inclui, segundo [Woo 1999], os seguintes passos:
+                                        </font>
+                                    </p>
+                                    <font size="3">
+
+                                        <p align="JUSTIFY">
+                                            <font size="3">
+                                            </font>
+                                        </p>
+
+                                        <ul>
+                                            <font size="3">
+                                                <li> Arrumar o tripé e posicionar a câmera para fotografar a cena - equivalente a
+                                                    especificar as transformações de visualização (veja a função <i>gluLookAt</i> descrita mais
+                                                    abaixo);
+                                                </li>
+                                                <li> Arrumar a cena para ser fotografada, incluindo ou excluindo objetos/pessoas - equivalente
+                                                    à etapa de modelagem (inclui as tranformações geométricas, <i>glTranslatef</i>, <i>glScalef</i>,
+                                                    <i>glRotatef</i>, e o desenho dos objetos);
+                                                </li>
+                                                <li> Escolher a lente da câmera ou ajustar o <i>zoom</i> - equivalente a especificar as
+                                                    transformações de projeção (veja a função <i>gluPerspective</i> descrita mais
+                                                    abaixo);
+                                                </li>
+                                                <li> Determinar o tamanho final da foto (maior ou menor) - equivalente a especificar a
+                                                    <i>viewport</i> (funções <i>glViewport</i> e <i>ChangeSize</i>).
+                                                </li>
+                                            </font>
+                                        </ul>
+                                        <font size="3">
+                                        </font>
+
+                                        <p></p>
+
+                                        <p align="JUSTIFY">
+                                            <font size="3"> O exemplo abaixo exemplifica a utilização das
+                                                funções OpenGL para visualização 3D.
+                                            </font>
+                                        </p>
+                                        <font size="3">
+
+                                            <pre>// TeaPot3D.c - Isabel H. Manssour
+// Um programa OpenGL que exemplifica a visualização
+// de objetos 3D.
+// Este código está baseado nos exemplos disponíveis no livro
+// "OpenGL SuperBible", 2nd Edition, de Richard S. e Wright Jr.
+
+#include &lt;gl/glut.h&gt;
+
+GLfloat angle, fAspect;
+
+// Função callback chamada para fazer o desenho
+void Desenha(void)
+{
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    glColor3f(0.0f, 0.0f, 1.0f);
+
+    // Desenha o teapot com a cor corrente (wire-frame)
+    glutWireTeapot(50.0f);
+
+    // Executa os comandos OpenGL
+    glutSwapBuffers();
+ }
+
+// Inicializa parâmetros de rendering
+void Inicializa (void)
+{
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    angle=45;
+}
+
+// Função usada para especificar o volume de visualização
+void EspecificaParametrosVisualizacao(void)
+{
+    // Especifica sistema de coordenadas de projeção
+    glMatrixMode(GL_PROJECTION);
+    // Inicializa sistema de coordenadas de projeção
+    glLoadIdentity();
+
+    // Especifica a projeção perspectiva
+    gluPerspective(angle,fAspect,0.1,500);
+
+    // Especifica sistema de coordenadas do modelo
+    glMatrixMode(GL_MODELVIEW);
+    // Inicializa sistema de coordenadas do modelo
+    glLoadIdentity();
+
+    // Especifica posição do observador e do alvo
+    gluLookAt(0,80,200, 0,0,0, 0,1,0);
+}
+
+// Função callback chamada quando o tamanho da janela é alterado
+void AlteraTamanhoJanela(GLsizei w, GLsizei h)
+{
+    // Para previnir uma divisão por zero
+    if ( h == 0 ) h = 1;
+
+    // Especifica o tamanho da viewport
+    glViewport(0, 0, w, h);
+
+    // Calcula a correção de aspecto
+    fAspect = (GLfloat)w/(GLfloat)h;
+
+    EspecificaParametrosVisualizacao();
+}
+
+// Função callback chamada para gerenciar eventos do mouse
+void GerenciaMouse(int button, int state, int x, int y)
+{
+    if (button == GLUT_LEFT_BUTTON)
+        if (state == GLUT_DOWN) {  // Zoom-in
+            if (angle &gt;= 10) angle -= 5;
+        }
+    if (button == GLUT_RIGHT_BUTTON)
+        if (state == GLUT_DOWN) {  // Zoom-out
+            if (angle &lt;= 130) angle += 5;
+        }
+    EspecificaParametrosVisualizacao();
+    glutPostRedisplay();
+}
+
+// Programa Principal
+int main(void)
+{
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
+    glutInitWindowSize(350,300);
+    glutCreateWindow("Visualizacao 3D");
+    glutDisplayFunc(Desenha);
+    glutReshapeFunc(AlteraTamanhoJanela);
+    glutMouseFunc(GerenciaMouse);
+    Inicializa();
+    glutMainLoop();
+}
+</pre>
+
+                                            <p align="JUSTIFY">
+                                                <font size="-1"><i>Obs.:
+
+                                                        <a href="TeaPot3D.c">Clique aqui</a> para
+                                                        fazer o download deste programa.</i>
+                                                </font>
+                                            </p>
+                                            <font size="-1">
+
+                                                <p align="JUSTIFY">
+                                                    <font size="3"> O programa apresentado acima, como mostra a figura 14.1,
+                                                        apenas exibe um <i>teapot</i> (ou bule de chá) azul, no formato <i>wire-frame</i>, numa janela com fundo preto.
+                                                        Ao posicionar o <i>mouse</i> sobre a janela e clicar com o botão esquerdo e direito, é
+                                                        possível obter <i>zoom-in</i> e <i>zoom-out</i>, respectivamente. As novas funções utilizadas
+                                                        neste exemplo são descritas a seguir.
+                                                    </font>
+                                                </p>
+                                                <font size="3">
+
+                                                    <b>
+
+                                                        <p align="center"><img src="arquivos/Figura14_003.webp"></p>
+                                                    </b>
+
+                                                    <p align="CENTER"><strong>Figura 14.1 - Saída do programa TeaPot3D.c</strong></p>
+
+                                                    <a name="DescricaoFuncoes">
+
+                                                        <ul>
+
+                                                            <li>
+
+                                                                <p align="JUSTIFY">
+                                                                    <font size="3"><b><i>gluPerspective(angle,fAspect,0.1,500);</i></b>
+                                                                        segundo [Wright 2000], esta função estabelece os parâmetros da Projeção
+                                                                        Perspectiva, atualizando a matriz de projeção perspectiva.
+                                                                        Seu protótipo é:
+                                                                        <i>void gluPerspective( GLdouble fovy, GLdouble aspect, GLdouble zNear, GLdouble zFar );</i>.
+                                                                        Descrição dos parâmetros: <i>fovy</i> é o ângulo, em graus, na direção y (usada para determinar
+                                                                        a "altura" do volume de visualização);
+                                                                        <i>aspect</i> é a razão de aspecto que determina a área de visualização na direção x, e
+                                                                        seu valor é a razão em x (largura) e y (altura); <i>zNear</i>, que sempre deve ter um
+                                                                        valor positivo maior do que zero, é a distância do observador
+                                                                        até o plano de corte mais próximo (em z); <i>zFar</i>, que também sempre tem um
+                                                                        valor positivo maior do que zero, é a distância do observador até o plano de
+                                                                        corte mais afastado (em z). Esta função sempre deve ser definida ANTES da função
+                                                                        <i>gluLookAt</i>, e no modo GL_PROJECTION.
+                                                                    </font>
+                                                                </p>
+                                                            </li>
+                                                            <font size="3">
+
+                                                                <li>
+
+                                                                    <p align="JUSTIFY">
+                                                                        <font size="3"><b><i>gluLookAt(0,80,200, 0,0,0, 0,1,0);</i></b> define
+                                                                            a transformação de visualização. Através dos seus argumentos é possível indicar a posição da
+                                                                            câmera e para onde ela está direcionada. Seu protótipo é:
+                                                                            <i>void gluLookAt( GLdouble eyex, GLdouble eyey, GLdouble eyez, GLdouble centerx,
+                                                                                GLdouble centery, GLdouble centerz, GLdouble upx, GLdouble upy, GLdouble upz );</i>.
+                                                                            Descrição dos parâmetros: <i>eyex</i>, <i>eyey</i> e <i>eyez</i> são usados para definir
+                                                                            as coordenadas x, y e z, respectivamente, da posição da câmera (ou observador);
+                                                                            <i>centerx</i>, <i>centery</i> e <i>centerz</i> são usados para definir
+                                                                            as coordenadas x, y e z, respectivamente, da posição do alvo, isto é, para onde o observador
+                                                                            está olhando (normalmente, o centro da cena);
+                                                                            <i>upx</i>, <i>upy</i> e <i>upz</i> são as coordenadas x, y e z, que estabelecem o vetor
+                                                                            <i>up</i> (indica o "lado de cima" de uma cena 3D) [Wright 2000].
+                                                                        </font>
+                                                                    </p>
+                                                                </li>
+                                                                <font size="3">
+
+                                                                    <li>
+
+                                                                        <p align="JUSTIFY">
+                                                                            <font size="3"><b><i>glutWireTeapot(50.0f);</i></b> é usada
+                                                                                para desenhar o <i>wire-frame</i> de um <i>teapot</i> (ou bule de chá). Seu protótipo é:
+                                                                                <i>glutWireTeapot(GLdoouble size);</i>, onde o parâmetro <i>size</i> indica um raio
+                                                                                aproximado do <i>teapot</i>. Uma esfera com este raio irá "envolver" totalmente o modelo [Wright 2000].
+                                                                            </font>
+                                                                        </p>
+                                                                    </li>
+                                                                    <font size="3">
+                                                                    </font>
+                                                                </font>
+                                                            </font>
+                                                        </ul>
+                                                        <font size="3">
+                                                            <font size="3">
+                                                                <font size="3">
+
+                                                                    <p align="JUSTIFY">
+                                                                        <font size="3"> Assim como o <i>teapot</i>, a biblioteca GLUT também possui
+                                                                            funções para desenhar outros objetos 3D. Estas funções estão listadas abaixo [Woo 1999]:
+                                                                            <br>- <i>void glutWireCube(GLdouble size);</i>
+                                                                            <br>- <i>void glutWireSphere(GLdouble radius, GLint slices, GLint stacks);</i>
+                                                                            <br>- <i>void glutWireCone(GLdouble radius, GLdouble height, GLint slices, GLint stacks);</i>
+                                                                            <br>- <i>void glutWireTorus(GLdouble innerRadius, GLdouble outerRadius, GLint nsides, GLint rings);</i>
+                                                                            <br>- <i>void glutWireIcosahedron(void);</i>
+                                                                            <br>- <i>void glutWireOctahedron(void);</i>
+                                                                            <br>- <i>void glutWireTetrahedron(void);</i>
+                                                                            <br>- <i>void glutWireDodecahedron(GLdouble radius);</i>
+                                                                            <br> Os parâmetros <i>slices</i> e <i>stacks</i> que aparecem no protótipo de algumas funções,
+                                                                            significam, respectivamente, o número de subdivisões <b>em torno do eixo z</b> (como se
+                                                                            fossem linhas longitudinais) e o número de subdivisões <b>ao longo do eixo z</b> (como se
+                                                                            fossem linhas latitudinais). Já <i>rings</i> e <i>nsides</i> correspondem, respectivamente,
+                                                                            ao número de seções que serão usadas para formar o <i>torus</i>, e ao número de
+                                                                            subdivisões para cada seção. A figura 14.2 exibe um exemplo de um <i>torus</i>
+                                                                            com <i>rings</i>=6 e <i>nsides</i>=20, e a figura 14.3 exibe um exemplo com <i>rings</i>=20
+                                                                            e <i>nsides</i>=20.
+                                                                        </font>
+                                                                    </p>
+                                                                    <font size="3">
+
+                                                                        <table align="center" border="0" cellspacing="0" cols="2">
+                                                                            <tbody>
+
+                                                                                <tr>
+
+                                                                                    <td>
+
+                                                                                        <p align="center">
+                                                                                            <img src="arquivos/Figura14.webp">
+                                                                                            <br><strong>Figura 14.2 - <i>Torus</i> (<i>rings</i>=6, <i>nsides</i>=20) </strong>
+                                                                                        </p>
+                                                                                    </td>
+
+                                                                                    <td>
+
+                                                                                        <p align="center">
+                                                                                            <img src="arquivos/Figura14_002.webp">
+                                                                                            <br><strong>Figura 14.3 - <i>Torus</i> (<i>rings</i>=20, <i>nsides</i>=20) </strong>
+                                                                                        </p>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+
+
+                                                                        <p align="JUSTIFY">
+                                                                            <font size="3"> Todas estas funções também podem ser usadas para
+                                                                                desenhar objetos sólidos, ao invés de exibir apenas o seu <i>wire-frame</i>. Para isto,
+                                                                                basta substituir a <i>substring Wire</i> do nome da função por <i>Solid</i>. Por exemplo,
+                                                                                se substituirmos a chamada à função <i>glutWireTeapot(50.0f)</i> por <i>glutSolidTeapot(50.0f)</i>
+                                                                                a imagem gerada é a apresentada na figura 14.4.
+                                                                            </font>
+                                                                        </p>
+                                                                        <font size="3">
+
+
+                                                                        </font>
+                                                                    </font>
+                                                                </font>
+                                                            </font>
+                                                        </font>
+                                                    </a>
+                                                    <font size="3">
+                                                        <font size="3">
+                                                            <font size="3">
+
+                                                                <a name="figura14_4">
+                                                                    <b>
+
+                                                                        <p align="center"><img src="arquivos/Figura14_004.webp"></p>
+                                                                    </b>
+
+                                                                    <p align="CENTER"><strong>Figura 14.4 - <i>Teapot</i> gerado usando a função <i>glutSolidTeapot</i></strong></p>
+
+                                                                </a>
+
+                                                                <p align="JUSTIFY">
+
+                                                                    <a name="figura14_4">
+                                                                        <font size="3"> Olhando a figura 14.4 é possível observar que
+                                                                            a imagem gerada parece 2D. Isto ocorre porque a versão <i>Solid</i> deve ser usada somente
+                                                                            quando se está trabalhando com iluminação (veja o </font>
+                                                                    </a>
+                                                                    <font size="3">
+
+                                                                        <a href="Iluminacao.html">próximo capítulo</a> deste tutorial).
+                                                                    </font>
+                                                                </p>
+                                                                <font size="3">
+
+                                                                    <p>
+                                                                        <font size="+0" face="Arial Narrow">&nbsp;</font><img src="arquivos/emban15.webp" alt="../Imagens/emban15.png (1469 bytes)" border="0" height="12" width="100%">
+                                                                    </p>
+
+                                                                    <p><img src="arquivos/E-MAIL.webp" alt="../Imagens/E-MAIL.JPG (3237 bytes)" border="0" height="45" width="82">
+                                                                        <font size="+0" face="Arial Narrow"> Comentários, dúvidas, sugestões, envie um mail para
+
+                                                                            <a href="mailto:manssour@inf.pucrs.br">manssour@inf.pucrs.br</a>
+                                                                        </font>
+                                                                    </p>
+
+                                                                    <p><img src="arquivos/emban15.webp" alt="../Imagens/emban15.png (1469 bytes)" border="0" height="12" width="100%"></p>
+                                                                </font>
+                                                            </font>
+                                                        </font>
+                                                    </font>
+                                                </font>
+                                            </font>
+                                        </font>
+                                    </font>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="center">
+
+                <table align="center" border="0" cols="1" width="100%">
+                    <tbody>
+
+                        <tr>
+
+                            <td width="12">
+
+                                <p align="center">
+                                    <font size="+0" face="Arial Narrow">
+                                        [
+
+                                        <a href="Menus-Fonte.html">Anterior</a>]&nbsp; [
+
+                                        <a href="Iluminacao.html">Próxima</a>]&nbsp; [
+
+                                        <a href="index.html">Principal</a>]
+                                    </font>
+                                </p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p align="right">
+                <font size="-1" color="#5A5A5A" face="Arial Narrow"><i>Última alteração em 27 de março de 2003.</i></font>
+            </p>
+        </div>
+
+        <script defer="defer" src=vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon="{&quot;rayId&quot;:&quot;9833eebb0dd24d35&quot;,&quot;serverTiming&quot;:{&quot;name&quot;:{&quot;cfExtPri&quot;:true,&quot;cfEdge&quot;:true,&quot;cfOrigin&quot;:true,&quot;cfL4&quot;:true,&quot;cfSpeedBrain&quot;:true,&quot;cfCacheStatus&quot;:true}},&quot;version&quot;:&quot;2025.9.1&quot;,&quot;token&quot;:&quot;e574ebd03d434993bfcf28088123cf56&quot;}" crossorigin="anonymous"></script>
+
+
+
+        <script src="arquivos/main.js"></script>
+    </body>
+
+
+</html>

@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>GLUT - The OpenGL Utility Toolkit</title>
+<meta charset="utf-8">
+<meta name="MSSmartTagsPreventParsing" content="true">
+<meta name="viewport" content="width=device-width">
+<meta name="author" content="The Khronos Group Inc">
+<link rel="shortcut icon" href="https://www.opengl.org/img/favicon.ico" type="image/ico">
+
+<link type="text/css" rel="stylesheet" media="all" href="GLUT%20-%20The%20OpenGL%20Utility%20Toolkit_arquivos/Sem%20t%C3%ADtulo.css">
+<!--[if lt IE 9]><script type="text/javascript" src="/assets/js/html5shiv.js"></script><![endif]-->
+
+<script type="text/javascript" async="" src="GLUT%20-%20The%20OpenGL%20Utility%20Toolkit_arquivos/analytics.js"></script><script type="text/javascript" async="" src="GLUT%20-%20The%20OpenGL%20Utility%20Toolkit_arquivos/js_002"></script><script async="" src="GLUT%20-%20The%20OpenGL%20Utility%20Toolkit_arquivos/js" type="text/javascript"></script>
+<script type="text/javascript">window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'UA-1759693-2');</script>
+
+
+<meta id="websigner_softplan_com_br"></head>
+<body id="community_page">
+<div id="wrap">
+<div id="header-frame">
+<div id="ogl_header">
+            <div id="ogl_branding">
+<a href="https://www.opengl.org/"><img src="GLUT%20-%20The%20OpenGL%20Utility%20Toolkit_arquivos/opengl_logo.png" alt="OpenGL.org" title="The Industry's Foundation for High Performance Graphics" width="220"></a>
+<div>
+                    <h1>The Industry's Foundation for High Performance Graphics</h1>
+                    <h4>from games to virtual reality, mobile phones to supercomputers</h4>
+                </div>
+            </div>
+
+            <div id="search_inner">
+<div id="cse" style="width: 200px !important;">Loading</div>
+<script src="GLUT%20-%20The%20OpenGL%20Utility%20Toolkit_arquivos/loader.js" type="text/javascript"></script>
+<script type="text/javascript">
+google.load('search', '1', {language: 'en', style: google.loader.themes.MINIMALIST});
+google.setOnLoadCallback(function() {
+  var customSearchOptions = {};
+  var orderByOptions = {};
+  orderByOptions['keys'] = [{label: 'Relevance', key: ''} , {label: 'Date', key: 'date'}];
+  customSearchOptions['enableOrderBy'] = true;
+  customSearchOptions['orderByOptions'] = orderByOptions;
+  customSearchOptions['overlayResults'] = true;
+  var customSearchControl =   new google.search.CustomSearchControl('017055583490642512057:lzzqre9duva', customSearchOptions);
+  customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
+  var options = new google.search.DrawOptions();
+  options.setAutoComplete(true);
+  customSearchControl.draw('cse', options);
+}, true);
+</script>
+            </div>
+
+<div id="nav" class="">
+
+<ul id="navlist" class="">
+
+<li style="display:none"><a href="https://www.opengl.org/">Home</a></li>
+
+<li><a href="https://www.opengl.org/documentation/">Documentation</a>
+<ul>
+
+<li>
+    <a href="https://www.khronos.org/registry/OpenGL/index_gl.php">Current OpenGL Version</a>
+</li>
+<li>
+<a href="https://khronos.org/registry/OpenGL/index_gl.php">OpenGL Shading Language</a>
+</li>
+<li>
+
+<a href="https://www.khronos.org/opengl/wiki/OpenGL_Extension">About OpenGL Extensions</a>
+</li>
+<li>
+<a href="https://www.khronos.org/registry/OpenGL/index_gl.php">OpenGL Registry</a>
+</li>
+<li>
+<a href="https://github.com/KhronosGroup/OpenGL-API/issues">Spec Feedback</a>
+</li>
+<li>
+<a href="https://www.khronos.org/registry/OpenGL-Refpages/gl4/">OpenGL 4 Reference Pages</a>
+</li>
+<li>
+<a href="https://www.khronos.org/registry/OpenGL-Refpages/gl4/">OpenGL 3.3 Reference Pages</a>
+</li>
+<li>
+    <a href="https://www.khronos.org/registry/OpenGL-Refpages/gl2.1/">OpenGL 2.1 Reference Pages</a>
+</li>
+<li>
+    <a href="https://www.opengl.org/archives/documentation/implementations/">OS/Platform Implementations</a>
+</li>
+<li>
+    <a href="https://www.khronos.org/developers/books/">OpenGL Books</a>
+</li>
+</ul>
+</li>
+
+<li><a href="https://www.opengl.org/resources/">Coding Resources</a>
+<ul>
+        <li><a href="https://www.opengl.org/sdk/">OpenGL SDK</a></li>
+        <li><a href="https://www.khronos.org/opengl/wiki/Getting_Started">Getting Started</a></li>
+        <li><a href="https://www.khronos.org/registry">OpenGL Registry</a></li>
+        <li><a href="https://www.khronos.org/opengl/wiki/FAQ">FAQ</a></li>
+        <li><a href="https://www.opengl.org/resources/libraries/">GLUT &amp; Utility Libraries</a></li>
+        <li><a href="https://www.khronos.org/opengl/wiki/Language_bindings">Programming Language Bindings</a></li>
+        <li><a href="https://www.khronos.org/opengl/wiki/Code_Resources">Sample Code &amp; Tutorials</a></li>
+        <li><a href="https://www.opengl.org/resources/benchmarks/">Benchmarks</a></li>
+        <li><a href="https://www.opengl.org/community/newsgroups/">Mailing Lists &amp; News Groups</a></li>
+        <li><a href="http://stackoverflow.com/questions/tagged/opengl">OpenGL StackOverflow</a></li>
+        <li><a href="https://www.opengl.org/archives/">Archived Resources</a></li></ul>
+</li>
+
+<li><a href="https://www.opengl.org/wiki/">Wiki</a></li>
+<li><a href="https://community.khronos.org/c/opengl-general/34">Forums</a></li>
+<li id="about"><a href="https://www.opengl.org/about/">About OpenGL</a>
+<ul>
+    <li><a href="https://www.khronos.org/about/contact">Contact Us</a></li>
+    <li><a href="https://www.khronos.org/legal/trademarks/">OpenGL logo</a></li>
+    <li><a href="https://www.khronos.org/jobs">Jobs</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div>
+</div>
+
+<div id="container">
+<div id="main">
+<div id="content">
+
+	<h1>GLUT - The OpenGL Utility Toolkit</h1>
+<h2>2000/03/22 - GLUT 3 specification is now available in <a href="https://www.opengl.org/resources/libraries/glut/glut-3.spec.pdf">PDF format</a>!</h2>
+							<h6>Contents</h6>
+							<ul>
+								<li><a href="#1">About GLUT . . .</a></li>
+								<li><a href="#2">Obtaining the GLUT source code distribution</a></li>
+								<li><a href="#3">Pre-compiled installable images for SGI users</a></li>
+								<li><a href="#sun">Pre-compiled binaries for Solaris users</a></li>
+								<li><a href="#windows">GLUT for Microsoft Windows 95 &amp; NT users</a></li>
+								<li><a href="#doc">Available GLUT Documentation</a></li>
+								<li><a href="#4">What did GLUT 3.0 add?</a></li>
+								<li><a href="#3.1">What did GLUT 3.1 add? </a></li>
+								<li><a href="#3.2">What did GLUT 3.2 add?</a></li>
+								<li><a href="#3.3">What did GLUT 3.3 add?</a></li>
+								<li><a href="#3.4">What did GLUT 3.4 add?</a></li>
+								<li><a href="#3.5">What did GLUT 3.5 add?</a></li>
+								<li><a href="#3.6">What did GLUT 3.6 add?</a></li>
+								<li><a href="#3.6">What did GLUT 3.7 add?</a></li>
+								<li><a href="#5">Frequently Asked Questions</a></li>
+								<li><a href="#6">Example Contributions Accepted</a></li>
+								<li><a href="#7">Reporting Bugs</a></li>
+							</ul>
+							<h6><a name="1"></a>About GLUT . . .</h6>
+							<p>GLUT (pronounced like the <i>glut</i> in <i>gluttony</i>) is 
+the OpenGL Utility Toolkit, a window system independent toolkit for 
+writing OpenGL programs. It implements a simple windowing application 
+programming interface (API) for OpenGL. GLUT makes it considerably 
+easier to learn about and explore OpenGL programming. GLUT provides a 
+portable API so you can write a single OpenGL program that works on both
+ Win32 PCs and X11 workstations.</p>
+							<p>GLUT is designed for constructing small to medium sized OpenGL
+ programs. While GLUT is well-suited to learning OpenGL and developing 
+simple OpenGL applications, GLUT is not a full-featured toolkit so large
+ applications requiring sophisticated user interfaces are better off 
+using native window system toolkits like Motif. GLUT is simple, easy, 
+and small. My intent is to keep GLUT that way.</p>
+							<p>The GLUT library supports the following functionality:</p>
+							<ul>
+								<li>Multiple windows for OpenGL rendering.</li>
+								<li>Callback driven event processing.</li>
+								<li>An `idle' routine and timers.</li>
+								<li>Utility routines to generate various solid and wire frame objects.</li>
+								<li>Support for bitmap and stroke fonts.</li>
+								<li>Miscellaneous window management functions.</li>
+							</ul>
+							<p>The GLUT library has both C, C++ (same as C), FORTRAN, and Ada
+ programming bindings. The GLUT source code distribution is portable to 
+nearly all OpenGL implementations for the X Window System and Windows 95
+ and NT. GLUT also works well with Brian Paul's Mesa, a freely available
+ implementation of the OpenGL API.</p>
+							<p>Because GLUT is window system independent (as much as 
+possible), GLUT can be implemented for window systems other than X. 
+Implementations of GLUT for OS/2, NT &amp; Windows 95, and the Mac have 
+ben implemented, but only the Win32 and X11 versions are part of the 
+official GLUT source code distrbution.</p>
+							<p>The current version of the GLUT API is 3. The current source code distribution is GLUT 3.7.</p>
+							<h6><a name="2"></a>Obtaining the GLUT source code distribution</h6>
+							<p>GLUT is distributed in source code form; compiled libraries 
+for Win32 are also available. The current version, 3.7, is in late beta.
+ The programs and associated files contained in the distrbution were 
+developed by Mark J. Kilgard (unless otherwise noted). The programs are <i>not</i>
+ in the public domain, but they are freely distributable without 
+licensing fees. These programs are provided without gurantee or 
+warrantee expressed or implied.</p>
+							<p>Download the GLUT 3.7 beta source distribution (shift Left in Netscape) <a href="https://www.opengl.org/resources/libraries/glut/glut-3.7.tar.gz">(Unix tar format)</a> <a href="https://www.opengl.org/resources/libraries/glut/glut37.zip">(Windows ZIP format).</a></p>
+							<p>Since the data files for some of the new advanced GLUT examples are large, they are contained in a separate distribution.</p>
+							<p>Download the GLUT 3.7 beta image datafile distribution <a href="https://www.opengl.org/resources/libraries/glut/glut_data-3.7.tar.gz">(Unix tar format)</a> <a href="https://www.opengl.org/resources/libraries/glut/glut37data.zip">(Windows ZIP format).</a></p>
+							<p>You can still download the previous version of GLUT <a href="https://www.opengl.org/resources/libraries/glut/glut-3.6.tar.gz">(GLUT 3.6)</a>, and the <a href="https://www.opengl.org/resources/libraries/glut/glut_data-3.6.tar.gz">GLUT 3.6 data files</a>.</p>
+							<p>You can also download GLUT from the University of North Carolina, Chapel Hill's SunSITE archive by either FTP or HTTP:</p>
+							<p><b>WARNING: GLUT 3.7 and GLUT 3.6 are not on sunsite.unc.edu yet (just GLUT 3.5 currently).</b></p>
+							<p><a href="http://sunsite.unc.edu/pub/packages/development/graphics/glut/"><tt>http://sunsite.unc.edu/pub/packages/development/graphics/glut/</tt></a></p>
+							<p><a href="ftp://sunsite.unc.edu/pub/packages/development/graphics/glut/"><tt>ftp://sunsite.unc.edu/pub/packages/development/graphics/glut/</tt></a></p>
+							<h6><a name="3"></a>Pre-compiled installable images for SGI users</h6>
+							<p>For SGI users that want to save the hassle of compiling GLUT 
+3.6 by hand, you can download installable images for GLUT 3.6. Image 
+images include:</p>
+							<ul>
+								<li><b>glut_dev.doc.intro</b> - PostScript introduction to programming with GLUT 3.6.</li>
+								<li><b>glut_dev.doc.spec</b> - PostScript specification for the GLUT API, version 3.</li>
+								<li><b>glut_dev.man.glut</b> - Unix man pages for the GLUT programming interface</li>
+								<li><b>glut_dev.src.samples</b> - Source code for selected GLUT examples.</li>
+								<li><b>glut_dev.src.inventor</b> - Source cofr for Inventor GLUT examples.</li>
+								<li><b>glut_dev.sw.demos</b> - Pre-compiled GLUT demos.</li>
+								<li><b>glut_dev.sw.dev</b> - The GLUT 3.2 development environment.</li>
+								<li><b>glut_dev.sw.fortran</b> - GLUT FORTRAN bindings. </li>
+								<li><b>glut_dev.sw.ada</b> - GLUT Ada bindings.</li>
+								<li><b>glut_dev.sw32.dev</b> - For IRIX 6.x users, N32 version of GLUT library.</li>
+								<li><b>glut_dev.sw32.fortran</b> - N32 version of GLUT FORTRAN bindings.</li>
+								<li><b>glut_dev.sw64.dev</b> - For 64-bit IRIX 6.x users, 64-bit version of GLUT library.</li>
+								<li><b>glut_dev.sw64.fortran</b> - 64-bit version of GLUT FORTRAN bindings.</li>
+							</ul>
+							<p>The GLUT 3.6 images work with IRIX 5.3, IRIX 6.1, IRIX 6.2, 
+IRIX 6.3, and IRIX 6.4. The installable images make it easy to install, 
+upgrade, and remove GLUT. This is particularly true if you want N32 or 
+64-bit versions of GLUT. The N32 version refers to the new N32 object 
+format that results in better performance from MIPS's current R4400, 
+R8000, and R10000 processors. N32 is supported in IRIX 6.1 and later 
+IRIX releases. The <b>glut_dev.sw32.dev</b> system is now marked for install by default since N32 is the default object format in IRIX 6.4.</p>
+							<p>The images are distributed as a <b><tt>tar</tt></b> file. You can either untar the file, or run <b><tt>tardist</tt></b> on the tar file to automatically start SGI's Software Manager (<b><tt>swmgr</tt></b>). Otherwise, you can run <b><tt>inst</tt></b> or <b><tt>swmgr</tt></b> on the untar'ed files.</p>
+							<p><a href="https://www.opengl.org/resources/libraries/glut/glut_dev.tardist">Download the GLUT 3.6 installable images by downloading this (shift Left in Netscape).</a></p>
+							<p>If your browser is configured to use tardist, try clicking the above link to start <b><tt>swmgr</tt></b> automatically. Note that not all the GLUT example source code in the source distribution is included with the GLUT images.</p>
+							<h6><a name="sun"></a>Pre-compiled binaries for Solaris users</h6>
+							<p>Ron Bielalski has built binaries of GLUT 3.7 beta for Solaris on SPARC processors in both <a href="https://www.opengl.org/resources/libraries/glut/glut-3.7b.sparc_solaris.tar.gz">32 bit (16.5 MB)</a> and <a href="https://www.opengl.org/resources/libraries/glut/glut-3.7b.sparcsolaris_64.tar.gz">64 bit (18.3 MB)</a> forms. John Martin has built binaries of GLUT 3.7 beta for Solaris on x86 in both <a href="https://www.opengl.org/resources/libraries/glut/glut-3.7b_x86_solaris.tar.gz">32 bit (15.2MB)</a> and <a href="https://www.opengl.org/resources/libraries/glut/glut-3.7b_x86_solaris_64bit.tar.gz">64 bit (17.4MB)</a>
+ and forms. Note that these files are very large - they contain a 
+completely built GLUT source tree, including all source and object files
+ as well as the final headers and libraries. Please direct questions 
+about GLUT for Solaris to <a href="mailto:graphics-help@eng.sun.com">graphics-help@eng.sun.com</a></p>
+							<h6><a name="windows"></a>GLUT for Microsoft Windows 9X, ME, 2000, NT &amp; XP users</h6>
+							<p>Nate Robins and Paul Mayfield with help from Layne Christensen
+ have implemented the original version of GLUT for Win32 (Windows       
+                        95,98,Me,NT,2000,XP). Here's a link to their <a href="http://www.xmission.com/~nate/glut.html">GLUT for Windows</a>
+ web page. These pages include GLUT for Win32 dll, lib and header file 
+(everything you need to get started programming with GLUT) and GLUT 
+source code distribution (including a whole slew of great example 
+programs + data). </p>
+							<p>The most signficant update to GLUT is the integration of the X
+ Window System and Win32 versions of GLUT in a single source tree. GLUT 
+works for either Win32 or X11 now. Nate Robins deserves the credit for 
+this merging. To help Win32 users better utilize GLUT, PC-style <tt>.ZIP</tt> files are available for download.</p>
+							<p><a href="https://www.opengl.org/resources/libraries/glut/glut37.zip">Download the zipped GLUT 3.7 source code distribution: <tt>glut37.zip</tt></a></p>
+							<p><a href="https://www.opengl.org/resources/libraries/glut/glut37data.zip">Download the GLUT 3.7 image datafile distribution: <tt>glut37data.zip</tt></a></p>
+							<p><b>You will need a PC unzip utility that understands long file
+ names to unzip these files correctly. Once you have the file unzipped, 
+consult the <tt>README.win</tt> file.</b></p>
+							<p>If you want just the GLUT header file, the <tt>.LIB</tt>, and <tt>.DLL</tt> files all pre-compiled for Intel platforms, you can simply download the <a href="https://www.opengl.org/resources/libraries/glut/glutdlls37beta.zip"><tt>glutdlls37beta.zip</tt></a> file (149 kilobytes).</p>
+							<p>You can still download the previous version, GLUT 3.6:<br>
+								<a href="https://www.opengl.org/resources/libraries/glut/glut36.zip">Download the zipped GLUT 3.6 source code distribution: <tt>glut36.zip</tt></a><br>
+								<a href="https://www.opengl.org/resources/libraries/glut/glut36data.zip">Download the GLUT 3.6 image datafile distribution: <tt>glut36data.zip</tt></a><br>
+								<a href="https://www.opengl.org/resources/libraries/glut/glutdlls36.zip">Download the GLUT 3.6 headers and pre-compiled libraries: <tt>glutdlls36.zip</tt></a></p>
+							<p>You can also download pre-compiled GLUT 3.6 libraries for Windows NT Alpha platforms by downloading <a href="https://www.opengl.org/resources/libraries/glut/glutdllsalpha.zip"><tt>glutdllsalpha.zip</tt></a> (82 kilobytes). GLUT for Alpha questions should be directed to Richard Readings (<a href="mailto:readings@reo.dec.com"><tt>readings@reo.dec.com</tt></a>).</p>
+							<h6><a name="doc"></a>Available GLUT Documentation</h6>
+							<p><i>The OpenGL Utility Toolkit (GLUT) Programming Interface, API version 3</i> specifies all the routines in the GLUT API and how they operate. This document is available in <a href="https://www.opengl.org/resources/libraries/glut/spec3/spec3.html">HTML</a>, <a href="https://www.opengl.org/resources/libraries/glut/glut-3.spec.ps.gz">PostScript</a>, and <a href="https://www.opengl.org/resources/libraries/glut/glut-3.spec.pdf">PDF</a>
+ formats (the PDF version was generated and contributed by Richard Banks
+ - thanks!). There have been no revisions since GLUT 3.2.</p>
+							<p>There is also a column on GLUT published in <i>The X Journal</i> available in <a href="https://www.opengl.org/resources/libraries/glut/glut.column1.ps.gz">PostScript</a>. Unfortunately, <i>The X Journal</i> is no longer published, but back issues contain various other OpenGL columns using OpenGL with GLUT.</p>
+							<p>GLUT is fully described in the book <a href="https://www.amazon.com/exec/obidos/ASIN/0201483599/khongrou-20"><i>Programming OpenGL for the X Window System</i></a> (Addison-Wesley, ISBN 0-201-48359-9). Consult this book for a full tutorial on GLUT.</p>
+							<h6><a name="4"></a>What did GLUT 3.0 add?</h6>
+							<p>GLUT 3.0 involves an update to the GLUT API to version 3 so 
+the GLUT library has new routines included in it implementing new 
+functionality. There are also bug fixes, better support for IRIX 6.x's 
+64-bit and N32 object formats, and more sample programs.</p>
+							<p>The important new API additions are support for overlays, 
+determining font character widths, new bitmap fonts, returning held down
+ modifiers for mouse and keyboard events, and full screen windows.</p>
+							<h6><a name="3.1"></a>What did GLUT 3.1 add?</h6>
+							<p>There are a few minor bug fixes in the library. Various build 
+problems on various built platforms have been resolved. GLUT 3.1 should 
+build much cleanly on HP/UX, AIX, Linux, Solaris, and SunOS platforms 
+now (cross finger). There are also a few more example programs. See the <tt>CHANGES</tt> file for details.</p>
+							<h6><a name="3.2"></a>What did GLUT 3.2 add?</h6>
+							<p>GLUT 3.2 fixed a few more minor bugs in the library. Mesa 
+users will benefit from a hack to speed double-buffered damage 
+regeneration. Man pages for the complete GLUT API are now included. The 
+tests are expanded. New examples from Mesa distribution (converted to 
+use GLUT) and advanced OpenGL programs from the Advanced OpenGL 
+Rendering SIGGRAPH '96 class are now included. See the <tt>CHANGES</tt> file for details.</p>
+							<h6><a name="3.3"></a>What did GLUT 3.3 add?</h6>
+							<p>GLUT 3.3 is more portable; nearly all compiler warning are 
+resolved. Lots of new GLUT-based OpenGL examples have been added or 
+improved. Some new API has been added that will be codified with the 
+GLUT 4 API revision. For example, an API for using InfiniteReality's 
+dynamic video resize (DVR) capability is included. Also, a better way of
+ getting window status is supported. There were some bug in the GLUT 
+library itself that are now fixed. Some the warning or error messages 
+weren't quite right. <tt>glutFullScreen</tt> before a window is first displayed now ensures that the window need not be positioned by the user. See the <tt>CHANGES</tt> file for details.</p>
+							<h6><a name="3.4"></a>What did GLUT 3.4 add?</h6>
+							<p>An Ada binding for SGI machines is included along with an Ada 
+example. Many new sample programs. Several such as dinoshade.c 
+demonstrate real-time rendering techniques relevant for games. Examples 
+using <a href="http://src.openresources.com/debian/src/graphics/HTML/files/glut_3.6.orig%20glut-3.6%20progs%20tiff.html">Sam Leffler's libtiff</a>
+ library for loading, drawing, and writing TIFF image files. GLUT 
+version of the facial animation "geoview" decibed in the Parke and 
+Water's book <a href="http://www.research.digital.com/CRL/personal/waters/book.html"><i>Computer Facial Animation</i></a>. New API interfaces to be made part of the GLUT 4 API update (not yet fully finalized though). <tt>glutInitDisplayMode</tt> for example. Improved portability and a few bug fixes.</p>
+							<h6><a name="3.5"></a>What did GLUT 3.5 add?</h6>
+							<p>The most significant change with GLUT 3.5 is unifying the X 
+Window System and Win32 versions of GLUT into a single source code 
+distribution. Henk Kok contributed several cool new demos (<tt>rollercoaster</tt>, <tt>chess</tt>, <tt>opengl_logo</tt>).
+ All the demos build cleanly under Win32. Lots of bug fixes. Interesting
+ new OpenGL rendering techniques are demonstrated in a number of new 
+examples: <a href="https://www.opengl.org/resources/code/mjktips/VirtualizedLights/VirtualizedLights.html"><tt>movelight</tt></a>, <a href="https://www.opengl.org/resources/code/mjktips/TexShadowReflectLight.html">dinoshade</a>, <a href="https://www.opengl.org/resources/code/mjktips/StenciledHaloEffect.html"><tt>halomagic</tt></a>, <a href="https://www.opengl.org/resources/code/mjktips/Feedback.html"><tt>rendereps</tt></a>, <a href="https://www.opengl.org/resources/code/mjktips/VirtualizedLights/VirtualizedLights.html"><tt>movelight</tt></a>, <a href="https://www.opengl.org/resources/code/mjktips/rts/"><tt>shadowfun</tt></a>, <a href="https://www.opengl.org/resources/code/mjktips/perf_harness/"><tt>torus_test</tt></a>, <a href="https://www.opengl.org/resources/code/mjktips/caustics/"><tt>underwater</tt></a>, <a href="https://www.opengl.org/resources/code/mjktips/TexFont/TexFont.html"><tt>texfont</tt></a>, <a href="https://www.opengl.org/resources/code/mjktips/Reflect.html"><tt>reflectdino</tt></a>. Also, Tom Davis contributed a user interface library called <a href="https://www.opengl.org/archives/resources/code/samples/mjktips/mui/mui.html">microUI (MUI)</a> that is layered on top of GLUT.</p>
+							<h6><a name="3.6"></a>What did GLUT 3.6 add?</h6>
+							<p>GLUT 3.6 has substantially improved the Win32 GLUT compliance 
+and performance. Windows 95 &amp; NT users should find GLUT 3.6 a 
+substantial improvement over GLUT 3.5's Win32 support. Lots more demos 
+and examples have been added. <a href="https://www.opengl.org/resources/code/mjktips/lensflare/"><tt>glflare</tt></a> is a notable addition. Linas Vesptas's <a href="https://linas.org/gle/index.html">GLE Tubing and Extrusion library</a> with documentation and example programs is now a part of GLUT. Many minor bugs were fixed.</p>
+							<h6><a name="3.7"></a>What did GLUT 3.7 add?</h6>
+							<p>GLUT 3.7 adds a full-screen <i>game mode</i> for programs 
+which wish to take over the entire display. The glsmap library for 
+dynamic real-time sphere mapping is included, along with demos showing 
+how to use glsmap for multiple reflections. A port of the Iris GL "wave 
+physics" demo by Erik Larsen and a red-blue stereo demo program from 
+Walter Vannini are included. Man pages are updated, and missing entry 
+points added to the GLUT Ada bindings. Win32 performance improvements 
+and bug fixes.</p>
+							<h6><a name="5"></a>Frequently Asked Questions</h6>
+							
+          <p>I've collected a page of <a href="https://www.opengl.org/resources/libraries/glut/faq/">GLUT frequently 
+            asked questions</a> that I expect about GLUT 3.6.</p>
+							<h6><a name="6"></a>Example Contributions Accepted</h6>
+							<p>If you have benefited from using GLUT and have developed a 
+cool GLUT program that you would like included with a future GLUT source
+ code distribution, feel free to notify me by email about including it.</p>
+							<h6><a name="7"></a>Reporting Bugs</h6>
+							<p>Please send email to <a href="mailto:mjk@nvidia.com"><b><tt>mjk@nvidia.com</tt></b></a> to report bugs or problems with GLUT. Win32 GLUT programs can be sent to Nate Robins at <a href="mailto:ndr@pobox.com"><tt>ndr@pobox.com</tt></a>.</p>
+							<p>(We make no promises to fix bugs quickly or even at all, though we usually do.)</p>
+							
+</div> <!--content --> 
+</div> <!--main --> 
+</div> <!--container --> 
+     
+<div id="right_column">
+<div class="cap_top">Column Header</div>
+<div class="sidecontent">
+<h2>Coding Resources</h2>
+<div id="sectionnav">
+<ul>
+<li><a href="https://www.opengl.org/sdk/">OpenGL SDK</a></li>
+<li><a href="https://www.khronos.org/opengl/wiki/Getting_Started">Getting Started Wiki</a></li>
+<li><a href="https://www.khronos.org/registry/" title="OpenGL Registry">OpenGL Registry</a></li>
+<li><a href="https://www.opengl.org/wiki/">FAQs</a></li>
+<li><a href="https://www.opengl.org/resources/libraries/">GLUT &amp; Utility Libraries</a></li>
+<li class="indent"><a href="https://www.opengl.org/resources/libraries/glut/">GLUT</a></li>
+<li class="indent"><a href="https://www.opengl.org/resources/libraries/windowtoolkits/">Other Utility Toolkits</a></li>
+<li class="indent"><a href="https://www.opengl.org/resources/libraries/">GLX, GLU &amp; DRI</a></li>
+<li class="indent"><a href="https://www.opengl.org/resources/libraries/">Higher Level Libraries</a></li>
+<li><a href="https://www.opengl.org/wiki/Language_bindings">Programming Language Bindings</a></li>
+<li><a href="https://www.opengl.org/wiki/Code_Resources">Sample Code &amp; Tutorials</a></li>
+<li><a href="https://www.opengl.org/resources/benchmarks">Benchmarks</a></li>
+<li><a href="https://www.opengl.org/community/newsgroups/">Mailing Lists &amp; News Groups</a></li>
+<li><a href="http://stackoverflow.com/questions/tagged/opengl">OpenGL StackOverflow</a></li>
+<li><a href="http://www.khronos.org/opengles/">OpenGL ES</a></li>
+<li><a href="http://www.khronos.org/opencl/" title="OpenCL API">OpenCL</a></li>
+<li><a href="http://www.khronos.org/webgl/" title="OpenCL API">WebGL</a></li>
+<li><a href="https://www.opengl.org/archives/">Archived Resources</a></li>
+</ul>
+</div>
+
+</div>
+<div class="cap_bottom">Column Footer</div>	
+</div>
+
+	<footer class="footer line container clearfix">
+		<div class="unit size1of3">
+		<a href="https://www.khronos.org/"><img src="GLUT%20-%20The%20OpenGL%20Utility%20Toolkit_arquivos/khronos-logo.svg" alt="Khronos Logo" style="max-width:240px"></a>
+<p>9450 SW Gemini Drive #45043<br>
+Beaverton, OR 97008-6018 USA<br>
+Office: +1 (415) 869-8627<br>
+Fax: +1 (707) 202-0030</p>
+		</div>
+		<div class="unit size1of3">
+			<h2>Quick Links</h2>
+			<ul>
+				<li><a href="https://www.khronos.org/about/contact/" title="Contact the Khronos Group">Contact Us</a></li>
+				<li><a href="https://www.opengl.org/about/" title="About OpenGL">About Us</a></li>
+				<li><a href="https://www.khronos.org/legal/privacy/" title="OpenGL Legal">Privacy Policy</a></li>
+				<li><a href="https://www.khronos.org/news/subscribe/" title="Advertise">Subscribe to our newsletter</a></li>
+			</ul>
+		</div>
+		<div class="unit size1of3 lastUnit">
+			<h2>Follow us!</h2>
+			<ul class="bookmark">
+				<li class="twitter"><a href="https://twitter.com/opengl" rel="external" title="Official OpenGL Twitter page">Twitter</a></li>
+				<li class="youtube"><a href="https://www.youtube.com/user/khronosgroup" title="Khronos Videos" rel="external">YouTube</a></li>
+				<li class="rssfeeds"><a href="http://feeds.feedburner.com/opengl/zOLP">News feeds</a></li>
+			</ul>
+			<p><a href="https://www.digitalocean.com/?refcode=645028c23608">Hosting provided by <img src="GLUT%20-%20The%20OpenGL%20Utility%20Toolkit_arquivos/DigitalOcean_logo.png" alt="Digital Ocean"></a></p>
+	</div>
+	</footer>
+	<address class="khr_copyright pbl">
+		<p>
+			OpenGL is a registered trademark of <a href="https://www.hpe.com/">Hewlett Packard Enterprise</a> Website Copyright ©1997-2025 The Khronos™ Group Inc.. All rights reserved.<br>
+			Hosting provided by <a href="https://m.do.co/c/645028c23608">DigitalOcean</a>
+		</p>
+	</address>
+<div id="archives" style="display:none;">
+<a href="https://www.opengl.org/wiki/"><img style="position: absolute; top: 0; left: 0; border: 0;" src="GLUT%20-%20The%20OpenGL%20Utility%20Toolkit_arquivos/opengl-archives.png" alt="OpenGL Archives - no longer maintained"></a>
+</div>
+<script type="text/javascript">
+if (window.location.href.indexOf('archives')>-1) document.getElementById("archives").style.display = 'block';
+</script>
+
+</div> <!--wrap -->   
+
+
+
+
+</body></html>

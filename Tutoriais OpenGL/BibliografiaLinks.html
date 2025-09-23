@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+        <link rel="stylesheet" href="arquivos/main.css" type="text/css">
+        <meta http-equiv="content-type" content="text/html; charset=windows-1252">
+        <title>Introdução à OpenGL - Profa. Isabel H. Manssour</title>
+        <meta id="websigner_softplan_com_br">
+    </head>
+
+    <body>
+
+        <div class="container" >
+
+            <div class="center">
+
+                <div>
+
+                    <table align="center" border="0" cellspacing="0" cellpadding="2" width="100%" valign="top">
+                        <caption align="center">&nbsp;</caption>
+
+                        <tbody>
+
+                            <tr>
+
+                                <td align="CENTER" width="100%" bgcolor="#E2E2E2" border="0" cellspacing="0" cellpadding="0">
+                                    <font size="+3" face="Arial Narrow"><b>Introdução à OpenGL</b></font> <br>
+                                    <font size="+0" face="Arial Narrow"><b>Professora Isabel Harb Manssour</b></font>
+                                </td>
+                            </tr>
+
+                            <tr>
+
+                                <td>
+
+                                    <div class="center">
+                                        <font face="Arial Narrow">
+                                            <font size="+0">[
+
+                                                <a href="MalhaPoligonos.html">Anterior</a>]&nbsp;
+                                                [
+
+                                                <a href="index.html">Principal</a>]
+                                            </font>
+                                        </font>
+                                    </div>
+
+                                </td>
+                            </tr>
+
+                            <tr>
+
+                                <td align="LEFT" width="100%" border="0" cellspacing="0" cellpadding="0">
+
+                                    <p>
+                                        &nbsp;
+                                    </p>
+                                    <h2>Bibliografia</h2>
+                                    <font size="+0">[Hill 2000] HILL, Francis S. <b> Computer Graphics Using OpenGL</b>.
+                                        2<sup>nd</sup> ed. </font>Upper Saddle River, New Jersey: Prentice-Hall, Inc., 2000. 922 p.
+
+                                    <p>
+                                        <font size="+0">[Pinho 2000] PINHO, Márcio S. <b>Biblioteca Gráfica OpenGL</b>.
+                                            Disponível em
+
+                                            <a href="https://www.inf.pucrs.br/~pinho/CG/Aulas/OpenGL/OpenGL.html">
+                                                http://www.inf.pucrs.br/~pinho/CG/Aulas/OpenGL/OpenGL.html</a> (Agosto, 2001).
+                                        </font>
+                                    </p>
+
+                                    <p>
+                                        <font size="+0">
+                                            <font size="+0">[Woo 1999] WOO, Mason; NEIDER, Jackie; DAVIS, Tom; SHREINER, Dave. <b>OpenGL
+                                                    Programming Guide: the official guide to learning OpenGL, version 1.2</b>. 3<sup>rd</sup> ed. </font>
+                                            Reading, Massachusetts: Addison Wesley, 1999. 730 p.
+                                        </font>
+                                    </p>
+
+                                    <p>
+                                        <font size="+0">
+                                            <font size="+0">[Wright 2000] WRIGHT, Richard S. Jr.; SWEET, Michael. <b>OpenGL
+                                                    SuperBible</b>. 2<sup>nd</sup> ed. </font>Indianapolis, Indiana: Waite
+                                            Group Press, 2000. 696 p.
+                                        </font>
+                                    </p>
+
+                                    <p>
+                                        <font size="+0">
+                                            <font size="+0">[Foley 1990] FOLEY, J. et al. <b>Computer graphics: principles and practice</b>. 2<sup>nd</sup> ed. </font>
+                                            New York: Addison Wesley, 1990.
+
+
+
+                                        </font>
+                                    </p>
+
+                                    <p>
+                                        <font size="+0">
+                                            &nbsp;
+                                            <br>
+                                        </font>
+                                    </p>
+                                    <h2>
+                                        <font size="+0">
+                                            <i>Links</i>
+                                        </font>
+                                    </h2>
+                                    <font size="+0">
+
+                                        <p>
+                                            <font size="+1"> * OpenGL </font>
+
+                                        </p>
+
+                                        <p>
+                                            <font size="+0">
+
+                                                <a href="http://www.opengl.org/">http://www.opengl.org/</a> - <i>OpenGL
+                                                    (High Performance 2D/3D Graphics)</i>
+                                            </font>
+
+                                        </p>
+
+                                        <p>
+                                            <font size="+0">
+
+                                                <a href="http://reality.sgi.com/opengl/">http://reality.sgi.com/opengl/</a>
+                                                - <i>The OpenGL Web Site</i>
+                                            </font>
+
+                                        </p>
+
+                                        <p>
+                                            <font size="+0">
+
+                                                <a href="http://www.sgi.com/software/opengl/">http://www.sgi.com/software/opengl/
+                                                </a> - <i>SGI - OpenGL: The industry's foundation for high-performance graphics</i>
+                                            </font>
+
+                                        </p>
+
+                                        <p>
+                                            <font size="+0">
+
+                                                <a href="http://oss.sgi.com/projects/ogl-sample/">http://oss.sgi.com/projects/ogl-sample/
+                                                </a> - <i>SGI - Developer Central Open Source - OpenGL Sample Implementation </i>
+                                            </font>
+
+                                        </p>
+
+                                        <p>
+                                            <font size="+0">
+
+                                                <a href="http://astronomy.swin.edu.au/pbourke/opengl/stereogl/">http://astronomy.swin.edu.au/pbourke/opengl/stereogl/</a> -
+                                                <i>3D Stereo Rendering Using OpenGL (and GLUT)</i>
+                                            </font>
+
+                                        </p>
+
+                                        <p>
+                                            <font size="+0">
+
+                                                <a href="http://www.opengl.org/developers/code/rendering.html">http://www.opengl.org/developers/code/rendering.html</a> -
+                                                <i>OpenGL-based Rendering Techniques</i>
+                                            </font>
+
+                                        </p>
+
+                                        <p>
+                                            <font size="+0">
+
+                                                <a href="http://kbrussel.www.media.mit.edu/people/kbrussel/gleem/">http://kbrussel.www.media.mit.edu/people/kbrussel/gleem/</a>
+                                                - <i>gleem (OpenGL Extremely Easy-to-use Manipulators)</i>
+                                            </font>
+
+                                        </p>
+
+                                        <p>
+                                            <font size="+0">
+
+                                                <a href="http://www.bearcave.com/dxf/dxfintro.htm">http://www.bearcave.com/dxf/dxfintro.htm</a>
+                                                - <i>DXF to openGL</i>
+                                            </font>
+
+                                        </p>
+
+                                        <p>
+                                            <font size="+0">
+
+                                                <a href="http://www.fatech.com/tech/opengl/tools.shtml">http://www.fatech.com/tech/opengl/tools.shtml</a>
+                                                - <i>OpenGL 3D Tech - Tools</i>
+                                            </font>
+
+                                        </p>
+
+                                        <p>
+                                            <font size="+0">
+
+                                                <a href="http://www.pseudonymz.demon.co.uk/">http://www.pseudonymz.demon.co.uk/</a>
+                                                - <i>Supposedly useful stuff for OpenGL Game Developers</i>
+                                            </font>
+
+                                        </p>
+
+                                        <p>
+                                            <font size="+0">
+
+                                                <a href="http://www.dev-gallery.com/programming/opengl/index.htm">http://www.dev-gallery.com/programming/opengl/index.htm</a>
+                                                - <i>Supposedly useful stuff for OpenGL Games Developers</i>
+                                            </font>
+
+                                        </p>
+
+                                        <p>
+                                            <font size="+0">
+
+                                                <a href="http://glit.sourceforge.net/">http://glit.sourceforge.net/</a>
+                                                - <i>GLIT - GL Interaction Tools</i>
+                                            </font>
+
+                                        </p>
+
+                                        <p>
+                                            <font size="+0">
+
+                                                <a href="https://directory.google.com/Top/Computers/Programming/Graphics/Libraries/OpenGL/">
+                                                    http://directory.google.com/Top/Computers/Programming/Graphics/Libraries/OpenGL/</a>
+                                                - <i>Google Web Directory, OpenGL</i>
+                                            </font>
+
+
+                                        </p>
+
+                                        <p>&nbsp;</p>
+
+                                        <p>
+                                            <font size="+1"> * Tutoriais e documentações </font>
+
+                                        </p>
+
+                                        <p>
+                                            <font size="+0">
+
+                                                <a href="https://www.inf.pucrs.br/~pinho/CG/Aulas/OpenGL/OpenGL.html">
+                                                    http://www.inf.pucrs.br/~pinho/CG/Aulas/OpenGL/OpenGL.html</a> - <i>Biblioteca Gráfica OpenGl
+                                                    (página do prof. Márcio Pinho)</i>
+                                            </font>
+
+                                        </p>
+
+                                        <p>
+                                            <font size="+0">
+
+                                                <a href="http://nehe.gamedev.net/">http://nehe.gamedev.net/</a> - <i>
+                                                    NeHe Productions ( OpenGL )</i>
+                                            </font>
+
+                                        </p>
+
+                                        <p>
+                                            <font size="+0">
+
+                                                <a href="http://ask.ii.uib.no/ebt-bin/nph-dweb/dynaweb/SGI_Developer/OpenGL_PG/">
+                                                    http://ask.ii.uib.no/ebt-bin/nph-dweb/dynaweb/SGI_Developer/OpenGL_PG/</a>
+                                                - <i>OpenGL Programming Guide: The Official Guide to Learning OpenGL, Version 1.1</i>
+                                            </font>
+
+                                        </p>
+
+                                        <p>
+                                            <font size="+0">
+
+                                                <a href="http://www.xmission.com/~nate/opengl.html">http://www.xmission.com/~nate/opengl.html </a>
+                                                - <i>Nate Robins - OpenGL </i>
+                                            </font>
+
+                                        </p>
+
+                                        <p>
+                                            <font size="+0">
+
+                                                <a href="http://romka.demonews.com/index_eng.htm">http://romka.demonews.com/index_eng.htm </a>
+                                                - <i>Romka Graphics </i>
+                                            </font>
+
+                                        </p>
+
+                                        <p>
+                                            <font size="+0">
+
+                                                <a href="http://www.cs.usm.maine.edu/~macleod/courses/98cos452/index.html">http://www.cs.usm.maine.edu/~macleod/courses/98cos452/index.html </a>
+                                                - <i>COS452 OpenGL/Glut Tutorial </i>
+                                            </font>
+
+                                        </p>
+
+                                        <p>
+                                            <font size="+0">
+
+                                                <a href="http://www.cevis.uni-bremen.de/~uwe/opengl/">http://www.cevis.uni-bremen.de/~uwe/opengl/ </a>
+                                                - <i>OpenGL doc in HTML </i>
+                                            </font>
+
+                                        </p>
+
+                                        <p>
+                                            <font size="+0">
+
+                                                <a href="http://www.cs.trinity.edu/About/The_Courses/cs357/gl.html">
+                                                    http://www.cs.trinity.edu/About/The_Courses/cs357/gl.html</a> - <i>
+                                                    OpenGL Tutorials and OpenGL Sample Code</i>
+                                            </font>
+
+                                        </p>
+
+                                        <p>
+                                            <font size="+0">
+
+                                                <a href="https://www.inf.pucrs.br/~flash/tcg/aulas/oglfaq/index.htm">FAQ em HTML,</a>
+
+                                                <a href="https://www.inf.pucrs.br/~flash/tcg/aulas/faq.pdf">FAQ em PDF</a>
+                                                - <i>Links disponíveis na
+
+                                                    <a href="https://www.inf.pucrs.br/~flash">página do professor Marcelo Cohen</a> </i>
+                                            </font>
+
+
+                                        </p>
+
+                                        <p>&nbsp;</p>
+
+                                        <p>
+                                            <font size="+1"> * Glut </font>
+
+                                        </p>
+
+                                        <p>
+                                            <font size="+0">
+
+                                                <a href="http://www.lighthouse3d.com/opengl/glut/">http://www.lighthouse3d.com/opengl/glut/</a>
+                                                - <i>OpenGL @ 3D Tech - GLUT Tutorial</i>
+                                            </font>
+
+                                        </p>
+
+                                        <p>
+                                            <font size="+0">
+
+                                                <a href="http://www.opengl.org/developers/documentation/glut.html">http://www.opengl.org/developers/documentation/glut.html</a>
+                                                - <i>About GLUT</i>
+                                            </font>
+
+                                        </p>
+
+                                        <p>
+                                            <font size="+0">
+
+                                                <a href="http://reality.sgi.com/opengl/glut3/glut3.html">http://reality.sgi.com/opengl/glut3/glut3.html</a>
+                                                - <i>GLUT 3 specification</i>
+                                            </font>
+
+                                        </p>
+
+                                        <p>
+                                            <font size="+0">
+
+                                                <a href="http://reality.sgi.com/mjk_asd/spec3/spec3.html">http://reality.sgi.com/mjk_asd/spec3/spec3.html</a>
+                                                - <i>GLUT API, version 3</i>
+                                            </font>
+
+                                        </p>
+
+                                        <p>
+                                            <font size="+0">
+
+                                                <a href="http://reality.sgi.com/opengl/tips/mui/mui.html">http://reality.sgi.com/opengl/tips/mui/mui.html</a>
+                                                - <i>A Brief MUI User Guide</i>
+                                            </font>
+
+
+                                        </p>
+
+                                        <p>&nbsp;</p>
+
+                                        <p>
+                                            <font size="+1"> * Mesa </font>
+
+                                        </p>
+
+                                        <p>
+                                            <font size="+0">
+
+                                                <a href="http://www.mesa3d.org/">http://www.mesa3d.org/</a>
+                                                - <i>The Mesa 3D Graphics Library </i>
+                                            </font>
+
+                                        </p>
+
+                                        <p>
+                                            <font size="+0">
+
+                                                <a href="http://www.ssec.wisc.edu/~brianp/Mesa.html">http://www.ssec.wisc.edu/~brianp/Mesa.html</a>
+                                                - <i>Mesa Home Page</i>
+                                            </font>
+
+                                        </p>
+
+                                        <p>
+                                            <font size="+0">
+
+                                                <a href="http://rsuss1.rnd.runnet.ru/linkfiles/opengl-links.html">http://rsuss1.rnd.runnet.ru/linkfiles/opengl-links.html</a> - <i>
+                                                    Gateway to OpenGL Info</i>
+                                            </font>
+
+
+                                        </p>
+
+                                        <p>&nbsp;</p>
+
+                                        <p>
+                                            <font size="+1"> * OpenGL e Borland C </font>
+
+                                        </p>
+
+                                        <p>
+                                            <font size="+0">
+
+                                                <a href="http://home.clara.net/paulyg/ogl.htm">
+                                                    http://home.clara.net/paulyg/ogl.htm</a> - <i>
+                                                    Paul's opengl page (borland c &amp; glut)</i>
+                                            </font>
+
+                                        </p>
+
+                                        <p>
+                                            <font size="+0">
+
+                                                <a href="http://personal.nbnet.nb.ca/daveg/opengl/bcb_glut/">
+                                                    http://personal.nbnet.nb.ca/daveg/opengl/bcb_glut/</a> - <i>
+                                                    How to use GLUT with Borland C++ Builder 3</i>
+                                            </font>
+
+
+                                        </p>
+
+                                        <p>&nbsp;</p>
+
+                                        <p>
+                                            <font size="+1"> * OpenGL e Delphi </font>
+
+                                        </p>
+
+                                        <p>
+                                            <font size="+0">
+
+                                                <a href="http://delphigl.cfxweb.net/">http://delphigl.cfxweb.net/</a> -
+                                                <i>DelphiGL </i>
+                                            </font>
+
+                                        </p>
+
+                                        <p>
+                                            <font size="+0">
+
+                                                <a href="https://www.inf.pucrs.br/~pinho/CG/Aulas/OpenGL/MustafaGL/MustafaGL.html">http://www.inf.pucrs.br/~pinho/CG/Aulas/OpenGL/MustafaGL/MustafaGL.html</a> -
+                                                <i>Biblioteca Gráfica OpenGl - OpenGL em Delphi</i>
+                                            </font>
+
+                                        </p>
+
+                                        <p>
+                                            <font size="+0">
+
+                                                <a href="http://www.glscene.org/">http://www.glscene.org/</a> -
+                                                <i>GLScene - OpenGL Solution for Delphi</i>
+                                            </font>
+
+                                        </p>
+
+                                        <p>
+                                            <font size="+0">
+
+                                                <a href="http://www.gamedeveloper.org/delphi3d/download.shtml">http://www.gamedeveloper.org/delphi3d/download.shtml</a> -
+                                                <i>Delphi3D - Rapid OpenGL Development </i>
+                                            </font>
+
+                                        </p>
+
+                                        <p>
+                                            <font size="+0">
+
+                                                <a href="http://glscene.sourceforge.net/index.php">http://glscene.sourceforge.net/index.php</a> -
+                                                <i>OpenGL Library for Delphi </i>
+                                            </font>
+
+
+
+
+
+                                        </p>
+
+                                        <p>&nbsp;</p>
+
+                                        <p>
+                                            <font size="+1">
+
+                                                <a name="java"> * OpenGL e Java </a>
+                                            </font>
+
+                                        </p>
+
+                                        <p>
+                                            <font size="+0">
+
+                                                <a href="http://www.jausoft.com/gl4java/">http://www.jausoft.com/gl4java/</a>
+                                                - <i>Jausoft GL4Java Home-Page</i>
+                                            </font>
+
+                                        </p>
+
+                                        <p>
+                                            <font size="+0">
+
+                                                <a href="http://sourceforge.net/projects/gl4java">http://sourceforge.net/projects/gl4java </a>
+                                                - <i>SourceForge: Project Info - OpenGL[tm] for Java[tm] </i>
+                                            </font>
+
+                                        </p>
+
+                                        <p>
+                                            <font size="+0">
+
+                                                <a href="http://www.codeproject.com/java/opengl.asp">http://www.codeproject.com/java/opengl.asp </a>
+                                                - <i>The Code Project - Embed OpenGL inside Java AWT Canvas - Java Programming </i>
+                                            </font>
+
+                                        </p>
+
+                                        <p>
+                                            <font size="+0">
+
+                                                <a href="http://www.palevich.com/3dfx/JavaOpenGL.html">http://www.palevich.com/3dfx/JavaOpenGL.html </a>
+                                                - <i>JavaOpenGL Manual </i>
+                                            </font>
+
+                                        </p>
+
+                                        <p>
+                                            <font size="+0">
+
+                                                <a href="http://www.palevich.com/3dfx/JavaMesa.html">http://www.palevich.com/3dfx/JavaMesa.html </a>
+                                                - <i>JavaMesa Manual </i>
+                                            </font>
+
+                                        </p>
+
+                                        <p>
+                                            <font size="+0">
+
+                                                <a href="http://www.javaworld.com/javaworld/jw-05-1999/jw-05-media.html">http://www.javaworld.com/javaworld/jw-05-1999/jw-05-media.html </a>
+                                                - <i>3D graphics programming in Java, Part 3: OpenGL - JavaWorld May 1999 </i>
+                                            </font>
+
+                                        </p>
+
+                                        <p>
+                                            <font size="+0">
+
+                                                <a href="http://arcana.symbolstone.org/products/magician/">http://arcana.symbolstone.org/products/magician/ </a>
+                                                - <i>Magician: OpenGL for Java </i>
+                                            </font>
+
+
+                                        </p>
+
+                                        <p>&nbsp;</p>
+
+                                        <p>
+                                            <font size="+1"> * OpenGL e Visual Basic </font>
+
+                                        </p>
+
+                                        <p>
+                                            <font size="+0">
+
+                                                <a href="http://is6.pacific.net.hk/~edx/">
+                                                    http://is6.pacific.net.hk/~edx/</a> - <i>
+                                                    Programming OpenGL with Visual Basic</i>
+                                            </font>
+
+                                        </p>
+
+                                        <p>
+                                            <font size="+0">
+
+                                                <a href="http://inetarena.com/~rmyers/opengl/etc.html">
+                                                    http://inetarena.com/~rmyers/opengl/etc.html</a> - <i>
+                                                    OpenGL And Visual Basic: Links &amp; Other Stuff</i>
+                                            </font>
+
+
+                                        </p>
+
+                                        <p>
+                                            <font size="+0" face="Arial Narrow">&nbsp;</font><img src="arquivos/emban15.webp" alt="../Imagens/emban15.png (1469 bytes)" border="0" height="12" width="100%">
+                                        </p>
+
+                                        <p><img src="arquivos/E-MAIL.webp" alt="../Imagens/E-MAIL.JPG (3237 bytes)" border="0" height="45" width="82">
+                                            <font size="+0" face="Arial Narrow"> Comentários, dúvidas, sugestões, envie um mail para
+
+                                                <a href="mailto:manssour@inf.pucrs.br">manssour@inf.pucrs.br</a>
+                                            </font>
+                                        </p>
+
+                                        <p><img src="arquivos/emban15.webp" alt="../Imagens/emban15.png (1469 bytes)" border="0" height="12" width="100%"></p>
+                                    </font>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="center">
+
+                    <table align="center" border="0" cols="1" width="100%">
+                        <tbody>
+
+                            <tr>
+
+                                <td width="12">
+
+                                    <div class="center">
+                                        <font face="Arial Narrow">
+                                            <font size="+0">[
+
+                                                <a href="MalhaPoligonos.html">Anterior</a>]&nbsp;
+                                                [
+
+                                                <a href="index.html">Principal</a>]
+                                            </font>
+                                        </font>
+                                    </div>
+
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <p align="right">
+                        <font size="-1" color="#5A5A5A" face="Arial Narrow"><i>Última alteração em 04 de maio de 2004.</i></font>
+                    </p>
+                </div>
+
+                <script defer="defer" src=vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon="{&quot;rayId&quot;:&quot;9833ef036e924d35&quot;,&quot;serverTiming&quot;:{&quot;name&quot;:{&quot;cfExtPri&quot;:true,&quot;cfEdge&quot;:true,&quot;cfOrigin&quot;:true,&quot;cfL4&quot;:true,&quot;cfSpeedBrain&quot;:true,&quot;cfCacheStatus&quot;:true}},&quot;version&quot;:&quot;2025.9.1&quot;,&quot;token&quot;:&quot;e574ebd03d434993bfcf28088123cf56&quot;}" crossorigin="anonymous"></script>
+
+
+            </div>
+        <script src="arquivos/main.js"></script>
+    </body>
+
+
+</html>
