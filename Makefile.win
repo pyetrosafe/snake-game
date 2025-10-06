@@ -1,16 +1,15 @@
-# Project: CobraGame
+# Project: SnakeGame
 # Makefile created by Dev-C++ 5.11
 
 CPP      = g++.exe
 CC       = gcc.exe
 WINDRES  = windres.exe
-RES      = CobraGame_private.res
-OBJ      = Cobra.o $(RES)
-LINKOBJ  = Cobra.o $(RES)
-LIBS     = -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib32" -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib32" -static-libgcc -mwindows -lglut32 -lglu32 -lopengl32 -lwinmm -lgdi32 -lfmod -m32
+OBJ      = Snake.o
+LINKOBJ  = Snake.o
+LIBS     = -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib32" -static-libgcc -mwindows -lglut32 -lglu32 -lopengl32 -lfmod -m32
 INCS     = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include"
 CXXINCS  = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++"
-BIN      = CobraGame.exe
+BIN      = SnakeGame.exe
 CXXFLAGS = $(CXXINCS) -m32
 CFLAGS   = $(INCS) -m32
 RM       = rm.exe -f
@@ -25,9 +24,5 @@ clean: clean-custom
 $(BIN): $(OBJ)
 	$(CPP) $(LINKOBJ) -o $(BIN) $(LIBS)
 
-Cobra.o: Cobra.cpp
-	$(CPP) -c Cobra.cpp -o Cobra.o $(CXXFLAGS)
-
-CobraGame_private.res: CobraGame_private.rc 
-	$(WINDRES) -i CobraGame_private.rc -F pe-i386 --input-format=rc -o CobraGame_private.res -O coff 
-
+Snake.o: Snake.cpp
+	$(CPP) -c Snake.cpp -o Snake.o $(CXXFLAGS)

@@ -1,0 +1,78 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Compilar Cobra.cpp",
+            "type": "shell",
+            "command": "g++",
+            "args": [
+                "Cobra.cpp",
+                "-o",
+                "CobraGame.exe",
+                "-lglut32",
+                "-lglu32",
+                "-lopengl32",
+                "-lwinmm",
+                "-lgdi32",
+                "-lfmod"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "detail": "Compila o arquivo Cobra.cpp e gera CobraGame.exe, linkando glut32 e fmod."
+        },
+        {
+            "label": "Executar CobraGame.exe",
+            "type": "shell",
+            "command": "./CobraGame.exe",
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "detail": "Executa o jogo CobraGame.exe diretamente pelo VS Code."
+        },
+        {
+            "label": "Compilar Anima.c",
+            "type": "shell",
+            "command": "g++",
+            "args": [
+                "Tutoriais OpenGL/Anima.c",
+                "-o",
+                "Anima.exe",
+                "-lglut32",
+                "-lglu32",
+                "-lopengl32",
+                "-lwinmm",
+                "-lgdi32"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "detail": "Compila o arquivo Anima.cpp e gera Anima.exe, linkando glut32 e fmod."
+        },
+        {
+            "label": "Executar Anima.exe",
+            "type": "shell",
+            "command": "./Anima.exe",
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "detail": "Executa o jogo Anima.exe diretamente pelo VS Code."
+        }
+    ]
+}
