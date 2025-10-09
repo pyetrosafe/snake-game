@@ -980,22 +980,22 @@ void Inicializa(void) {
     // Define a cor de fundo da janela de visualização como preta
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
-    somMenu = FSOUND_Stream_Open("Sons/SomMenu.mp3", 0, 0, 0);
+    somMenu = FSOUND_Stream_Open("../Sons/SomMenu.mp3", 0, 0, 0);
     FSOUND_Stream_SetMode(somMenu, FSOUND_LOOP_NORMAL);
 
-    // somAndou=FSOUND_Sample_Load (0,"Sons/SomAndou3.wav",0, 0, 0);
+    // somAndou=FSOUND_Sample_Load (0,"../Sons/SomAndou3.wav",0, 0, 0);
     // FSOUND_Sample_SetMode(somAndou, FSOUND_LOOP_OFF);
 
-    somComeu = FSOUND_Sample_Load(1, "Sons/SomComeu.wav", 0, 0, 0);
+    somComeu = FSOUND_Sample_Load(1, "../Sons/SomComeu.wav", 0, 0, 0);
     FSOUND_Sample_SetMode(somComeu, FSOUND_LOOP_OFF);
 
-    somChoque = FSOUND_Sample_Load(3, "Sons/SomChoque2.wav", 0, 0, 0);
+    somChoque = FSOUND_Sample_Load(3, "../Sons/SomChoque2.wav", 0, 0, 0);
     FSOUND_Sample_SetMode(somChoque, FSOUND_LOOP_OFF);
 
-    somParabens = FSOUND_Sample_Load(4, "Sons/SomParabens1.mp3", 0, 0, 0);
+    somParabens = FSOUND_Sample_Load(4, "../Sons/SomParabens1.mp3", 0, 0, 0);
     FSOUND_Sample_SetMode(somParabens, FSOUND_LOOP_OFF);
 
-    somPerdeu = FSOUND_Sample_Load(5, "Sons/SomPerdeu.wav", 0, 0, 0);
+    somPerdeu = FSOUND_Sample_Load(5, "../Sons/SomPerdeu.wav", 0, 0, 0);
     FSOUND_Sample_SetMode(somPerdeu, FSOUND_LOOP_OFF);
 
     FSOUND_SetSFXMasterVolume(50);
@@ -1082,7 +1082,7 @@ int main(int argc, char* argv[]) {
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
     glutInitWindowSize(HRES, VRES);
     glutInitWindowPosition((width / 2) - (HRES / 2), (height / 2) - (VRES / 2));
-    glutCreateWindow("Anima");
+    glutCreateWindow("Snake Game");
     glutKeyboardFunc(Teclado);
     glutSpecialFunc(TeclasEspeciais);
     glutDisplayFunc(Desenha);
