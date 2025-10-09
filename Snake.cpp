@@ -81,7 +81,7 @@ GLint delay = DELAY_INITIAL;
 GLint pause = 0;
 GLint informations = ON;
 GLint showVolume = OFF;
-GLint incVolume =  6;
+GLint incVolume = 6;
 GLfloat ScorePoints = 0;
 
 GLuint loopCount = 0;  // Conta quantos loops de delay ja passaram
@@ -1087,7 +1087,7 @@ int main(int argc, char* argv[]) {
     glutSpecialFunc(TeclasEspeciais);
     glutDisplayFunc(Desenha);
     glutReshapeFunc(AlteraTamanhoJanela);
-    glutTimerFunc(delay, Timer, 1);
     Inicializa();
+    glutTimerFunc(delay, Timer, 1);
     glutMainLoop();
 }
