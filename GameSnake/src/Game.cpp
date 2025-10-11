@@ -38,11 +38,25 @@ Game::Game() {
     pressedSpecial = 0;
     showVolume = false;
     showVolumeTime = 0;
+    maxLevelTestEnabled = false;
+    endScreenTestEnabled = false;
 }
 
 Game::~Game() {}
 
 void Game::init(int argc, char* argv[]) {
+    // Processar argumentos de linha de comando
+    for (int i = 1; i < argc; ++i) {
+        std::string arg = argv[i];
+        if (arg == "-maxlevel") {
+            maxLevelTestEnabled = true;
+            std::cout << "DEBUG: Modo Teste de Ultima Fase ativado." << std::endl;
+        } else if (arg == "-endscreen") {
+            endScreenTestEnabled = true;
+            std::cout << "DEBUG: Modo Teste de Tela Final ativado." << std::endl;
+        }
+    }
+
     glutInit(&argc, argv);
     soundManager.init();
 
@@ -58,7 +72,7 @@ void Game::init(int argc, char* argv[]) {
     glutKeyboardFunc(Game::keyboardCallback);
     glutSpecialFunc(Game::specialKeysCallback);
     glutReshapeFunc(Game::reshapeCallback);
-    
+
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
     reset(SCREEN_MENU);
@@ -72,7 +86,7 @@ void Game::run() {
 void Game::update() {
     float t = ((clock() - endTime) / CLOCKS_PER_SEC);
     if (statusGame == OFF) {
-        if ((currentScreen == SCREEN_LEVEL && t >= LOAD_TIME_SHORT -1) || 
+        if ((currentScreen == SCREEN_LEVEL && t >= LOAD_TIME_SHORT -1) ||
             (currentScreen == SCREEN_HIT && t >= LOAD_TIME_LONG -1)) {
             statusGame = ON;
             currentScreen = SCREEN_OFF;
@@ -84,11 +98,20 @@ void Game::update() {
 
     snake.move();
 
+    int expectedTail = (fase <= 10) ? (fase * 2 - 2) : (fase * 2 - (fase - 8));
+    expectedTail += 10;
+
     bool collided = snake.checkWallCollision(-(HRES/2), HRES/2, -(VRES/2), VRES/2) || snake.checkSelfCollision();
 
     if (collided) {
         lifes--;
         soundManager.playHitSound();
+
+        if (scorePoints > (lifes * 400) * expectedTail)
+            scorePoints -= (lifes * 400) * expectedTail;
+        else
+            scorePoints = 0;
+
         if (lifes <= 0) {
             reset(SCREEN_GAMEOVER);
             soundManager.playLoseSound();
@@ -102,11 +125,15 @@ void Game::update() {
         food.spawn(-(HRES/2), HRES/2, -(VRES/2), VRES/2);
         snake.grow();
         soundManager.playEatSound();
-        scorePoints += (lifes * 100);
-    }
 
-    int expectedTail = (fase <= 10) ? (fase * 2 - 2) : (fase * 2 - (fase - 8));
-    expectedTail += 10;
+        if ((clock() - clockTime) / CLOCKS_PER_SEC < 90) {
+            scorePoints += (lifes * 400);
+        } else if ((clock() - clockTime) / CLOCKS_PER_SEC < 180) {
+            scorePoints += (lifes * 300);
+        } else {
+            scorePoints += (lifes * 150);
+        }
+    }
 
     if (snake.getTailLength() >= expectedTail) {
         if (fase < MAX_LEVEL) {
@@ -128,7 +155,7 @@ void Game::draw() {
     if (statusGame == ON) {
         snake.draw();
         food.draw();
-        
+
         float speed = (float)getDificultyLevelDelay() / delay;
         float time = ((clock() - clockTime) / CLOCKS_PER_SEC) - pausedTime;
         ui.drawGameInfo(fase, scorePoints, lifes, snake.getTailLength(), speed, time);
@@ -153,6 +180,17 @@ void Game::draw() {
     glutSwapBuffers();
 }
 
+void Game::setupEndScreenTest() {
+    fase = MAX_LEVEL;
+    int tail = (fase <= 10) ? (fase * 2 - 2) : (fase * 2 - (fase - 8));
+    tail += 10;
+    tail--;
+
+    snake.setPosition(-50, 20, tail);
+    snake.setDirection(1, 0, 0, 0);
+    food.setPosition(50, 20);
+}
+
 void Game::reset(int nextScreen) {
     statusGame = OFF;
     endTime = clock();
@@ -162,7 +200,7 @@ void Game::reset(int nextScreen) {
         difficultyLevel = 0;
         scorePoints = 0;
         lifes = LIFES;
-        fase = 1;
+        fase = !maxLevelTestEnabled ? 0 : MAX_LEVEL-1;
         soundManager.stopAllSounds();
         soundManager.playMenuSound();
     } else if (nextScreen == SCREEN_LEVEL) {
@@ -170,8 +208,19 @@ void Game::reset(int nextScreen) {
         fase++;
     }
     setCurrentLevelDelay();
+
     snake.reset(nextScreen != SCREEN_GAMEOVER && nextScreen != SCREEN_FINISHED);
+
+    if (maxLevelTestEnabled) {
+        int tail = (fase <= 10 ? fase * 2 - 2 : fase * 2 - (fase - 8)) + 5;
+        snake.setPosition(snake.getHeadPosition().x, snake.getHeadPosition().y, tail);
+    }
+
     food.spawn(-(HRES/2), HRES/2, -(VRES/2), VRES/2);
+
+    if (endScreenTestEnabled) {
+        setupEndScreenTest();
+    }
 }
 
 void Game::processInput(unsigned char key) {
@@ -197,19 +246,18 @@ void Game::processInput(unsigned char key) {
             }
             break;
         case 'i': case 'I': ui.toggleInformations(); break;
-        case '+': case '=': 
+        case '+': case '=':
             soundManager.setMasterVolume(soundManager.getMasterVolume() + 6);
             showVolume = true;
             showVolumeTime = clock();
             break;
-        case '-': 
+        case '-':
             soundManager.setMasterVolume(soundManager.getMasterVolume() - 6);
             showVolume = true;
             showVolumeTime = clock();
             break;
     }
 }
-
 
 
 void Game::processSpecialKeys(int key) {

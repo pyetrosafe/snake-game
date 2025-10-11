@@ -52,6 +52,7 @@ private:
     void processSpecialKeys(int key);
     int getDificultyLevelDelay();
     void setCurrentLevelDelay();
+    void setupEndScreenTest();
 
     // Game Objects
     Snake snake;
@@ -77,6 +78,10 @@ private:
     int pressedSpecial;
     bool showVolume;
     float showVolumeTime;
+
+    // Test-mode flags
+    bool maxLevelTestEnabled;
+    bool endScreenTestEnabled;
 };
 
 #endif // GAME_H

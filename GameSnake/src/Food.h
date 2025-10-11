@@ -14,6 +14,8 @@ public:
     void spawn(int minX, int maxX, int minY, int maxY);
     Position getPosition();
 
+    void setPosition(int x, int y);
+
 private:
     Position position;
     int blinkInterval;

@@ -47,3 +47,8 @@ void Food::spawn(int minX, int maxX, int minY, int maxY) {
 Position Food::getPosition() {
     return position;
 }
+
+void Food::setPosition(int x, int y) {
+    position.x = x;
+    position.y = y;
+}

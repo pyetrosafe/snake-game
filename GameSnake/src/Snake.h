@@ -26,6 +26,10 @@ public:
     bool isMovingX();
     bool isMovingY();
 
+    // Setters for testing
+    void setPosition(int x, int y, int tail);
+    void setDirection(int mx, int my, int hk, int vk);
+
 private:
     GLint body[MAX_TAIL + 1][2];
     int tailLength;

@@ -141,3 +141,17 @@ int Snake::getTailLength() {
 
 bool Snake::isMovingX() { return moveToX == 1; }
 bool Snake::isMovingY() { return moveToY == 1; }
+
+// Setters for testing
+void Snake::setPosition(int x, int y, int tail) {
+    body[0][0] = x;
+    body[0][1] = y;
+    tailLength = tail;
+}
+
+void Snake::setDirection(int mx, int my, int hk, int vk) {
+    moveToX = mx;
+    moveToY = my;
+    hKey = hk;
+    vKey = vk;
+}
