@@ -129,12 +129,12 @@ void Snake::changeDirection(int h, int v) {
     }
 }
 
-Position Snake::getHeadPosition() {
+Position Snake::getHeadPosition() const {
     Position pos = { body[0][0], body[0][1] };
     return pos;
 }
 
-int Snake::getTailLength() {
+int Snake::getTailLength() const {
     return tailLength;
 }
 

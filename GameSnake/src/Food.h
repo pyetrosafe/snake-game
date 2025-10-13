@@ -12,7 +12,7 @@ public:
     Food();
     void draw();
     void spawn(int minX, int maxX, int minY, int maxY);
-    Position getPosition();
+    Position getPosition() const;
 
     void setPosition(int x, int y);
 

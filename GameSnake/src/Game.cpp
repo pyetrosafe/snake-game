@@ -4,6 +4,7 @@
 #include <string>
 #include <ctime>
 #include <cmath>
+#include <limits.h>
 
 static Game* currentGame = nullptr;
 
@@ -21,6 +22,9 @@ int Game::getDificultyLevelDelay() {
 void Game::setCurrentLevelDelay() {
     delay = getDificultyLevelDelay();
     delay = fase == 1 ? delay : (delay - ((int)floor(fase / 2)));
+    if (logger.isEnabled() || endScreenTestEnabled) {
+        delay *= 10;
+    }
 }
 
 Game::Game() {
@@ -33,6 +37,7 @@ Game::Game() {
     scorePoints = 0;
     difficultyLevel = 0;
     pause = false;
+    loopCount = 0;
     startTime = endTime = clockTime = pauseTime = pausedTime = 0;
     pressedKey = 0;
     pressedSpecial = 0;
@@ -57,8 +62,15 @@ void Game::init(int argc, char* argv[]) {
         } else if (arg == "-show") {
             showDebugInfo = true;
             std::cout << "DEBUG: Exibicao de debug na tela ativada." << std::endl;
+        } else if (arg == "-storelog") {
+            logger.setEnabled(true);
+            std::cout << "DEBUG: Log de armazenamento ativado." << std::endl;
         }
+        std::string msg = "Processando argumento: " + arg;
+        logger.log(*this, msg.c_str());
     }
+
+    logger.log(*this, "INICIO");
 
     glutInit(&argc, argv);
     soundManager.init();
@@ -87,10 +99,13 @@ void Game::run() {
 }
 
 void Game::update() {
+    logger.log(*this, "update_inicio");
+
     float t = ((clock() - endTime) / CLOCKS_PER_SEC);
     if (statusGame == OFF) {
         if ((currentScreen == SCREEN_LEVEL && t >= LOAD_TIME_SHORT -1) ||
             (currentScreen == SCREEN_HIT && t >= LOAD_TIME_LONG -1)) {
+            logger.log(*this, "Contador_Telas_4_5");
             statusGame = ON;
             currentScreen = SCREEN_OFF;
             clockTime = clock();
@@ -99,6 +114,7 @@ void Game::update() {
         return;
     }
 
+    logger.log(*this, "statusGame_ON");
     snake.move();
 
     int expectedTail = (fase <= 10) ? (fase * 2 - 2) : (fase * 2 - (fase - 8));
@@ -107,6 +123,7 @@ void Game::update() {
     bool collided = snake.checkWallCollision(-(HRES/2), HRES/2, -(VRES/2), VRES/2) || snake.checkSelfCollision();
 
     if (collided) {
+        logger.log(*this, "COLISAO");
         lifes--;
         soundManager.playHitSound();
 
@@ -125,6 +142,7 @@ void Game::update() {
     }
 
     if (snake.ateFood(food.getPosition())) {
+        logger.log(*this, "PEGOU_COMIDA");
         food.spawn(-(HRES/2), HRES/2, -(VRES/2), VRES/2);
         snake.grow();
         soundManager.playEatSound();
@@ -140,8 +158,10 @@ void Game::update() {
 
     if (snake.getTailLength() >= expectedTail) {
         if (fase < MAX_LEVEL) {
+            logger.log(*this, "PASSOU_DE_FASE");
             reset(SCREEN_LEVEL);
         } else {
+            logger.log(*this, "FINALIZOU_JOGO");
             reset(SCREEN_FINISHED);
             soundManager.playWinSound();
         }
@@ -190,6 +210,7 @@ void Game::draw() {
 }
 
 void Game::setupEndScreenTest() {
+    logger.log(*this, "ResetValuesEndScreen_inicio");
     fase = MAX_LEVEL;
     int tail = (fase <= 10) ? (fase * 2 - 2) : (fase * 2 - (fase - 8));
     tail += 10;
@@ -198,12 +219,15 @@ void Game::setupEndScreenTest() {
     snake.setPosition(-50, 20, tail);
     snake.setDirection(1, 0, 0, 0);
     food.setPosition(50, 20);
+    logger.log(*this, "ResetValuesEndScreen_fim");
 }
 
 void Game::reset(int nextScreen) {
+    logger.log(*this, "ResetValues");
     statusGame = OFF;
     endTime = clock();
     currentScreen = nextScreen;
+    loopCount = 0;
 
     if (nextScreen == SCREEN_MENU) {
         difficultyLevel = 0;
@@ -233,6 +257,10 @@ void Game::reset(int nextScreen) {
 }
 
 void Game::processInput(unsigned char key) {
+    char msg[120];
+    sprintf(msg, "Teclado [tecla == '%c'] (ASCII = '%d')", key, key);
+    logger.log(*this, msg);
+
     switch (key) {
         case 13: if (statusGame == OFF && currentScreen == SCREEN_MENU) reset(SCREEN_LEVEL); break;
         case 'm': case 'M': reset(SCREEN_MENU); break;
@@ -270,6 +298,10 @@ void Game::processInput(unsigned char key) {
 
 
 void Game::processSpecialKeys(int key) {
+    char msg[120];
+    sprintf(msg, "TeclasEspeciais [tecla == %i]", key);
+    logger.log(*this, msg);
+
     if (statusGame == ON) {
         switch (key) {
             case GLUT_KEY_UP:    snake.changeDirection(-1, 0); break;
@@ -293,6 +325,9 @@ void Game::processSpecialKeys(int key) {
 void Game::drawCallback() { if (currentGame) currentGame->draw(); }
 void Game::timerCallback(int value) {
     if (currentGame) {
+        if (currentGame->logger.isEnabled()) {
+            currentGame->loopCount = (currentGame->loopCount >= UINT_MAX - 1) ? 0 : currentGame->loopCount + 1;
+        }
         currentGame->update();
         glutPostRedisplay();
         glutTimerFunc(currentGame->delay, Game::timerCallback, 1);

@@ -7,6 +7,8 @@
 #define MAX_TAIL 48
 #define PIXEL_INC 10
 
+class StoreLogger; // Forward declaration
+
 class Snake {
 public:
     Snake();
@@ -21,8 +23,8 @@ public:
     bool checkWallCollision(int minX, int maxX, int minY, int maxY);
     bool ateFood(Position foodPos);
 
-    Position getHeadPosition();
-    int getTailLength();
+    Position getHeadPosition() const;
+    int getTailLength() const;
     bool isMovingX();
     bool isMovingY();
 
@@ -31,9 +33,11 @@ public:
     void setDirection(int mx, int my, int hk, int vk);
 
 private:
+    friend class StoreLogger; // Permite acesso para o logger
+
     GLint body[MAX_TAIL + 1][2];
     int tailLength;
-    
+
     // Direcao atual
     int moveToX; // 1 para mover no eixo X, 0 para Y
     int moveToY; // 1 para mover no eixo Y, 0 para X

@@ -6,6 +6,7 @@
 #include "Food.h"
 #include "SoundManager.h"
 #include "UI.h"
+#include "StoreLogger.h" // Adicionado para o logger
 
 // CONSTANTES
 #define HRES 480
@@ -45,6 +46,8 @@ public:
     static void reshapeCallback(int w, int h);
 
 private:
+    friend class StoreLogger; // Permite que o logger acesse membros privados
+
     void update();
     void draw();
     void reset(int nextScreen);
@@ -59,6 +62,7 @@ private:
     Food food;
     SoundManager soundManager;
     UI ui;
+    StoreLogger logger; // Objeto de log
 
     // Game State
     int statusGame;
@@ -69,6 +73,7 @@ private:
     float scorePoints;
     int difficultyLevel;
     bool pause;
+    unsigned int loopCount; // Contador de loops para o log
 
     // Time
     float startTime, endTime, clockTime, pauseTime, pausedTime;

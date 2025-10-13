@@ -29,7 +29,7 @@ void Food::spawn(int minX, int maxX, int minY, int maxY) {
     position.y = getRandom(minY + 10, maxY - 10);
 }
 
-Position Food::getPosition() {
+Position Food::getPosition() const {
     return position;
 }
 
