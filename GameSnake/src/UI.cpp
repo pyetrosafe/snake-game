@@ -8,7 +8,7 @@ UI::UI() {
     sizefont = 20;
 }
 
-void UI::drawText(char* string, int x, int y, float r, float g, float b) {
+void UI::drawText(const char* string, int x, int y, float r, float g, float b) {
     glColor3f(r, g, b);
     glRasterPos2f(x, y);
     while (*string) {
@@ -65,7 +65,7 @@ void UI::drawMenu(int difficultyLevel) {
     char msg[120];
     sizefont = 20;
 
-    sprintf(msg, "\_/\_Cobra Game_/\_/");
+    sprintf(msg, "\\_/\\_Cobra Game_/\\_/");
     drawText(msg, -110, VRES / 3, 1.0f, 0.4f, 0.4f);
 
     sprintf(msg, ">>");

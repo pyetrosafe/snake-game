@@ -19,7 +19,7 @@ public:
     void toggleInformations();
 
 private:
-    void drawText(char* string, int x, int y, float r = 1.0, float g = 1.0, float b = 1.0);
+    void drawText(const char* string, int x, int y, float r = 1.0, float g = 1.0, float b = 1.0);
     void drawBorders();
 
     bool showInformations;
