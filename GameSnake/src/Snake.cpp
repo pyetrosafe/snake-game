@@ -3,8 +3,7 @@
 #include "..\..\inc\GL\glut.h" // Apenas para GLint
 #include <stdlib.h> // Para rand
 
-// Funcao auxiliar de Food.cpp - idealmente deveria estar em um arquivo utilitario
-int getRandom(int min, int max);
+#include "Utils.h"
 
 Snake::Snake() {
     reset(true);

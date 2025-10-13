@@ -3,22 +3,7 @@
 #include <stdlib.h> // Para rand() e srand()
 #include <time.h>   // Para time()
 
-// Funcao auxiliar (duplicada em Snake.cpp, idealmente mover para um helper)
-int getRandom(int min, int max) {
-    static bool first = true;
-    if (first) {
-        time_t seed;
-        time(&seed);
-        srand((unsigned)seed);
-        first = false;
-    }
-    int r = min + rand() % (max - min + 1);
-    if (r % 10 != 0) {
-        r /= 10;
-        r *= 10;
-    }
-    return r;
-}
+#include "Utils.h"
 
 Food::Food() {
     blinkInterval = 0;

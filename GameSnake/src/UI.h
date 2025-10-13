@@ -13,7 +13,7 @@ public:
     void drawGameOverScreen();
     void drawFinishedScreen();
     void drawGameInfo(int level, float score, int lifes, int tailLength, float speed, float time);
-    void drawDebugInfo(/* ... parametros de debug ... */);
+    void drawDebugInfo(int sX, int sY, int fX, int fY, int screen, int status, unsigned char pKey, int spKey);
     void drawVolume(int volume);
 
     void toggleInformations();

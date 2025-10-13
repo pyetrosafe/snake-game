@@ -82,6 +82,7 @@ private:
     // Test-mode flags
     bool maxLevelTestEnabled;
     bool endScreenTestEnabled;
+    bool showDebugInfo;
 };
 
 #endif // GAME_H

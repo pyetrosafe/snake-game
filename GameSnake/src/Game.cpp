@@ -54,6 +54,9 @@ void Game::init(int argc, char* argv[]) {
         } else if (arg == "-endscreen") {
             endScreenTestEnabled = true;
             std::cout << "DEBUG: Modo Teste de Tela Final ativado." << std::endl;
+        } else if (arg == "-show") {
+            showDebugInfo = true;
+            std::cout << "DEBUG: Exibicao de debug na tela ativada." << std::endl;
         }
     }
 
@@ -165,6 +168,12 @@ void Game::draw() {
         ui.drawVolume(soundManager.getMasterVolume());
     } else {
         showVolume = false;
+    }
+
+    if (showDebugInfo) {
+        Position snakePos = snake.getHeadPosition();
+        Position foodPos = food.getPosition();
+        ui.drawDebugInfo(snakePos.x, snakePos.y, foodPos.x, foodPos.y, currentScreen, statusGame, pressedKey, pressedSpecial);
     }
 
     switch (currentScreen) {

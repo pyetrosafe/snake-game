@@ -64,6 +64,17 @@
         "streambuf": "cpp",
         "text_encoding": "cpp",
         "typeinfo": "cpp",
-        "variant": "cpp"
+        "variant": "cpp",
+        "chrono": "cpp",
+        "codecvt": "cpp",
+        "map": "cpp",
+        "ratio": "cpp",
+        "source_location": "cpp",
+        "fstream": "cpp",
+        "iomanip": "cpp",
+        "semaphore": "cpp",
+        "sstream": "cpp",
+        "stop_token": "cpp",
+        "thread": "cpp"
     },
 }

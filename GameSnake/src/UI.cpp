@@ -147,7 +147,41 @@ void UI::drawGameInfo(int level, float score, int lifes, int tailLength, float s
     drawText(msg, (HRES / 2) - 90, (VRES / 2) - 50);
 }
 
-void UI::drawDebugInfo(/* ... */) {}
+void UI::drawDebugInfo(int sX, int sY, int fX, int fY, int screen, int status, unsigned char pKey, int spKey) {
+    char msg[120];
+    sizefont = 10;
+
+    // Original `Debug()`
+    sprintf(msg, "Snake(x, y): (%i, %i)", sX, sY);
+    drawText(msg, -(HRES / 2) + 20, (VRES / 2) - 250);
+    sprintf(msg, "Food(x, y): (%i, %i)", fX, fY);
+    drawText(msg, -(HRES / 2) + 20, (VRES / 2) - 260);
+    sprintf(msg, "CurrentScreen: %i", screen);
+    drawText(msg, -(HRES / 2) + 20, (VRES / 2) - 270);
+    sprintf(msg, "StatusGame: %i", status);
+    drawText(msg, -(HRES / 2) + 20, (VRES / 2) - 280);
+
+    // Original `mostraTeclas()`
+    if (pKey) {
+        sprintf(msg, "Key: %c", pKey);
+    } else if (spKey) {
+        strcpy(msg, "Special: ");
+        switch (spKey) {
+            case GLUT_KEY_F1: strcat(msg, "F1"); break;
+            case GLUT_KEY_UP: strcat(msg, "UP"); break;
+            case GLUT_KEY_DOWN: strcat(msg, "DOWN"); break;
+            case GLUT_KEY_LEFT: strcat(msg, "LEFT"); break;
+            case GLUT_KEY_RIGHT: strcat(msg, "RIGHT"); break;
+            // Adicionar outras teclas especiais se necessario
+            default: strcat(msg, "OTHER"); break;
+        }
+    } else {
+        // Nenhuma tecla pressionada recentemente
+        return;
+    }
+    drawText(msg, -(HRES / 2) + 20, (VRES / 2) - 220);
+}
+
 
 void UI::drawVolume(int volume) {
     char msg[120];
