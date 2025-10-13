@@ -48,22 +48,29 @@ void Snake::reset(bool randomPos) {
 }
 
 void Snake::draw() {
+    // Metade do tamanho do desenho, facilita o uso posterior
+    const float halfSize = 4.5f;
+
     // Desenha a cabeca
     glColor3f(1.0f, 0.4f, 0.4f);
-    glPointSize(9.0f);
-    glBegin(GL_POINTS);
-    glVertex2f(body[0][0], body[0][1]);
+    glBegin(GL_QUADS);
+    glVertex2f(body[0][0] - halfSize, body[0][1] - halfSize);
+    glVertex2f(body[0][0] + halfSize, body[0][1] - halfSize);
+    glVertex2f(body[0][0] + halfSize, body[0][1] + halfSize);
+    glVertex2f(body[0][0] - halfSize, body[0][1] + halfSize);
     glEnd();
 
     // Desenha o corpo
     if (tailLength > 0) {
+        glColor3f(1.0f, 0.7f, 0.7f);
+        glBegin(GL_QUADS);
         for (int j = 1; j <= tailLength; j++) {
-            glColor3f(1.0f, 0.7f, 0.7f);
-            glPointSize(9.0f);
-            glBegin(GL_POINTS);
-            glVertex2f(body[j][0], body[j][1]);
-            glEnd();
+            glVertex2f(body[j][0] - halfSize, body[j][1] - halfSize);
+            glVertex2f(body[j][0] + halfSize, body[j][1] - halfSize);
+            glVertex2f(body[j][0] + halfSize, body[j][1] + halfSize);
+            glVertex2f(body[j][0] - halfSize, body[j][1] + halfSize);
         }
+        glEnd();
     }
 }
 
@@ -102,7 +109,7 @@ bool Snake::checkSelfCollision() {
 }
 
 bool Snake::checkWallCollision(int minX, int maxX, int minY, int maxY) {
-    if ((body[0][0] >= maxX - 5) || (body[0][0] <= minX + 5) || 
+    if ((body[0][0] >= maxX - 5) || (body[0][0] <= minX + 5) ||
         (body[0][1] >= maxY - 5) || (body[0][1] <= minY + 5)) {
         return true;
     }

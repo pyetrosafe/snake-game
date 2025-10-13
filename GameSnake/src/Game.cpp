@@ -337,10 +337,35 @@ void Game::keyboardCallback(unsigned char key, int x, int y) { if (currentGame) 
 void Game::specialKeysCallback(int key, int x, int y) { if (currentGame) currentGame->processSpecialKeys(key); }
 void Game::reshapeCallback(int w, int h) {
     if (h == 0) h = 1;
-    if (w < HRES || h < VRES) { glutReshapeWindow(HRES, VRES); }
-    glViewport(0, 0, w, h);
+
+    // Proporcao fixa do jogo
+    float gameAspectRatio = (float)HRES / (float)VRES;
+    // Proporcao da nova janela
+    float windowAspectRatio = (float)w / (float)h;
+
+    int newViewportWidth;
+    int newViewportHeight;
+    int x_offset = 0;
+    int y_offset = 0;
+
+    // Janela mais larga que o jogo (barras laterais)
+    if (windowAspectRatio > gameAspectRatio) { 
+        newViewportHeight = h;
+        newViewportWidth = (int)(h * gameAspectRatio);
+        x_offset = (w - newViewportWidth) / 2;
+    } 
+    // Janela mais alta que o jogo (barras em cima/embaixo)
+    else { 
+        newViewportWidth = w;
+        newViewportHeight = (int)(w / gameAspectRatio);
+        y_offset = (h - newViewportHeight) / 2;
+    }
+
+    glViewport(x_offset, y_offset, newViewportWidth, newViewportHeight);
+
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    gluOrtho2D(-w / 2, w / 2, -h / 2, h / 2);
+    // Usa o sistema de coordenadas fixo do jogo, nao o tamanho da janela
+    gluOrtho2D(-HRES / 2, HRES / 2, -VRES / 2, VRES / 2);
     glMatrixMode(GL_MODELVIEW);
 }

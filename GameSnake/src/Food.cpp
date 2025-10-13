@@ -16,10 +16,13 @@ void Food::draw() {
     blinkInterval++;
     if (blinkInterval >= 99) blinkInterval = 0;
 
-    if (blinkInterval % 10 != 0) {
-        glPointSize(9.0f);
-        glBegin(GL_POINTS);
-        glVertex2f(position.x, position.y);
+    if (blinkInterval % 7 != 0) {
+        const float halfSize = 4.5f;
+        glBegin(GL_QUADS);
+        glVertex2f(position.x - halfSize, position.y - halfSize);
+        glVertex2f(position.x + halfSize, position.y - halfSize);
+        glVertex2f(position.x + halfSize, position.y + halfSize);
+        glVertex2f(position.x - halfSize, position.y + halfSize);
         glEnd();
     }
 }
