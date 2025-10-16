@@ -196,6 +196,7 @@ void Game::draw() {
         ui.drawDebugInfo(snakePos.x, snakePos.y, foodPos.x, foodPos.y, currentScreen, statusGame, pressedKey, pressedSpecial);
     }
 
+    // currentScreen = SCREEN_FINISHED;
     switch (currentScreen) {
         case SCREEN_MENU: ui.drawMenu(difficultyLevel); break;
         case SCREEN_EXIT: ui.drawExitScreen(); break;
@@ -261,6 +262,9 @@ void Game::processInput(unsigned char key) {
     sprintf(msg, "Teclado [tecla == '%c'] (ASCII = '%d')", key, key);
     logger.log(*this, msg);
 
+    pressedKey = key;
+    pressedSpecial = 0;
+
     switch (key) {
         case 13: if (statusGame == OFF && currentScreen == SCREEN_MENU) reset(SCREEN_LEVEL); break;
         case 'm': case 'M': reset(SCREEN_MENU); break;
@@ -296,11 +300,13 @@ void Game::processInput(unsigned char key) {
     }
 }
 
-
 void Game::processSpecialKeys(int key) {
     char msg[120];
     sprintf(msg, "TeclasEspeciais [tecla == %i]", key);
     logger.log(*this, msg);
+
+    pressedKey = false;
+    pressedSpecial = key;
 
     if (statusGame == ON) {
         switch (key) {
@@ -336,6 +342,8 @@ void Game::timerCallback(int value) {
 void Game::keyboardCallback(unsigned char key, int x, int y) { if (currentGame) currentGame->processInput(key); }
 void Game::specialKeysCallback(int key, int x, int y) { if (currentGame) currentGame->processSpecialKeys(key); }
 void Game::reshapeCallback(int w, int h) {
+    if (currentGame) currentGame->ui.reshape(w, h);
+
     if (h == 0) h = 1;
 
     // Proporcao fixa do jogo
@@ -349,13 +357,13 @@ void Game::reshapeCallback(int w, int h) {
     int y_offset = 0;
 
     // Janela mais larga que o jogo (barras laterais)
-    if (windowAspectRatio > gameAspectRatio) { 
+    if (windowAspectRatio > gameAspectRatio) {
         newViewportHeight = h;
         newViewportWidth = (int)(h * gameAspectRatio);
         x_offset = (w - newViewportWidth) / 2;
-    } 
+    }
     // Janela mais alta que o jogo (barras em cima/embaixo)
-    else { 
+    else {
         newViewportWidth = w;
         newViewportHeight = (int)(w / gameAspectRatio);
         y_offset = (h - newViewportHeight) / 2;

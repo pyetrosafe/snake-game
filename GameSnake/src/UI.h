@@ -17,13 +17,24 @@ public:
     void drawVolume(int volume);
 
     void toggleInformations();
+    void reshape(int w, int h);
 
 private:
-    void drawText(const char* string, int x, int y, float r = 1.0, float g = 1.0, float b = 1.0);
+    float getViewDimensionSize();
+    void drawText(const char* string, float x, float y, float r = 1.0, float g = 1.0, float b = 1.0, float scale = 0.1f);
+    void drawTextBitmap(const char* string, int x, int y, float r, float g, float b);
+    float getStrokeStringWidth(const char* string, float scale);
+    float getTextVerticalPosition(float scale);
+    float getTextHorizontalPosition(float scale);
     void drawBorders();
+    void drawRectangle(int x, int y, int width, int height, float r = 1.0f, float g = 1.0f, float b = 1.0f);
+    void drawRectangleLine(int x, int y, int width, int height, float borderR, float borderG, float borderB, int borderWidth);
+    void drawRoundedRectangle(float x, float y, float width, float height, float radius, int segments);
 
     bool showInformations;
     int sizefont;
+    int windowWidth;
+    int windowHeight;
 };
 
 #endif // UI_H
