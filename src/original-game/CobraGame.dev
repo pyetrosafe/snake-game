@@ -5,14 +5,14 @@ UnitCount=1
 Type=0
 Ver=1
 ObjFiles=
-Includes=
-Libs=
+Includes=..\..\inc
+Libs=..\..\lib
 PrivateResource=CobraGame_private.rc
 ResourceIncludes=
 MakeIncludes=
 Compiler=
 CppCompiler=
-Linker=-lglut32 -lglu32 -lopengl32 -lwinmm -lgdi32_@@_../../../Programas/Dev-CppPortable/App/devcpp/lib/libfmod.a_@@_
+Linker=-lglut32_@@_-lglu32_@@_-lopengl32_@@_-lwinmm_@@_-lgdi32_@@_-lfmod_@@_
 IsCpp=1
 Icon=CobraGame.ico
 ExeOutput=
@@ -26,8 +26,10 @@ UseCustomMakefile=0
 CustomMakefile=
 IncludeVersionInfo=1
 SupportXPThemes=0
-CompilerSet=0
-CompilerSettings=0000000000000100000000
+CompilerSet=3
+CompilerSettings=00000001c0000000000000000
+LogOutput=
+LogOutputEnabled=0
 
 [Unit1]
 FileName=Cobra.cpp
@@ -56,4 +58,5 @@ OriginalFilename=CobraGame GL
 ProductName=CobraGame
 ProductVersion=1.09
 AutoIncBuildNr=0
+SyncProduct=0
 

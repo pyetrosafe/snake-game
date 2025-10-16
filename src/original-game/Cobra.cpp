@@ -65,7 +65,7 @@ FSOUND_SAMPLE* somPerdeu;  // Som Perdeu
 void DesenhaTexto(char *string, int x = 0, int y = 0, float red = 1.0, float green = 1.0, float blue = 1.0) {
 
     glColor3f(red, green, blue);
-    glRasterPos2f(x,y); 
+    glRasterPos2f(x,y);
 
     //  Exibe caractere a caractere
     while(*string) {
@@ -376,7 +376,7 @@ void Desenha(void) {
     // Limpa janela de visualizacao
     //glClearColor(0.0f,0.15,0.2f,0.0f); // especifica a cor de fundo
     glClearColor(.1f,0.1,0.1f,0.0f); // especifica a cor de fundo
-    glClear(GL_COLOR_BUFFER_BIT); // pinta o fundo com a cor acima 
+    glClear(GL_COLOR_BUFFER_BIT); // pinta o fundo com a cor acima
 
     // Desenha barras e fundo pra tela grande
     DesenhaTela();
@@ -582,6 +582,9 @@ void Engine(int value) {
       }
     } // Encerra IF StatusGame
 
+    // Executa os desenhos
+    glFlush();
+
     // Redesenha a Bola na nova posição
     glutPostRedisplay();
     glutTimerFunc(DELAY, Engine, 1);
@@ -735,7 +738,7 @@ void Inicializa() {
     FSOUND_Init(44100, 32, 0);
    //Carrega os arquivos com os sons
 //    somAndou=FSOUND_Sample_Load (0,"Sons/SomAndou3.wav",0, 0, 0);
-//    FSOUND_Sample_SetMode(somAndou, FSOUND_LOOP_OFF);  
+//    FSOUND_Sample_SetMode(somAndou, FSOUND_LOOP_OFF);
 
     somComeu=FSOUND_Sample_Load (1,"Sons/SomComeu.wav",0, 0, 0);
     FSOUND_Sample_SetMode(somComeu, FSOUND_LOOP_OFF);
@@ -744,7 +747,7 @@ void Inicializa() {
     FSOUND_Stream_SetMode(somMenu, FSOUND_LOOP_NORMAL);
 
     somChoque=FSOUND_Sample_Load (3,"Sons/SomChoque2.wav",0, 0, 0);
-    FSOUND_Sample_SetMode(somChoque, FSOUND_LOOP_OFF);  
+    FSOUND_Sample_SetMode(somChoque, FSOUND_LOOP_OFF);
 
     somParabens=FSOUND_Sample_Load (4,"Sons/SomParabens1.mp3",0, 0, 0);
     FSOUND_Sample_SetMode(somParabens, FSOUND_LOOP_OFF);
@@ -759,12 +762,12 @@ void Inicializa() {
     // glutFullScreen();
 } // Fim Inicializa()
 
-// Programa Principal 
+// Programa Principal
 int main(void) {
     size_t width = (size_t)GetSystemMetrics(SM_CXSCREEN);
     size_t height = (size_t)GetSystemMetrics(SM_CYSCREEN);
 
-    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);                    // Modo exibicao da GLUT    
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);                    // Modo exibicao da GLUT
     glutInitWindowSize(HRES,VRES);                                  // Tamanho inicial em pixel da janela Glut
     glutInitWindowPosition((width/2)-(HRES/2),(height/2)-(VRES/2)); // Posicao inicial da janela Glut na Tela
     glutCreateWindow("Cobra Game");                                 // Cria a janela passando o Titulo
@@ -773,7 +776,7 @@ int main(void) {
     glutKeyboardFunc(Teclado);                                      // Registra Funcao para tratamento das teclas
     glutSpecialFunc(TeclasEspeciais);                               // Registra a função que trata teclas especiais
     glutTimerFunc(50, Engine, 1);                                   // Registra função que será chamada a cada intervalo de tempo
-    Inicializa();                                                   // Faz as inicializacoes necessarias 
+    Inicializa();                                                   // Faz as inicializacoes necessarias
     glutMainLoop();                                                 // Inicia processamento e aguarda interacoes do usuario
     return 0;
 }// Fim main()
