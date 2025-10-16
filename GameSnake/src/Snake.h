@@ -45,6 +45,8 @@ private:
     // "Sugestao" de direcao vinda das teclas
     int hKey; // 0 para direita, 1 para esquerda
     int vKey; // 0 para cima, 1 para baixo
+
+    bool directionChanged; // Trava para impedir input mais rapido que o movimento
 };
 
 #endif // SNAKE_H

@@ -11,6 +11,7 @@ Snake::Snake() {
 
 void Snake::reset(bool randomPos) {
     tailLength = 0;
+    directionChanged = false;
 
     if (randomPos) {
         // Logica de `ResetValues` para posicao aleatoria
@@ -91,6 +92,8 @@ void Snake::move() {
         if (vKey == 0) body[0][1] += PIXEL_INC;
         if (vKey == 1) body[0][1] -= PIXEL_INC;
     }
+
+    directionChanged = false;
 }
 
 void Snake::grow() {
@@ -121,17 +124,22 @@ bool Snake::ateFood(Position foodPos) {
 }
 
 void Snake::changeDirection(int h, int v) {
+    // Nao permite mudar a direcao duas vezes antes de mover
+    if (directionChanged) return;
+
     if (h != -1) { // Movimento horizontal
         if (moveToY == 1) { // So pode mudar se estiver se movendo na vertical
             moveToX = 1;
             moveToY = 0;
             hKey = h;
+            directionChanged = true;
         }
     } else if (v != -1) { // Movimento vertical
         if (moveToX == 1) { // So pode mudar se estiver se movendo na horizontal
             moveToX = 0;
             moveToY = 1;
             vKey = v;
+            directionChanged = true;
         }
     }
 }

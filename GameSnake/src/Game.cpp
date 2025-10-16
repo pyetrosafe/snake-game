@@ -87,7 +87,7 @@ void Game::init(int argc, char* argv[]) {
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
     glutInitWindowSize(HRES, VRES);
     glutInitWindowPosition((width / 2) - (HRES / 2), (height / 2) - (VRES / 2));
-    glutCreateWindow("Snake Game OOP");
+    glutCreateWindow("Snake Game");
 
     glutDisplayFunc(Game::drawCallback);
     glutIdleFunc(Game::gameLoopCallback);
