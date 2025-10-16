@@ -6,25 +6,67 @@
 #include "Utils.h"
 
 Food::Food() {
-    blinkInterval = 0;
+    animationTimer = 0.0f;
+    colorIntensity = 0.0f;
     position.x = 0;
     position.y = 0;
 }
 
-void Food::draw() {
-    glColor3f(1.0f, 1.0f, 0.7f);
-    blinkInterval++;
-    if (blinkInterval >= 99) blinkInterval = 0;
+void Food::update(float deltaTime) {
+    animationTimer += deltaTime;
 
-    if (blinkInterval % 7 != 0) {
-        const float halfSize = 4.5f;
-        glBegin(GL_QUADS);
-        glVertex2f(position.x - halfSize, position.y - halfSize);
-        glVertex2f(position.x + halfSize, position.y - halfSize);
-        glVertex2f(position.x + halfSize, position.y + halfSize);
-        glVertex2f(position.x - halfSize, position.y + halfSize);
-        glEnd();
+    const float riseTime = 0.3f;
+    const float holdStrongTime = 0.2f;
+    const float fallTime = 0.3f;
+    const float holdNormalTime = 0.2f;
+    const float cycleDuration = riseTime + holdStrongTime + fallTime + holdNormalTime; // 6 seconds total
+
+    if (animationTimer > cycleDuration) {
+        animationTimer -= cycleDuration;
     }
+
+    if (animationTimer < riseTime) {
+        // 0s -> 2s: Transition to strong
+        colorIntensity = animationTimer / riseTime;
+    } else if (animationTimer < riseTime + holdStrongTime) {
+        // 2s -> 3s: Hold strong
+        colorIntensity = 1.0f;
+    } else if (animationTimer < riseTime + holdStrongTime + fallTime) {
+        // 3s -> 5s: Transition to normal
+        colorIntensity = 1.0f - ((animationTimer - (riseTime + holdStrongTime)) / fallTime);
+    } else {
+        // 5s -> 6s: Hold normal
+        colorIntensity = 0.0f;
+    }
+    // Clamp value just in case of float inaccuracies
+    colorIntensity = std::max(0.0f, std::min(1.0f, colorIntensity));
+}
+
+void Food::draw() {
+    // Cores normal e forte (ajustado para melhor visibilidade)
+    const float normal_r = 1.0f, normal_g = 1.0f, normal_b = 0.7f;
+    const float strong_r = 1.0f, strong_g = 0.8f, strong_b = 0.1f;
+
+    // Interpolar entre as cores com base na intensidade
+    float r = normal_r + (strong_r - normal_r) * colorIntensity;
+    float g = normal_g + (strong_g - normal_g) * colorIntensity;
+    float b = normal_b + (strong_b - normal_b) * colorIntensity;
+
+    glColor3f(r, g, b);
+
+    // Tamanhos normal e maximo para o efeito de pulsar
+    const float normalHalfSize = 4.5f;
+    const float maxHalfSize = 5.0f; // Um pouco maior para "inchar"
+
+    // Interpolar o tamanho usando a mesma intensidade da animacao de cor
+    float currentHalfSize = normalHalfSize + (maxHalfSize - normalHalfSize) * colorIntensity;
+
+    glBegin(GL_QUADS);
+    glVertex2f(position.x - currentHalfSize, position.y - currentHalfSize);
+    glVertex2f(position.x + currentHalfSize, position.y - currentHalfSize);
+    glVertex2f(position.x + currentHalfSize, position.y + currentHalfSize);
+    glVertex2f(position.x - currentHalfSize, position.y + currentHalfSize);
+    glEnd();
 }
 
 void Food::spawn(int minX, int maxX, int minY, int maxY) {

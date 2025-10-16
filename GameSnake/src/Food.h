@@ -15,10 +15,12 @@ public:
     Position getPosition() const;
 
     void setPosition(int x, int y);
+    void update(float deltaTime);
 
 private:
     Position position;
-    int blinkInterval;
+    float animationTimer;
+    float colorIntensity;
 };
 
 #endif // FOOD_H

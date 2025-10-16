@@ -345,6 +345,12 @@ void Game::gameLoop() {
     long current_time = clock();
     float elapsed_time = (current_time - previous_time);
     previous_time = current_time;
+
+    // Atualiza a animacao da comida com base no tempo decorrido em segundos
+    if (statusGame == ON) {
+        food.update(elapsed_time / (float)CLOCKS_PER_SEC);
+    }
+
     accumulator += elapsed_time;
 
     // The game speed can be adjusted by changing game_speed
