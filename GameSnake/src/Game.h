@@ -40,7 +40,7 @@ public:
 
     // Funcoes de callback do GLUT
     static void drawCallback();
-    static void timerCallback(int value);
+    static void gameLoopCallback();
     static void keyboardCallback(unsigned char key, int x, int y);
     static void specialKeysCallback(int key, int x, int y);
     static void reshapeCallback(int w, int h);
@@ -50,11 +50,12 @@ private:
 
     void update();
     void draw();
+    void gameLoop();
     void reset(int nextScreen);
     void processInput(unsigned char key);
     void processSpecialKeys(int key);
-    int getDificultyLevelDelay();
-    void setCurrentLevelDelay();
+    float getDificultyLevelSpeed();
+    void setCurrentLevelSpeed();
     void setupEndScreenTest();
 
     // Game Objects
@@ -67,7 +68,7 @@ private:
     // Game State
     int statusGame;
     int currentScreen;
-    int delay;
+    float time_step; // Intervalo de movimento da cobra em ms
     int fase;
     int lifes;
     float scorePoints;
@@ -77,6 +78,11 @@ private:
 
     // Time
     float startTime, endTime, clockTime, pauseTime, pausedTime;
+
+    // New game loop variables
+    float game_speed; // To be controlled by difficulty/level
+    float accumulator;
+    long previous_time;
 
     // Input
     unsigned char pressedKey;

@@ -10,20 +10,20 @@ static Game* currentGame = nullptr;
 
 // --- Implementacao da Classe Game ---
 
-int Game::getDificultyLevelDelay() {
+float Game::getDificultyLevelSpeed() {
     switch (difficultyLevel) {
         case 0: return DELAY_INITIAL; // Facil
-        case 1: return DELAY_INITIAL * 0.8; // Medio
-        case 2: return DELAY_INITIAL * 0.6; // Dificil
+        case 1: return DELAY_INITIAL * 0.8f; // Medio
+        case 2: return DELAY_INITIAL * 0.6f; // Dificil
         default: return DELAY_INITIAL;
     }
 }
 
-void Game::setCurrentLevelDelay() {
-    delay = getDificultyLevelDelay();
-    delay = fase == 1 ? delay : (delay - ((int)floor(fase / 2)));
+void Game::setCurrentLevelSpeed() {
+    time_step = getDificultyLevelSpeed();
+    time_step = fase == 1 ? time_step : (time_step - ((int)floor(fase / 2)));
     if (logger.isEnabled() || endScreenTestEnabled) {
-        delay *= 10;
+        time_step *= 10;
     }
 }
 
@@ -31,7 +31,7 @@ Game::Game() {
     currentGame = this;
     statusGame = OFF;
     currentScreen = SCREEN_MENU;
-    delay = DELAY_INITIAL;
+    time_step = DELAY_INITIAL;
     fase = 1;
     lifes = LIFES;
     scorePoints = 0;
@@ -45,6 +45,12 @@ Game::Game() {
     showVolumeTime = 0;
     maxLevelTestEnabled = false;
     endScreenTestEnabled = false;
+    showDebugInfo = false;
+
+    // New variables
+    game_speed = 1.0f;
+    accumulator = 0.0f;
+    previous_time = 0;
 }
 
 Game::~Game() {}
@@ -84,6 +90,7 @@ void Game::init(int argc, char* argv[]) {
     glutCreateWindow("Snake Game OOP");
 
     glutDisplayFunc(Game::drawCallback);
+    glutIdleFunc(Game::gameLoopCallback);
     glutKeyboardFunc(Game::keyboardCallback);
     glutSpecialFunc(Game::specialKeysCallback);
     glutReshapeFunc(Game::reshapeCallback);
@@ -91,7 +98,7 @@ void Game::init(int argc, char* argv[]) {
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
     reset(SCREEN_MENU);
-    glutTimerFunc(delay, Game::timerCallback, 1);
+    previous_time = clock();
 }
 
 void Game::run() {
@@ -179,7 +186,7 @@ void Game::draw() {
         snake.draw();
         food.draw();
 
-        float speed = (float)getDificultyLevelDelay() / delay;
+        float speed = 1 + (1 - (time_step / (float)getDificultyLevelSpeed()));
         float time = ((clock() - clockTime) / CLOCKS_PER_SEC) - pausedTime;
         ui.drawGameInfo(fase, scorePoints, lifes, snake.getTailLength(), speed, time);
     }
@@ -241,7 +248,7 @@ void Game::reset(int nextScreen) {
         soundManager.stopAllSounds();
         fase++;
     }
-    setCurrentLevelDelay();
+    setCurrentLevelSpeed();
 
     snake.reset(nextScreen != SCREEN_GAMEOVER && nextScreen != SCREEN_FINISHED);
 
@@ -297,6 +304,8 @@ void Game::processInput(unsigned char key) {
             showVolume = true;
             showVolumeTime = clock();
             break;
+        case ']': game_speed += 0.1f; break;
+        case '[': game_speed -= 0.1f; if (game_speed < 0.1f) game_speed = 0.1f; break;
     }
 }
 
@@ -328,19 +337,44 @@ void Game::processSpecialKeys(int key) {
 }
 
 // --- Callbacks Estaticos ---
-void Game::drawCallback() { if (currentGame) currentGame->draw(); }
-void Game::timerCallback(int value) {
-    if (currentGame) {
-        if (currentGame->logger.isEnabled()) {
-            currentGame->loopCount = (currentGame->loopCount >= UINT_MAX - 1) ? 0 : currentGame->loopCount + 1;
+void Game::drawCallback() {
+    if (currentGame) currentGame->draw();
+}
+
+void Game::gameLoop() {
+    long current_time = clock();
+    float elapsed_time = (current_time - previous_time);
+    previous_time = current_time;
+    accumulator += elapsed_time;
+
+    // The game speed can be adjusted by changing game_speed
+    float current_time_step = time_step / game_speed;
+
+    while (accumulator >= current_time_step) {
+        if (logger.isEnabled()) {
+            loopCount = (loopCount >= UINT_MAX - 1) ? 0 : loopCount + 1;
         }
-        currentGame->update();
-        glutPostRedisplay();
-        glutTimerFunc(currentGame->delay, Game::timerCallback, 1);
+        update();
+        accumulator -= current_time_step;
+    }
+
+    glutPostRedisplay();
+}
+
+void Game::gameLoopCallback() {
+    if (currentGame) {
+        currentGame->gameLoop();
     }
 }
-void Game::keyboardCallback(unsigned char key, int x, int y) { if (currentGame) currentGame->processInput(key); }
-void Game::specialKeysCallback(int key, int x, int y) { if (currentGame) currentGame->processSpecialKeys(key); }
+
+void Game::keyboardCallback(unsigned char key, int x, int y) {
+    if (currentGame) currentGame->processInput(key);
+}
+
+void Game::specialKeysCallback(int key, int x, int y) {
+    if (currentGame) currentGame->processSpecialKeys(key);
+}
+
 void Game::reshapeCallback(int w, int h) {
     if (currentGame) currentGame->ui.reshape(w, h);
 
