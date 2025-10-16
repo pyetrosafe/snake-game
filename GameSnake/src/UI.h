@@ -29,7 +29,8 @@ private:
     void drawBorders();
     void drawRectangle(int x, int y, int width, int height, float r = 1.0f, float g = 1.0f, float b = 1.0f);
     void drawRectangleLine(int x, int y, int width, int height, float borderR, float borderG, float borderB, int borderWidth);
-    void drawRoundedRectangle(float x, float y, float width, float height, float radius, int segments);
+    void drawFilledRoundedRectangle(float x, float y, float width, float height, float radius, int segments);
+    void drawRoundedRectangleLine(float x, float y, float width, float height, float radius, int segments, float r, float g, float b, float borderWidth);
 
     bool showInformations;
     int sizefont;

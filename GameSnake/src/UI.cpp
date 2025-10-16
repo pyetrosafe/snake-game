@@ -134,29 +134,94 @@ void UI::drawRectangleLine(int x, int y, int width, int height, float borderR, f
     glFlush();
 }
 
-void UI::drawRoundedRectangle(float x, float y, float width, float height, float radius, int segments) {
-    glColor3f(1.0f, 1.0f, 1.0f);
-    glBegin(GL_POLYGON);
+void UI::drawFilledRoundedRectangle(float x, float y, float width, float height, float radius, int segments) {
     // Top-left corner
+    glBegin(GL_TRIANGLE_FAN);
+    glVertex2f(x + radius, y + height - radius);
     for (int i = 0; i <= segments; ++i) {
-        float angle = M_PI + (M_PI_2 * i / segments);
+        float angle = M_PI_2 + (M_PI_2 * i / segments);
         glVertex2f(x + radius + radius * cos(angle), y + height - radius + radius * sin(angle));
     }
-    // // Top-right corner
-    // for (int i = 0; i <= segments; ++i) {
-    //     float angle = M_PI + (M_PI_2 * i / segments);
-    //     glVertex2f(x + radius + radius * cos(angle), y + height - radius + radius * sin(angle));
-    // }
-    // // Bottom-left corner
-    // for (int i = 0; i <= segments; ++i) {
-    //     float angle = M_PI + (M_PI_2 * i / segments);
-    //     glVertex2f(x + radius + radius * cos(angle), y + height - radius + radius * sin(angle));
-    // }
-    // // Bottom-right corner
-    // for (int i = 0; i <= segments; ++i) {
-    //     float angle = M_PI + (M_PI_2 * i / segments);
-    //     glVertex2f(x + radius + radius * cos(angle), y + height - radius + radius * sin(angle));
-    // }
+    glEnd();
+
+    // Top-right corner
+    glBegin(GL_TRIANGLE_FAN);
+    glVertex2f(x + width - radius, y + height - radius);
+    for (int i = 0; i <= segments; ++i) {
+        float angle = 0.0f + (M_PI_2 * i / segments);
+        glVertex2f(x + width - radius + radius * cos(angle), y + height - radius + radius * sin(angle));
+    }
+    glEnd();
+
+    // Bottom-right corner
+    glBegin(GL_TRIANGLE_FAN);
+    glVertex2f(x + width - radius, y + radius);
+    for (int i = 0; i <= segments; ++i) {
+        float angle = -M_PI_2 + (M_PI_2 * i / segments);
+        glVertex2f(x + width - radius + radius * cos(angle), y + radius + radius * sin(angle));
+    }
+    glEnd();
+
+    // Bottom-left corner
+    glBegin(GL_TRIANGLE_FAN);
+    glVertex2f(x + radius, y + radius);
+    for (int i = 0; i <= segments; ++i) {
+        float angle = M_PI + (M_PI_2 * i / segments);
+        glVertex2f(x + radius + radius * cos(angle), y + radius + radius * sin(angle));
+    }
+    glEnd();
+
+    // Central rectangles
+    // Bottom rectangle
+    glBegin(GL_QUADS);
+    glVertex2f(x + radius, y);
+    glVertex2f(x + width - radius, y);
+    glVertex2f(x + width - radius, y + radius);
+    glVertex2f(x + radius, y + radius);
+    glEnd();
+
+    // Middle rectangle
+    glBegin(GL_QUADS);
+    glVertex2f(x, y + radius);
+    glVertex2f(x + width, y + radius);
+    glVertex2f(x + width, y + height - radius);
+    glVertex2f(x, y + height - radius);
+    glEnd();
+
+    // Top rectangle
+    glBegin(GL_QUADS);
+    glVertex2f(x + radius, y + height - radius);
+    glVertex2f(x + width - radius, y + height - radius);
+    glVertex2f(x + width - radius, y + height);
+    glVertex2f(x + radius, y + height);
+    glEnd();
+}
+
+void UI::drawRoundedRectangleLine(float x, float y, float width, float height, float radius, int segments, float r, float g, float b, float borderWidth) {
+    glColor3f(r, g, b);
+    glLineWidth(borderWidth * (float) getViewDimensionSize());
+
+    glBegin(GL_LINE_LOOP);
+    // Top-left corner
+    for (int i = segments; i >= 0; i--) {
+        float angle = M_PI_2 + (M_PI_2 * i / segments);
+        glVertex2f(x + radius + radius * cos(angle), y + height - radius + radius * sin(angle));
+    }
+    // Top-right corner
+    for (int i = segments; i >= 0; i--) {
+        float angle = 0.0f + (M_PI_2 * i / segments);
+        glVertex2f(x + width - radius + radius * cos(angle), y + height - radius + radius * sin(angle));
+    }
+    // Bottom-right corner
+    for (int i = segments; i >= 0; i--) {
+        float angle = -M_PI_2 + (M_PI_2 * i / segments);
+        glVertex2f(x + width - radius + radius * cos(angle), y + radius + radius * sin(angle));
+    }
+    // Bottom-left corner
+    for (int i = segments; i >= 0; i--) {
+        float angle = M_PI + (M_PI_2 * i / segments);
+        glVertex2f(x + radius + radius * cos(angle), y + radius + radius * sin(angle));
+    }
     glEnd();
 }
 
@@ -186,25 +251,29 @@ void UI::drawMenu(int difficultyLevel) {
     float yPosBG = (yPos - 5.0f);
     float heightBG = 20.0f;
 
-    drawRectangle(xPosBG, yPosBG, widthBG, heightBG, 0.2f, 0.6f, 0.9f);
-    drawRectangleLine(xPosBG, yPosBG, widthBG, heightBG, 1.0f, 1.0f, 1.0f, 3);
-    drawRectangle(xPosBG, yPosBG - yPos * 0.5f, widthBG, heightBG, 0.2f, 0.6f, 0.9f);
-    drawRectangleLine(xPosBG, yPosBG - yPos * 0.5f, widthBG, heightBG, 1.0f, 1.0f, 1.0f, 3);
-    drawRectangle(xPosBG, yPosBG - yPos * 1.0f, widthBG, heightBG, 0.2f, 0.6f, 0.9f);
-    drawRectangleLine(xPosBG, yPosBG - yPos * 1.0f, widthBG, heightBG, 1.0f, 1.0f, 1.0f, 3);
+    glColor3f(0.2f, 0.6f, 0.9f);
+    drawFilledRoundedRectangle(xPosBG, yPosBG, widthBG, heightBG, 10.0f, 10);
+    drawRoundedRectangleLine(xPosBG, yPosBG, widthBG, heightBG, 10.0f, 10, 1.0f, 1.0f, 1.0f, 1.5f);
+    glColor3f(0.2f, 0.6f, 0.9f);
+    drawFilledRoundedRectangle(xPosBG, yPosBG - yPos * 0.5f, widthBG, heightBG, 10.0f, 10);
+    drawRoundedRectangleLine(xPosBG, yPosBG - yPos * 0.5f, widthBG, heightBG, 10.0f, 10, 1.0f, 1.0f, 1.0f, 1.5f);
+    glColor3f(0.2f, 0.6f, 0.9f);
+    drawFilledRoundedRectangle(xPosBG, yPosBG - yPos * 1.0f, widthBG, heightBG, 10.0f, 10);
+    drawRoundedRectangleLine(xPosBG, yPosBG - yPos * 1.0f, widthBG, heightBG, 10.0f, 10, 1.0f, 1.0f, 1.0f, 1.5f);
 
     // Desenha Opção escolhida de dificuldade
+    glColor3f(0.0f, 0.4f, 1.0f);
     if (difficultyLevel == 0) {
-        drawRectangle(xPosBG, yPosBG, widthBG, heightBG, 0.0f, 0.4f, 1.0f);
-        drawRectangleLine(xPosBG, yPosBG, widthBG, heightBG, 1.0f, 1.0f, 0.0f, 3);
+        drawFilledRoundedRectangle(xPosBG, yPosBG, widthBG, heightBG, 10.0f, 10);
+        drawRoundedRectangleLine(xPosBG, yPosBG, widthBG, heightBG, 10.0f, 10, 1.0f, 1.0f, 0.0f, 1.5f);
     }
     else if (difficultyLevel == 1) {
-        drawRectangle(xPosBG, yPosBG - yPos * 0.5f, widthBG, heightBG, 0.0f, 0.4f, 1.0f);
-        drawRectangleLine(xPosBG, yPosBG - yPos * 0.5f, widthBG, heightBG, 1.0f, 1.0f, 0.0f, 3);
+        drawFilledRoundedRectangle(xPosBG, yPosBG - yPos * 0.5f, widthBG, heightBG, 10.0f, 10);
+        drawRoundedRectangleLine(xPosBG, yPosBG - yPos * 0.5f, widthBG, heightBG, 10.0f, 10, 1.0f, 1.0f, 0.0f, 1.5f);
     }
     else {
-        drawRectangle(xPosBG, yPosBG - yPos * 1.0f, widthBG, heightBG, 0.0f, 0.4f, 1.0f);
-        drawRectangleLine(xPosBG, yPosBG - yPos * 1.0f, widthBG, heightBG, 1.0f, 1.0f, 0.0f, 3);
+        drawFilledRoundedRectangle(xPosBG, yPosBG - yPos * 1.0f, widthBG, heightBG, 10.0f, 10);
+        drawRoundedRectangleLine(xPosBG, yPosBG - yPos * 1.0f, widthBG, heightBG, 10.0f, 10, 1.0f, 1.0f, 0.0f, 1.5f);
     }
 
     // Desenha Texto dificuldade
